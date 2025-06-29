@@ -5,7 +5,7 @@ import { Metadata } from 'next';
  
 export const metadata: Metadata = {
   title: {
-    template: 'PacificMed - Asset Management',
+    template: '%s - PacificMed Asset Management',
     default: 'PacificMed Dashboard',
   },
   description: 'PacificMed Asset Management App',
