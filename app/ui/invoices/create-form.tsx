@@ -1,6 +1,6 @@
 'use client';
 
-import { useActionState } from 'react';
+
 import { CustomerField } from '@/app/lib/definitions';
 import Link from 'next/link';
 import {
@@ -10,6 +10,7 @@ import {
   UserCircleIcon,
 } from '@heroicons/react/24/outline';
 import { Button } from '@/app/ui/button';
+import { useActionState } from 'react';
 import { createInvoice, State } from '@/app/lib/actions';
 
 export default function Form({ customers }: { customers: CustomerField[] }) {
@@ -47,7 +48,7 @@ export default function Form({ customers }: { customers: CustomerField[] }) {
               state.errors.customerId.map((error: string) => (
                 <p className="mt-2 text-sm text-red-500" key={error}>
                   {error}
-                  Please select a customer.
+                  {/* Please select a customer. */}
                 </p>
               ))}
           </div>
@@ -76,7 +77,7 @@ export default function Form({ customers }: { customers: CustomerField[] }) {
               state.errors.amount.map((error: string) => (
                 <p className="mt-2 text-sm text-red-500" key={error}>
                   {error}
-                  Please enter a valid amount greater than $0.
+                  {/* Please enter a valid amount greater than $0. */}
                 </p>
               ))}
           </div>
@@ -126,7 +127,7 @@ export default function Form({ customers }: { customers: CustomerField[] }) {
                   state.errors.status.map((error: string) => (
                     <p className="mt-2 text-sm text-red-500" key={error}>
                       {error}
-                      Please select a status.
+                      {/* Please select a status. */}
                     </p>
                   ))}
               </div>
