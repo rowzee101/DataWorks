@@ -245,6 +245,7 @@ export const assets = [
     product_type_id: 1, // Laser Printer
     client_id: 2,
     manufacturer_number: 'HP-PRN-12345',
+    asset_number: 'PRN-12345',
     supplier_id: 2, // HP
     purchase_date: '2023-01-15',
     last_service_date: '2024-01-10',
@@ -254,6 +255,7 @@ export const assets = [
     product_type_id: 2, // Office Chair
     client_id: 1,
     manufacturer_number: 'IKE-CHR-67890',
+    asset_number: 'CHR-67890',
     supplier_id: 1, // IKEA
     purchase_date: '2022-07-01',
     last_service_date: '2023-06-15',
@@ -263,6 +265,7 @@ export const assets = [
     product_type_id: 3, // Coffee Machine
     client_id: 1,
     manufacturer_number: 'NESP-CFM-54321',
+    asset_number: 'CFM-54321',
     supplier_id: 1, // HP
     purchase_date: '2024-03-20',
     last_service_date: null,
