@@ -101,6 +101,148 @@ async function seedRevenue() {
   return insertedRevenue;
 }
 
+
+
+
+
+///////////////////////////////////
+import { clients , product_types , assets , suppliers_manufacturers , client_types} from '../lib/placeholder-data';
+
+async function seedClientTypes() {
+  await sql`CREATE EXTENSION IF NOT EXISTS "uuid-ossp"`;
+  await sql`
+    CREATE TABLE IF NOT EXISTS client_types (
+      id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+      name VARCHAR(255) NOT NULL
+    );
+  `;
+  const insertedClientTypes = await Promise.all(
+    client_types.map(
+      (clientType) => sql`
+        INSERT INTO client_types (id, name)
+        VALUES (${clientType.id}, ${clientType.name})
+        ON CONFLICT (id) DO NOTHING;
+      `,
+    ),
+  );
+  return insertedClientTypes;
+}
+
+async function seedClients() {
+  await sql`CREATE EXTENSION IF NOT EXISTS "uuid-ossp"`;
+
+  await sql`
+    CREATE TABLE IF NOT EXISTS clients (
+      id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+      name VARCHAR(255) NOT NULL,
+      website VARCHAR(255) NOT NULL,
+      main_number VARCHAR(50) NOT NULL,
+
+      state VARCHAR(100) NOT NULL,
+      address VARCHAR(255) NOT NULL,
+      country VARCHAR(100) NOT NULL,
+      client_type UUID NOT NULL,
+      created_at TIMESTAMP DEFAULT NOW(),
+      brief TEXT,
+
+      FOREIGN KEY (client_type) REFERENCES client_types(id)
+    );
+  `;
+
+  const insertedClients = await Promise.all(
+    clients.map(
+      (client) => sql`
+        INSERT INTO clients (id, name, website, main_number, state, address, country, client_type, created_at, brief)
+        VALUES (${client.id}, ${client.name}, ${client.website}, ${client.main_number}, ${client.state}, ${client.address}, ${client.country}, ${client.client_type}, NOW(), ${client.brief})
+        ON CONFLICT (id) DO NOTHING;
+      `,
+    ),
+  );
+
+  return insertedClients;
+}
+
+async function seedSuppliers_manufacturers() {
+  await sql`
+    CREATE TABLE IF NOT EXISTS suppliers_manufacturers (
+      id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+      name VARCHAR(255) NOT NULL,
+      website VARCHAR(255) NOT NULL,
+      main_number VARCHAR(255),
+      country VARCHAR(255) NOT NULL,
+      brief TEXT
+    );
+  `;
+  
+  const insertedSuppliers_manufacturers = await Promise.all(
+    suppliers_manufacturers.map(
+      (supplier_manufacturer) => sql`
+        INSERT INTO suppliers_manufacturers (id, name, website, main_number, country, brief)
+        VALUES (${supplier_manufacturer.id}, ${supplier_manufacturer.name}, ${supplier_manufacturer.website}, ${supplier_manufacturer.main_number}, ${supplier_manufacturer.country}, ${supplier_manufacturer.brief})
+        ON CONFLICT (id) DO NOTHING;
+      `,
+    ),
+  );
+
+  return insertedSuppliers_manufacturers;
+}
+
+async function seedProduct_types() {
+  await sql`
+    CREATE TABLE IF NOT EXISTS product_types (
+      id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+      name VARCHAR(255) NOT NULL,
+      supplier1 VARCHAR(255) NOT NULL,
+      supplier2 VARCHAR(255),
+      manufacturer VARCHAR(255) NOT NULL,
+      price INT
+    );
+  `;
+  
+  const insertedProduct_types = await Promise.all(
+    product_types.map(
+      (product_type) => sql`
+        INSERT INTO product_types (id, name, supplier1, supplier2, manufacturer, price)
+        VALUES (${product_type.id}, ${product_type.name}, ${product_type.supplier1}, ${product_type.supplier2}, ${product_type.manufacturer}, ${product_type.price})
+        ON CONFLICT (id) DO NOTHING;
+      `,
+    ),
+  );
+
+  return insertedProduct_types;
+}
+
+async function seedAssets() {
+  await sql`
+    CREATE TABLE IF NOT EXISTS assets (
+      id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+      product_type_id UUID NOT NULL,
+      client_id UUID NOT NULL,
+      manufacturer_number VARCHAR(255) NOT NULL,
+      supplier_id UUID,
+      purchase_date TIMESTAMP DEFAULT NOW(),
+      last_service_date DATE,
+      note TEXT,
+
+      FOREIGN KEY (product_type_id) REFERENCES product_types(id),
+      FOREIGN KEY (client_id) REFERENCES clients(id),
+      FOREIGN KEY (supplier_id) REFERENCES suppliers_manufacturers(id)
+    );
+  `;
+
+  const insertedAssets = await Promise.all(
+    assets.map(
+      (asset) => sql`
+        INSERT INTO assets (id, product_type_id, client_id, manufacturer_number, supplier_id, purchase_date, last_service_date, note)
+        VALUES (${asset.id}, ${asset.product_type_id}, ${asset.client_id}, ${asset.manufacturer_number}, ${asset.supplier_id}, ${asset.purchase_date}, ${asset.last_service_date}, ${asset.note})
+        ON CONFLICT (id) DO NOTHING;
+      `,
+    ),
+  );
+  return insertedAssets;
+}
+
+
 export async function GET() {
   try {
     const result = await sql.begin((sql) => [
@@ -108,6 +250,11 @@ export async function GET() {
       seedCustomers(),
       seedInvoices(),
       seedRevenue(),
+      seedClientTypes(),
+      seedClients(),
+      seedSuppliers_manufacturers(),
+      seedProduct_types(),
+      seedAssets(),
     ]);
 
     return Response.json({ message: 'Database seeded successfully' });

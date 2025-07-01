@@ -1,4 +1,7 @@
 // This file contains placeholder data that you'll be replacing with real data in the Data Fetching chapter:
+
+import { count } from "console";
+
 // https://nextjs.org/learn/dashboard-app/fetching-data
 const users = [
   {
@@ -143,5 +146,142 @@ const revenue = [
   { month: 'Nov', revenue: 3000 },
   { month: 'Dec', revenue: 4800 },
 ];
+
+
+
+
+
+
+
+
+
+// placeholder-data.ts
+
+export const client_types = [
+  {
+    id: '1a2b3c4d-5e6f-78a-9b0c-d1e2f3g4h5i6',
+    name: 'Corporate',
+  },
+  {
+    id: '222b3c4d-5e6f-78a-9b0c-d1e2f3g4h5i6',
+    name: 'Prospect',
+  },
+];
+
+export const clients = [
+  {
+    id: 'a1111111-1111-1111-1111-111111111111',
+    name: 'Billy Corp',
+    website: 'https://billycorp.com',
+    main_number: '+1-800-555-0199',
+    state: 'California',
+    address: '123 Main St, Los Angeles, CA 90001',
+    country: 'USA',
+    client_type: '1a2b3c4d-5e6f-78a-9b0c-d1e2f3g4h5i6', // Corporate
+    brief: 'Leading provider of innovative solutions in the tech industry.',
+  },
+  {
+    id: 'b2222222-2222-2222-2222-222222222222',
+    name: 'BillyGon Unlimited',
+    website: 'https://billygon.com',
+    main_number: '+1-800-555-0198',
+    state: 'New York',
+    address: '456 Elm St, New York, NY 10001',
+    country: 'USA',
+    client_type: '1a2b3c4d-222b3c4d-78a-9b0c-d1e2f3g4h5i6', // Prospect
+    brief: 'Super corporate in various industries including aviation, architecture, logistics and general goods.',
+  },
+  {
+    id: 'c3333333-3333-3333-3333-333333333333',
+    name: 'BillyBoom LLC',
+    website: 'https://billyboom.com',
+    main_number: '+1-800-555-0197',
+    state: 'Texas',
+    address: '789 Oak St, Houston, TX 77001',
+    country: 'USA',
+    client_type: '1a2b3c4d-5e6f-78a-9b0c-d1e2f3g4h5i6', // Corporate
+    brief: 'A well-established firm specializing in financial services.',
+  },
+];
+
+export const suppliers_manufacturers = [
+  {
+    id: 'a1111111-1111-1111-1111-111111111111',
+    name: 'HP',
+    website: 'https://www.hp.com',
+    main_number: '+1-800-555-0100',
+    country: 'USA',
+    brief: 'Leading global provider of personal computing and other access devices, imaging and printing products, and related technologies, solutions and services.',
+  },
+  {
+    id: 'b2222222-2222-2222-2222-22222222222',
+    name: 'IKEA',
+    website: 'https://www.ikea.com',
+    main_number: '+1-800-555-0101',
+    country: 'Sweden',
+    brief: 'Multinational group that designs and sells ready-to-assemble furniture, kitchen appliances and home accessories.',
+  },
+];
+
+export const product_types = [
+  {
+    id: 'd4444444-4444-4444-4444-444444444444',
+    name: 'Laser Printer',
+    supplier1: 'HP',
+    supplier2: 'HP',
+    manufacturer: 'IKEA',
+    price: 299,
+  },
+  {
+    id: 'e5555555-5555-5555-5555-555555555555',
+    name: 'Office Chair',
+    supplier1: 'IKEA',
+    supplier2: 'HP',
+    manufacturer: 'IKEA',
+    price: 149,
+  },
+  {
+    id: 'f6666666-6666-6666-6666-666666666666',
+    name: 'Coffee Machine',
+    supplier1: 'Nespresso',
+    supplier2: 'HP',
+    manufacturer: 'IKEA',
+    price: null, // Price not fixed, to be quoted
+  },
+];
+
+export const assets = [
+  {
+    id: 'g7777777-7777-7777-7777-777777777777',
+    product_type_id: 'd4444444-4444-4444-4444-444444444444',
+    client_id: 'a1111111-1111-1111-1111-111111111111',
+    manufacturer_number: 'HP-PRN-12345',
+    supplier_id: 'a1111111-1111-1111-1111-111111111111', // HP
+    purchase_date: '2023-01-15',
+    last_service_date: '2024-01-10',
+    note: 'Under warranty until 2025',
+  },
+  {
+    id: 'h8888888-8888-8888-8888-888888888888',
+    product_type_id: 'e5555555-5555-5555-5555-555555555555',
+    client_id: 'b2222222-2222-2222-2222-222222222222',
+    manufacturer_number: 'IKE-CHR-67890',
+    supplier_id: 'b2222222-2222-2222-2222-22222222222', // IKEA
+    purchase_date: '2022-07-01',
+    last_service_date: '2023-06-15',
+    note: 'Reupholstered in 2023',
+  },
+  {
+    id: 'i9999999-9999-9999-9999-999999999999',
+    product_type_id: 'f6666666-6666-6666-6666-666666666666',
+    client_id: 'c3333333-3333-3333-3333-333333333333',
+    manufacturer_number: 'NESP-CFM-54321',
+    supplier_id: 'a1111111-1111-1111-1111-111111111111', // HP
+    purchase_date: '2024-03-20',
+    last_service_date: null,
+    note: 'Quote pending for maintenance plan',
+  },
+];
+
 
 export { users, customers, invoices, revenue };
