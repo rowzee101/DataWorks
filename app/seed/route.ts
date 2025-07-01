@@ -262,13 +262,13 @@ export async function GET() {
       // seedInvoices(),
       // seedRevenue(),
 
-      resetDatabase(),
+      // resetDatabase(),
 
-      // seedClientTypes(),
-      // seedClients(),
-      // seedSuppliers_manufacturers(),
-      // seedProduct_types(),
-      // seedAssets(),
+      seedClientTypes(),
+      seedClients(),
+      seedSuppliers_manufacturers(),
+      seedProduct_types(),
+      seedAssets(),
     ]);
 
     return Response.json({ message: 'Database seeded successfully' });
