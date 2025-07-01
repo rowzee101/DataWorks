@@ -11,7 +11,7 @@ type Props = {
 export function ClientCell({ clientId, clientName, assetCount }: Props) {
   return (
     <Link
-      href={`/clients/${clientId}`}
+      href={`/dashboard/clients/${clientId}`}
       className="block border rounded-xl p-4 hover:bg-gray-50 transition"
     >
       <div className="text-lg font-semibold">{clientName}</div>
