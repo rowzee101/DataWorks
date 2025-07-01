@@ -1,17 +1,26 @@
 'use client';
 
 import { useState } from 'react';
-import AssetsTable from '@/app/ui/clients/table'; 
+import AssetsTable from '@/app/ui/Assetstable'; 
 import type { Asset } from '@/app/lib/definitions'; 
 
 type TabsProps = {
   clientId: number;
   assets: Asset[];
+  searchQuery?: string;
+
+
+  // tickets and users to be implemented later
 };
 
-export function Tabs({ assets, clientId }: TabsProps) {
+export function Tabs({ assets, clientId, searchQuery }: TabsProps) {
   const [activeTab, setActiveTab] = useState<'assets' | 'tickets' | 'users'>('assets');
-
+  const searchQuery_ = searchQuery || '';
+  
+  const filteredAssets = assets.filter(asset =>
+    asset.asset_number.toLowerCase().includes(searchQuery_.toLowerCase()) ||
+    asset.manufacturer_number.toLowerCase().includes(searchQuery_.toLowerCase())
+  );
   return (
     <div className="mt-6">
       {/* Tab Buttons */}

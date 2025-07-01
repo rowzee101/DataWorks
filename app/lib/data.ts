@@ -281,3 +281,4 @@ export async function getAssetsByClientId(clientId: number): Promise<Asset[]> {
     return [];
   }
 }
+
