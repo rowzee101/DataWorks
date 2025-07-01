@@ -252,7 +252,7 @@ export const assets = [
     note: 'Under warranty until 2025',
   },
   {
-    product_type_id: 2, // Office Chair
+    product_type_id: 1, // Office Chair
     client_id: 1,
     manufacturer_number: 'IKE-CHR-67890',
     asset_number: 'CHR-67890',
@@ -262,7 +262,7 @@ export const assets = [
     note: 'Reupholstered in 2023',
   },
   {
-    product_type_id: 3, // Coffee Machine
+    product_type_id: 1, // Coffee Machine
     client_id: 1,
     manufacturer_number: 'NESP-CFM-54321',
     asset_number: 'CFM-54321',

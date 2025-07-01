@@ -236,7 +236,7 @@ async function seedAssets() {
   const insertedAssets = await Promise.all(
     assets.map(
       (asset) => sql`
-        INSERT INTO assets (product_type_id, client_id, manufacturer_number, supplier_id, purchase_date, last_service_date, note)
+        INSERT INTO assets (product_type_id, client_id, manufacturer_number, asset_number,  supplier_id, purchase_date, last_service_date, note)
         VALUES (${asset.product_type_id}, ${asset.client_id}, ${asset.manufacturer_number}, ${asset.asset_number}, ${asset.supplier_id}, ${asset.purchase_date}, ${asset.last_service_date}, ${asset.note})
         ON CONFLICT (asset_number) DO NOTHING;
       `,
