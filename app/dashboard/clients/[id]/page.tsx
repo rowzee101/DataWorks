@@ -70,8 +70,6 @@
 
 
 
-'use client'; // We need client-side for search input and URL updates
-
 import { useSearchParams, usePathname, useRouter } from 'next/navigation';
 import { useDebouncedCallback } from 'use-debounce';
 import { useState, useEffect } from 'react';
