@@ -1,5 +1,6 @@
 import { getClientById } from '@/app/lib/data';
 import { notFound } from 'next/navigation';
+import { Tabs } from '@/app/ui/clients/tab'; 
 
 type PageProps = {
   params: { id: string };
@@ -48,6 +49,14 @@ export default async function ClientDetailPage({ params }: any) {
               {website}
             </a>
           </p>
+        </div>
+      </div>
+      <div className="rounded-2xl shadow bg-white p-6 flex flex-col gap-4 w-full">
+        
+
+        {/* Tabs => Assets, Tickets and Users */}
+        <div className="pt-4 border-t text-sm text-gray-700">
+          <Tabs clientId={Number(params.id)} />
         </div>
       </div>
     </div>
