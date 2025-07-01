@@ -182,7 +182,7 @@ export const clients = [
     website: 'https://billygon.com',
     main_number: '+1-800-555-0198',
     state: 'New York',
-    address: '456 Elm St, New York, NY 10001',
+    address: '17 State Street, Suite 4000, New York, NY 10004',
     country: 'USA',
     client_type: 2, // Prospect
     brief: 'Super corporate in various industries including aviation, architecture, logistics and general goods.',

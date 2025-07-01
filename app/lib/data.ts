@@ -221,7 +221,8 @@ export async function fetchFilteredCustomers(query: string) {
 
 //////////////////////////
 
-
+// This function fetches client data for the dashboard, including the number of assets associated with each client.
+// It returns an array of objects containing client ID, name, and asset count.
 export type ClientWithAssetCount = {
   id: number;
   name: string;
@@ -249,5 +250,20 @@ export async function dashboardFetchClientData(): Promise<ClientWithAssetCount[]
   } catch (error) {
     console.error("Database Error:", error);
     throw new Error("Failed to fetch client data.");
+  }
+}
+
+
+// This function retrieves a client by its ID from the database.
+// It returns the client object if found, or null if not found or an error occurs.
+export async function getClientById(id: number) {
+  try {
+    const result = await sql`
+      SELECT * FROM clients WHERE id = ${id};
+    `;
+    return result[0] || null;
+  } catch (error) {
+    console.error('Error fetching client:', error);
+    return null;
   }
 }

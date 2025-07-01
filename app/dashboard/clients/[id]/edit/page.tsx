@@ -1,39 +1,55 @@
-import { Metadata } from 'next';
+import { getClientById } from '@/app/lib/data';
+import { notFound } from 'next/navigation';
 
-export const metadata: Metadata = {
-  title: 'Edit',
+type PageProps = {
+  params: { id: string };
 };
 
-import Form from '@/app/ui/invoices/edit-form';
-import Breadcrumbs from '@/app/ui/invoices/breadcrumbs';
-import {fetchInvoiceById,  fetchCustomers } from '@/app/lib/data';
-import { notFound } from 'next/navigation';
- 
-export default async function Page(props: { params: Promise<{ id: string }> }) {
-  const params = await props.params;
-  const id = params.id;
-  const [invoice, customers] = await Promise.all([
-    fetchInvoiceById(id),
-    fetchCustomers(),
-  ]);
+export default async function ClientDetailPage({ params }: PageProps) {
+  const client = await getClientById(Number(params.id));
 
-  if (!invoice) {
-    notFound();
-  }
-  
+  if (!client) return notFound();
+
+  const { name, brief, address, website, country, state } = client;
+  const fullAddress = `${address}, ${state}, ${country}`;
+  const mapQuery = encodeURIComponent(fullAddress);
+
   return (
-    <main>
-      <Breadcrumbs
-        breadcrumbs={[
-          { label: 'Invoices', href: '/dashboard/invoices' },
-          {
-            label: 'Edit Invoice',
-            href: `/dashboard/invoices/${id}/edit`,
-            active: true,
-          },
-        ]}
-      />
-      <Form invoice={invoice} customers={customers} />
-    </main>
+    <div className="p-6">
+      <div className="rounded-2xl shadow bg-white p-6 flex flex-col gap-4 w-full">
+        <div className="flex flex-col md:flex-row gap-4">
+          {/* Mini Map */}
+          <div className="w-full md:w-1/2 h-64 md:h-48 rounded-xl overflow-hidden">
+            <iframe
+              className="w-full h-full"
+              loading="lazy"
+              allowFullScreen
+              src={`https://www.google.com/maps?q=${mapQuery}&output=embed`}
+            />
+          </div>
+
+          {/* Title and Description */}
+          <div className="w-full md:w-1/2 flex flex-col justify-center">
+            <h2 className="text-2xl font-semibold">{name}</h2>
+            <p className="text-gray-600 mt-2">{brief || 'No description available.'}</p>
+          </div>
+        </div>
+
+        {/* Address & Website */}
+        <div className="pt-4 border-t text-sm text-gray-700">
+          <p><strong>Address:</strong> {fullAddress}</p>
+          <p><strong>Website:</strong>{' '}
+            <a
+              href={website.startsWith('http') ? website : `https://${website}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="underline text-blue-600"
+            >
+              {website}
+            </a>
+          </p>
+        </div>
+      </div>
+    </div>
   );
 }
