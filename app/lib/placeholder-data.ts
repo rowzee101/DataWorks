@@ -159,7 +159,7 @@ const revenue = [
 
 export const client_types = [
   {
-    id: '11111111-2222-3333-4444-555555555555',
+    id: '34671842-c4c2-42c0-aaf0-2ca050a0a093',
     name: 'Corporate',
   },
   {
@@ -177,7 +177,7 @@ export const clients = [
     state: 'California',
     address: '123 Main St, Los Angeles, CA 90001',
     country: 'USA',
-    client_type: '11111111-2222-3333-4444-555555555555', // Corporate
+    client_type: '34671842-c4c2-42c0-aaf0-2ca050a0a093', // Corporate
     brief: 'Leading provider of innovative solutions in the tech industry.',
   },
   {
@@ -199,7 +199,7 @@ export const clients = [
     state: 'Texas',
     address: '789 Oak St, Houston, TX 77001',
     country: 'USA',
-    client_type: '11111111-2222-3333-4444-555555555555', // Corporate
+    client_type: '34671842-c4c2-42c0-aaf0-2ca050a0a093', // Corporate
     brief: 'A well-established firm specializing in financial services.',
   },
 ];

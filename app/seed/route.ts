@@ -246,14 +246,26 @@ async function seedAssets() {
   return insertedAssets;
 }
 
+async function resetDatabase() {
+  await sql`DROP TABLE IF EXISTS assets CASCADE;`;
+  await sql`DROP TABLE IF EXISTS product_types CASCADE;`;
+  await sql`DROP TABLE IF EXISTS clients CASCADE;`;
+  await sql`DROP TABLE IF EXISTS client_types CASCADE;`;
+  await sql`DROP TABLE IF EXISTS suppliers_manufacturers CASCADE;`;
+}
+
 
 export async function GET() {
   try {
+    await sql`DROP TABLE IF EXISTS suppliers_manufacturers CASCADE;`;
     const result = await sql.begin((sql) => [
       seedUsers(),
       seedCustomers(),
       seedInvoices(),
       seedRevenue(),
+
+      resetDatabase(),
+      
       seedClientTypes(),
       seedClients(),
       seedSuppliers_manufacturers(),
