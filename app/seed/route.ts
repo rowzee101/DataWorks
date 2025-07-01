@@ -109,18 +109,17 @@ async function seedRevenue() {
 import { clients , product_types , assets , suppliers_manufacturers , client_types} from '../lib/placeholder-data';
 
 async function seedClientTypes() {
-  await sql`CREATE EXTENSION IF NOT EXISTS "uuid-ossp"`;
   await sql`
     CREATE TABLE IF NOT EXISTS client_types (
-      id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+      id SERIAL PRIMARY KEY,
       name VARCHAR(255) NOT NULL
     );
   `;
   const insertedClientTypes = await Promise.all(
     client_types.map(
       (clientType) => sql`
-        INSERT INTO client_types (id, name)
-        VALUES (${clientType.id}, ${clientType.name})
+        INSERT INTO client_types (  name)
+        VALUES (${clientType.name})
         ON CONFLICT (id) DO NOTHING;
       `,
     ),
@@ -129,11 +128,10 @@ async function seedClientTypes() {
 }
 
 async function seedClients() {
-  await sql`CREATE EXTENSION IF NOT EXISTS "uuid-ossp"`;
 
   await sql`
     CREATE TABLE IF NOT EXISTS clients (
-      id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+      id SERIAL PRIMARY KEY,
       name VARCHAR(255) NOT NULL,
       website VARCHAR(255) NOT NULL,
       main_number VARCHAR(50) NOT NULL,
@@ -141,7 +139,7 @@ async function seedClients() {
       state VARCHAR(100) NOT NULL,
       address VARCHAR(255) NOT NULL,
       country VARCHAR(100) NOT NULL,
-      client_type UUID NOT NULL,
+      client_type INT NOT NULL,
       created_at TIMESTAMP DEFAULT NOW(),
       brief TEXT,
 
@@ -152,8 +150,8 @@ async function seedClients() {
   const insertedClients = await Promise.all(
     clients.map(
       (client) => sql`
-        INSERT INTO clients (id, name, website, main_number, state, address, country, client_type, created_at, brief)
-        VALUES (${client.id}, ${client.name}, ${client.website}, ${client.main_number}, ${client.state}, ${client.address}, ${client.country}, ${client.client_type}, NOW(), ${client.brief})
+        INSERT INTO clients (  name, website, main_number, state, address, country, client_type, created_at, brief)
+        VALUES (${client.name}, ${client.website}, ${client.main_number}, ${client.state}, ${client.address}, ${client.country}, ${client.client_type}, NOW(), ${client.brief})
         ON CONFLICT (id) DO NOTHING;
       `,
     ),
@@ -165,7 +163,7 @@ async function seedClients() {
 async function seedSuppliers_manufacturers() {
   await sql`
     CREATE TABLE IF NOT EXISTS suppliers_manufacturers (
-      id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+      id SERIAL PRIMARY KEY,
       name VARCHAR(255) NOT NULL,
       website VARCHAR(255) NOT NULL,
       main_number VARCHAR(255),
@@ -177,8 +175,8 @@ async function seedSuppliers_manufacturers() {
   const insertedSuppliers_manufacturers = await Promise.all(
     suppliers_manufacturers.map(
       (supplier_manufacturer) => sql`
-        INSERT INTO suppliers_manufacturers (id, name, website, main_number, country, brief)
-        VALUES (${supplier_manufacturer.id}, ${supplier_manufacturer.name}, ${supplier_manufacturer.website}, ${supplier_manufacturer.main_number}, ${supplier_manufacturer.country}, ${supplier_manufacturer.brief})
+        INSERT INTO suppliers_manufacturers (  name, website, main_number, country, brief)
+        VALUES (${supplier_manufacturer.name}, ${supplier_manufacturer.website}, ${supplier_manufacturer.main_number}, ${supplier_manufacturer.country}, ${supplier_manufacturer.brief})
         ON CONFLICT (id) DO NOTHING;
       `,
     ),
@@ -190,11 +188,11 @@ async function seedSuppliers_manufacturers() {
 async function seedProduct_types() {
   await sql`
     CREATE TABLE IF NOT EXISTS product_types (
-      id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+      id SERIAL PRIMARY KEY,
       name VARCHAR(255) NOT NULL,
-      supplier1 UUID NOT NULL,
-      supplier2 UUID,
-      manufacturer UUID NOT NULL,
+      supplier1_id INT NOT NULL,
+      supplier2_id INT,
+      manufacturer_id INT NOT NULL,
       price INT,
       FOREIGN KEY (supplier1_id) REFERENCES suppliers_manufacturers(id),
       FOREIGN KEY (supplier2_id) REFERENCES suppliers_manufacturers(id),
@@ -205,8 +203,8 @@ async function seedProduct_types() {
   const insertedProduct_types = await Promise.all(
     product_types.map(
       (product_type) => sql`
-        INSERT INTO product_types (id, name, supplier1, supplier2, manufacturer, price)
-        VALUES (${product_type.id}, ${product_type.name}, ${product_type.supplier1}, ${product_type.supplier2}, ${product_type.manufacturer}, ${product_type.price})
+        INSERT INTO product_types (  name, supplier1_id, supplier2_id, manufacturer_id, price)
+        VALUES (${product_type.name}, ${product_type.supplier1_id}, ${product_type.supplier2_id}, ${product_type.manufacturer_id}, ${product_type.price})
         ON CONFLICT (id) DO NOTHING;
       `,
     ),
@@ -218,11 +216,12 @@ async function seedProduct_types() {
 async function seedAssets() {
   await sql`
     CREATE TABLE IF NOT EXISTS assets (
-      id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
-      product_type_id UUID NOT NULL,
-      client_id UUID NOT NULL,
+      id SERIAL PRIMARY KEY,
+      asset_barnumber VARCHAR(255) UNIQUE
+      product_type_id INT NOT NULL,
+      client_id INT NOT NULL,
       manufacturer_number VARCHAR(255) NOT NULL,
-      supplier_id UUID,
+      supplier_id INT,
       purchase_date TIMESTAMP DEFAULT NOW(),
       last_service_date DATE,
       note TEXT,
@@ -236,8 +235,8 @@ async function seedAssets() {
   const insertedAssets = await Promise.all(
     assets.map(
       (asset) => sql`
-        INSERT INTO assets (product_type_id, client_id, manufacturer_number, supplier_id, purchase_date, last_service_date, note)
-        VALUES (${asset.product_type_id}, ${asset.client_id}, ${asset.manufacturer_number}, ${asset.supplier_id}, ${asset.purchase_date}, ${asset.last_service_date}, ${asset.note})
+        INSERT INTO assets (client_id, manufacturer_number, supplier_id, purchase_date, last_service_date, note)
+        VALUES (${asset.client_id}, ${asset.manufacturer_number}, ${asset.supplier_id}, ${asset.purchase_date}, ${asset.last_service_date}, ${asset.note})
         ON CONFLICT (id) DO NOTHING;
       `,
     ),
@@ -263,7 +262,7 @@ export async function GET() {
       seedInvoices(),
       seedRevenue(),
 
-      // resetDatabase(),
+      resetDatabase(),
 
       seedClientTypes(),
       seedClients(),
