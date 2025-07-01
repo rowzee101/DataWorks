@@ -216,3 +216,38 @@ export async function fetchFilteredCustomers(query: string) {
     throw new Error('Failed to fetch customer table.');
   }
 }
+
+
+
+//////////////////////////
+
+
+export type ClientWithAssetCount = {
+  id: number;
+  name: string;
+  asset_count: number;
+};
+
+export async function dashboardFetchClientData(): Promise<ClientWithAssetCount[]> {
+  try {
+    const result = await sql`
+      SELECT 
+        c.id,
+        c.name,
+        COUNT(a.id) AS asset_count
+      FROM clients c
+      LEFT JOIN assets a ON c.id = a.client_id
+      GROUP BY c.id, c.name
+      ORDER BY c.name ASC;
+    `;
+
+    return result.map(row => ({
+      id: row.id,
+      name: row.name,
+      asset_count: Number(row.asset_count),
+    }));
+  } catch (error) {
+    console.error("Database Error:", error);
+    throw new Error("Failed to fetch client data.");
+  }
+}
