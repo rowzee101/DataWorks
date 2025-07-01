@@ -14,6 +14,22 @@ export const metadata: Metadata = {
   title: 'Clients',
 };
 
-export default function Page() {
-  return <p>Clients Page</p>;
+import { dashboardFetchClientData } from '@/app/lib/data';
+import { ClientCell } from '@/app/ui/clients/ClientCell';
+
+export default async function DashboardPage() {
+  const clients = await dashboardFetchClientData();
+
+  return (
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+      {clients.map(client => (
+        <ClientCell
+          key={client.id}
+          clientId={client.id}
+          clientName={client.name}
+          assetCount={client.asset_count}
+        />
+      ))}
+    </div>
+  );
 }
