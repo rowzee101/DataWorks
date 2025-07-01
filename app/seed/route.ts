@@ -112,7 +112,7 @@ async function seedClientTypes() {
   await sql`
     CREATE TABLE IF NOT EXISTS client_types (
       id SERIAL PRIMARY KEY,
-      name VARCHAR(255) NOT NULL
+      name VARCHAR(255) NOT NULL UNIQUE
     );
   `;
   const insertedClientTypes = await Promise.all(
@@ -132,7 +132,7 @@ async function seedClients() {
   await sql`
     CREATE TABLE IF NOT EXISTS clients (
       id SERIAL PRIMARY KEY,
-      name VARCHAR(255) NOT NULL,
+      name VARCHAR(255) NOT NULL UNIQUE,
       website VARCHAR(255) NOT NULL,
       main_number VARCHAR(50) NOT NULL,
 
@@ -164,7 +164,7 @@ async function seedSuppliers_manufacturers() {
   await sql`
     CREATE TABLE IF NOT EXISTS suppliers_manufacturers (
       id SERIAL PRIMARY KEY,
-      name VARCHAR(255) NOT NULL,
+      name VARCHAR(255) NOT NULL UNIQUE,
       website VARCHAR(255) NOT NULL,
       main_number VARCHAR(255),
       country VARCHAR(255) NOT NULL,
