@@ -192,17 +192,16 @@ async function seedProduct_types() {
     CREATE TABLE IF NOT EXISTS product_types (
       id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
       name VARCHAR(255) NOT NULL,
-      supplier1_id UUID NOT NULL,
-      supplier2_id UUID,
-      manufacturer_id UUID NOT NULL,
-      price INT
-
-      FOREIGN KEY (supplier1_id) REFERENCES suppliers_manufacturers(id)
-      FOREIGN KEY (supplier2_id) REFERENCES suppliers_manufacturers(id)
+      supplier1 UUID NOT NULL,
+      supplier2 UUID,
+      manufacturer UUID NOT NULL,
+      price INT,
+      FOREIGN KEY (supplier1_id) REFERENCES suppliers_manufacturers(id),
+      FOREIGN KEY (supplier2_id) REFERENCES suppliers_manufacturers(id),
       FOREIGN KEY (manufacturer_id) REFERENCES suppliers_manufacturers(id)
     );
   `;
-  
+
   const insertedProduct_types = await Promise.all(
     product_types.map(
       (product_type) => sql`
@@ -264,8 +263,8 @@ export async function GET() {
       seedInvoices(),
       seedRevenue(),
 
-      resetDatabase(),
-      
+      // resetDatabase(),
+
       seedClientTypes(),
       seedClients(),
       seedSuppliers_manufacturers(),
