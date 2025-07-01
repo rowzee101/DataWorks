@@ -1,4 +1,4 @@
-import { getClientById } from '@/app/lib/data';
+import { getClientById , getAssetsByClientId } from '@/app/lib/data';
 import { notFound } from 'next/navigation';
 import { Tabs } from '@/app/ui/clients/tab'; 
 
@@ -8,6 +8,7 @@ type PageProps = {
 
 export default async function ClientDetailPage({ params }: any) {
   const client = await getClientById(Number(params.id));
+  const assets = await getAssetsByClientId(Number(params.id));
 
   if (!client) return notFound();
 
@@ -55,8 +56,8 @@ export default async function ClientDetailPage({ params }: any) {
         
 
         {/* Tabs => Assets, Tickets and Users */}
-        <div className="pt-4 border-t text-sm text-gray-700">
-          <Tabs clientId={Number(params.id)} />
+        <div className="pt-4 border-t text-sm text-gray-700 mt-4 mb-6">
+          <Tabs assets={assets} clientId={Number(params.id)} />
         </div>
       </div>
     </div>

@@ -1,12 +1,15 @@
 'use client';
 
 import { useState } from 'react';
+import AssetsTable from '@/app/ui/clients/table'; 
+import type { Asset } from '@/app/lib/definitions'; 
 
 type TabsProps = {
   clientId: number;
+  assets: Asset[];
 };
 
-export function Tabs({ clientId }: TabsProps) {
+export function Tabs({ assets, clientId }: TabsProps) {
   const [activeTab, setActiveTab] = useState<'assets' | 'tickets' | 'users'>('assets');
 
   return (
@@ -28,7 +31,7 @@ export function Tabs({ clientId }: TabsProps) {
 
       {/* Tab Content */}
       <div className="mt-4">
-        {activeTab === 'assets' && <div>Show Assets for client {clientId} here.</div>}
+        {activeTab === 'assets' && < AssetsTable assets={assets} />}
         {activeTab === 'tickets' && <div>Show Tickets for client {clientId} here.</div>}
         {activeTab === 'users' && <div>Show Users for client {clientId} here.</div>}
       </div>

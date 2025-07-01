@@ -86,3 +86,13 @@ export type InvoiceForm = {
   amount: number;
   status: 'pending' | 'paid';
 };
+
+export type Asset = {
+  id: number;
+  asset_barnumber: string;
+  asset_number: string;
+  manufacturer_number: string;
+  purchase_date: string;
+  last_service_date: string | null;
+  note: string | null;
+};

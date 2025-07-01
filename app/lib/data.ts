@@ -267,3 +267,17 @@ export async function getClientById(id: number) {
     return null;
   }
 }
+
+import type { Asset } from './definitions';
+
+export async function getAssetsByClientId(clientId: number): Promise<Asset[]> {
+  try {
+    const result = await sql<Asset[]>`
+      SELECT * FROM assets WHERE client_id = ${clientId} ORDER BY purchase_date DESC
+    `;
+    return result; // If you're using @vercel/postgres or pg, this is fine
+  } catch (error) {
+    console.error('Error fetching assets for client:', error);
+    return [];
+  }
+}

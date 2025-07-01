@@ -1,123 +1,84 @@
-import Image from 'next/image';
-import { lusitana } from '@/app/ui/fonts';
-import Search from '@/app/ui/search';
-import {
-  CustomersTableType,
-  FormattedCustomersTable,
-} from '@/app/lib/definitions';
+'use client';
 
-export default async function CustomersTable({
-  customers,
-}: {
-  customers: FormattedCustomersTable[];
-}) {
+import React, { useState } from 'react';
+import Link from 'next/link'; 
+
+type Asset = {
+  id: number;
+  asset_barnumber: string;
+  asset_number: string;
+  manufacturer_number: string;
+  purchase_date: string;
+  last_service_date: string | null;
+  note: string | null;
+  // add other fields as needed
+};
+
+interface AssetsTableProps {
+  assets: Asset[];
+}
+
+export default function AssetsTable({ assets }: AssetsTableProps) {
+  const [searchTerm, setSearchTerm] = useState('');
+
+  const filteredAssets = assets.filter((asset) => {
+    const term = searchTerm.toLowerCase();
+    return (
+      asset.asset_number.toLowerCase().includes(term) ||
+      asset.manufacturer_number.toLowerCase().includes(term) ||
+      asset.asset_barnumber.toLowerCase().includes(term) ||
+      (asset.note?.toLowerCase().includes(term) ?? false)
+    );
+  });
+
   return (
-    <div className="w-full">
-      <h1 className={`${lusitana.className} mb-8 text-xl md:text-2xl`}>
-        Customers
-      </h1>
-      <Search placeholder="Search customers..." />
-      <div className="mt-6 flow-root">
-        <div className="overflow-x-auto">
-          <div className="inline-block min-w-full align-middle">
-            <div className="overflow-hidden rounded-md bg-gray-50 p-2 md:pt-0">
-              <div className="md:hidden">
-                {customers?.map((customer) => (
-                  <div
-                    key={customer.id}
-                    className="mb-2 w-full rounded-md bg-white p-4"
-                  >
-                    <div className="flex items-center justify-between border-b pb-4">
-                      <div>
-                        <div className="mb-2 flex items-center">
-                          <div className="flex items-center gap-3">
-                            <Image
-                              src={customer.image_url}
-                              className="rounded-full"
-                              alt={`${customer.name}'s profile picture`}
-                              width={28}
-                              height={28}
-                            />
-                            <p>{customer.name}</p>
-                          </div>
-                        </div>
-                        <p className="text-sm text-gray-500">
-                          {customer.email}
-                        </p>
-                      </div>
-                    </div>
-                    <div className="flex w-full items-center justify-between border-b py-5">
-                      <div className="flex w-1/2 flex-col">
-                        <p className="text-xs">Pending</p>
-                        <p className="font-medium">{customer.total_pending}</p>
-                      </div>
-                      <div className="flex w-1/2 flex-col">
-                        <p className="text-xs">Paid</p>
-                        <p className="font-medium">{customer.total_paid}</p>
-                      </div>
-                    </div>
-                    <div className="pt-4 text-sm">
-                      <p>{customer.total_invoices} invoices</p>
-                    </div>
-                  </div>
-                ))}
-              </div>
-              <table className="hidden min-w-full rounded-md text-gray-900 md:table">
-                <thead className="rounded-md bg-gray-50 text-left text-sm font-normal">
-                  <tr>
-                    <th scope="col" className="px-4 py-5 font-medium sm:pl-6">
-                      Name
-                    </th>
-                    <th scope="col" className="px-3 py-5 font-medium">
-                      Email
-                    </th>
-                    <th scope="col" className="px-3 py-5 font-medium">
-                      Total Invoices
-                    </th>
-                    <th scope="col" className="px-3 py-5 font-medium">
-                      Total Pending
-                    </th>
-                    <th scope="col" className="px-4 py-5 font-medium">
-                      Total Paid
-                    </th>
-                  </tr>
-                </thead>
+    <div>
+      <input
+        type="text"
+        placeholder="Search assets..."
+        value={searchTerm}
+        onChange={(e) => setSearchTerm(e.target.value)}
+        className="mb-4 p-2 border rounded w-full max-w-sm"
+      />
 
-                <tbody className="divide-y divide-gray-200 text-gray-900">
-                  {customers.map((customer) => (
-                    <tr key={customer.id} className="group">
-                      <td className="whitespace-nowrap bg-white py-5 pl-4 pr-3 text-sm text-black group-first-of-type:rounded-md group-last-of-type:rounded-md sm:pl-6">
-                        <div className="flex items-center gap-3">
-                          <Image
-                            src={customer.image_url}
-                            className="rounded-full"
-                            alt={`${customer.name}'s profile picture`}
-                            width={28}
-                            height={28}
-                          />
-                          <p>{customer.name}</p>
-                        </div>
-                      </td>
-                      <td className="whitespace-nowrap bg-white px-4 py-5 text-sm">
-                        {customer.email}
-                      </td>
-                      <td className="whitespace-nowrap bg-white px-4 py-5 text-sm">
-                        {customer.total_invoices}
-                      </td>
-                      <td className="whitespace-nowrap bg-white px-4 py-5 text-sm">
-                        {customer.total_pending}
-                      </td>
-                      <td className="whitespace-nowrap bg-white px-4 py-5 text-sm group-first-of-type:rounded-md group-last-of-type:rounded-md">
-                        {customer.total_paid}
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-          </div>
-        </div>
-      </div>
+      <table className="min-w-full border-collapse border border-gray-300">
+        <thead>
+          <tr>
+            <th className="border border-gray-300 px-4 py-2">Asset Number</th>
+            <th className="border border-gray-300 px-4 py-2">Manufacturer Number</th>
+            <th className="border border-gray-300 px-4 py-2">Asset Barnumber</th>
+            <th className="border border-gray-300 px-4 py-2">Purchase Date</th>
+            <th className="border border-gray-300 px-4 py-2">Last Service Date</th>
+            <th className="border border-gray-300 px-4 py-2">Note</th>
+            <th className="border border-gray-300 px-4 py-2">Actions</th> {/* New  Edit column */}
+          </tr>
+        </thead>
+        <tbody>
+          {filteredAssets.length > 0 ? (
+            filteredAssets.map((asset) => (
+              <tr key={asset.id}>
+                <td className="border border-gray-300 px-4 py-2">{asset.asset_number}</td>
+                <td className="border border-gray-300 px-4 py-2">{asset.manufacturer_number}</td>
+                <td className="border border-gray-300 px-4 py-2">{asset.asset_barnumber}</td>
+                <td className="border border-gray-300 px-4 py-2">{new Date(asset.purchase_date).toLocaleDateString()}</td>
+                <td className="border border-gray-300 px-4 py-2">{asset.last_service_date ? new Date(asset.last_service_date).toLocaleDateString() : '-'}</td>
+                <td className="border border-gray-300 px-4 py-2">{asset.note || '-'}</td>
+                <td className="border border-gray-300 px-4 py-2 text-center"> 
+                  <Link href={`/assets/${asset.id}/edit`} className="text-blue-600 hover:underline">
+                    Edit
+                  </Link>
+                </td>
+              </tr>
+            ))
+          ) : (
+            <tr>
+              <td colSpan={6} className="text-center p-4">
+                No assets found.
+              </td>
+            </tr>
+          )}
+        </tbody>
+      </table>
     </div>
   );
 }
