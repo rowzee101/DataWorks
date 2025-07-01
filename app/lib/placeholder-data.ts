@@ -242,6 +242,7 @@ export const product_types = [
 
 export const assets = [
   {
+    product_type_id: 1, // Laser Printer
     client_id: 2,
     manufacturer_number: 'HP-PRN-12345',
     supplier_id: 2, // HP
@@ -250,6 +251,7 @@ export const assets = [
     note: 'Under warranty until 2025',
   },
   {
+    product_type_id: 2, // Office Chair
     client_id: 1,
     manufacturer_number: 'IKE-CHR-67890',
     supplier_id: 1, // IKEA
@@ -258,6 +260,7 @@ export const assets = [
     note: 'Reupholstered in 2023',
   },
   {
+    product_type_id: 3, // Coffee Machine
     client_id: 1,
     manufacturer_number: 'NESP-CFM-54321',
     supplier_id: 1, // HP

@@ -120,7 +120,7 @@ async function seedClientTypes() {
       (clientType) => sql`
         INSERT INTO client_types (  name)
         VALUES (${clientType.name})
-        ON CONFLICT (id) DO NOTHING;
+        ON CONFLICT DO NOTHING;
       `,
     ),
   );
@@ -152,7 +152,7 @@ async function seedClients() {
       (client) => sql`
         INSERT INTO clients (  name, website, main_number, state, address, country, client_type, created_at, brief)
         VALUES (${client.name}, ${client.website}, ${client.main_number}, ${client.state}, ${client.address}, ${client.country}, ${client.client_type}, NOW(), ${client.brief})
-        ON CONFLICT (id) DO NOTHING;
+        ON CONFLICT DO NOTHING;
       `,
     ),
   );
@@ -177,7 +177,7 @@ async function seedSuppliers_manufacturers() {
       (supplier_manufacturer) => sql`
         INSERT INTO suppliers_manufacturers (  name, website, main_number, country, brief)
         VALUES (${supplier_manufacturer.name}, ${supplier_manufacturer.website}, ${supplier_manufacturer.main_number}, ${supplier_manufacturer.country}, ${supplier_manufacturer.brief})
-        ON CONFLICT (id) DO NOTHING;
+        ON CONFLICT DO NOTHING;
       `,
     ),
   );
@@ -205,7 +205,7 @@ async function seedProduct_types() {
       (product_type) => sql`
         INSERT INTO product_types (  name, supplier1_id, supplier2_id, manufacturer_id, price)
         VALUES (${product_type.name}, ${product_type.supplier1_id}, ${product_type.supplier2_id}, ${product_type.manufacturer_id}, ${product_type.price})
-        ON CONFLICT (id) DO NOTHING;
+        ON CONFLICT DO NOTHING;
       `,
     ),
   );
@@ -217,7 +217,7 @@ async function seedAssets() {
   await sql`
     CREATE TABLE IF NOT EXISTS assets (
       id SERIAL PRIMARY KEY,
-      asset_barnumber VARCHAR(255) UNIQUE
+      asset_barnumber VARCHAR(255) UNIQUE,
       product_type_id INT NOT NULL,
       client_id INT NOT NULL,
       manufacturer_number VARCHAR(255) NOT NULL,
@@ -235,9 +235,9 @@ async function seedAssets() {
   const insertedAssets = await Promise.all(
     assets.map(
       (asset) => sql`
-        INSERT INTO assets (client_id, manufacturer_number, supplier_id, purchase_date, last_service_date, note)
-        VALUES (${asset.client_id}, ${asset.manufacturer_number}, ${asset.supplier_id}, ${asset.purchase_date}, ${asset.last_service_date}, ${asset.note})
-        ON CONFLICT (id) DO NOTHING;
+        INSERT INTO assets (product_type_id, client_id, manufacturer_number, supplier_id, purchase_date, last_service_date, note)
+        VALUES (${asset.product_type_id}, ${asset.client_id}, ${asset.manufacturer_number}, ${asset.supplier_id}, ${asset.purchase_date}, ${asset.last_service_date}, ${asset.note})
+        ON CONFLICT DO NOTHING;
       `,
     ),
   );
@@ -257,18 +257,18 @@ export async function GET() {
   try {
     await sql`DROP TABLE IF EXISTS suppliers_manufacturers CASCADE;`;
     const result = await sql.begin((sql) => [
-      seedUsers(),
-      seedCustomers(),
-      seedInvoices(),
-      seedRevenue(),
+      // seedUsers(),
+      // seedCustomers(),
+      // seedInvoices(),
+      // seedRevenue(),
 
       resetDatabase(),
 
-      seedClientTypes(),
-      seedClients(),
-      seedSuppliers_manufacturers(),
-      seedProduct_types(),
-      seedAssets(),
+      // seedClientTypes(),
+      // seedClients(),
+      // seedSuppliers_manufacturers(),
+      // seedProduct_types(),
+      // seedAssets(),
     ]);
 
     return Response.json({ message: 'Database seeded successfully' });
