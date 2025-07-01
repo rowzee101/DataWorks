@@ -159,54 +159,54 @@ const revenue = [
 
 export const client_types = [
   {
-    id: '1a2b3c4d-5e6f-78a-9b0c-d1e2f3g4h5i6',
+    id: '11111111-2222-3333-4444-555555555555',
     name: 'Corporate',
   },
   {
-    id: '222b3c4d-5e6f-78a-9b0c-d1e2f3g4h5i6',
+    id: '66666666-7777-8888-9999-aaaaaaaaaaaa',
     name: 'Prospect',
   },
 ];
 
 export const clients = [
   {
-    id: 'a1111111-1111-1111-1111-111111111111',
+    id: 'aceed847-5158-4735-aa92-7f5acf1948ab',
     name: 'Billy Corp',
     website: 'https://billycorp.com',
     main_number: '+1-800-555-0199',
     state: 'California',
     address: '123 Main St, Los Angeles, CA 90001',
     country: 'USA',
-    client_type: '1a2b3c4d-5e6f-78a-9b0c-d1e2f3g4h5i6', // Corporate
+    client_type: '11111111-2222-3333-4444-555555555555', // Corporate
     brief: 'Leading provider of innovative solutions in the tech industry.',
   },
   {
-    id: 'b2222222-2222-2222-2222-222222222222',
+    id: 'd0834ae7-4e10-4394-b419-05a969365eae',
     name: 'BillyGon Unlimited',
     website: 'https://billygon.com',
     main_number: '+1-800-555-0198',
     state: 'New York',
     address: '456 Elm St, New York, NY 10001',
     country: 'USA',
-    client_type: '1a2b3c4d-222b3c4d-78a-9b0c-d1e2f3g4h5i6', // Prospect
+    client_type: '66666666-7777-8888-9999-aaaaaaaaaaaa', // Prospect
     brief: 'Super corporate in various industries including aviation, architecture, logistics and general goods.',
   },
   {
-    id: 'c3333333-3333-3333-3333-333333333333',
+    id: '4509057c-e359-4488-bd20-ffdab7a65dad',
     name: 'BillyBoom LLC',
     website: 'https://billyboom.com',
     main_number: '+1-800-555-0197',
     state: 'Texas',
     address: '789 Oak St, Houston, TX 77001',
     country: 'USA',
-    client_type: '1a2b3c4d-5e6f-78a-9b0c-d1e2f3g4h5i6', // Corporate
+    client_type: '11111111-2222-3333-4444-555555555555', // Corporate
     brief: 'A well-established firm specializing in financial services.',
   },
 ];
 
 export const suppliers_manufacturers = [
   {
-    id: 'a1111111-1111-1111-1111-111111111111',
+    id: '05e80e18-e381-488c-9179-924347d79db2',
     name: 'HP',
     website: 'https://www.hp.com',
     main_number: '+1-800-555-0100',
@@ -214,7 +214,7 @@ export const suppliers_manufacturers = [
     brief: 'Leading global provider of personal computing and other access devices, imaging and printing products, and related technologies, solutions and services.',
   },
   {
-    id: 'b2222222-2222-2222-2222-22222222222',
+    id: 'afb95c3b-7cf5-4477-bb74-cbb2dca4a5d9',
     name: 'IKEA',
     website: 'https://www.ikea.com',
     main_number: '+1-800-555-0101',
@@ -225,58 +225,55 @@ export const suppliers_manufacturers = [
 
 export const product_types = [
   {
-    id: 'd4444444-4444-4444-4444-444444444444',
+    id: 'c4011bcb-fb6a-4927-a8ae-e68569db592a',
     name: 'Laser Printer',
-    supplier1: 'HP',
-    supplier2: 'HP',
-    manufacturer: 'IKEA',
+    supplier1: 'afb95c3b-7cf5-4477-bb74-cbb2dca4a5d9',
+    supplier2: 'afb95c3b-7cf5-4477-bb74-cbb2dca4a5d9',
+    manufacturer: 'afb95c3b-7cf5-4477-bb74-cbb2dca4a5d9',
     price: 299,
   },
   {
-    id: 'e5555555-5555-5555-5555-555555555555',
+    id: '5af6a343-d4c4-41f1-acf9-c77d3ab93b94',
     name: 'Office Chair',
-    supplier1: 'IKEA',
-    supplier2: 'HP',
-    manufacturer: 'IKEA',
+    supplier1: '05e80e18-e381-488c-9179-924347d79db2',
+    supplier2: '05e80e18-e381-488c-9179-924347d79db2',
+    manufacturer: '05e80e18-e381-488c-9179-924347d79db2',
     price: 149,
   },
   {
-    id: 'f6666666-6666-6666-6666-666666666666',
+    id: '6e405b29-5602-4d55-bc68-f5da7419d10e',
     name: 'Coffee Machine',
-    supplier1: 'Nespresso',
-    supplier2: 'HP',
-    manufacturer: 'IKEA',
+    supplier1: '05e80e18-e381-488c-9179-924347d79db2',
+    supplier2: '05e80e18-e381-488c-9179-924347d79db2',
+    manufacturer: '05e80e18-e381-488c-9179-924347d79db2',
     price: null, // Price not fixed, to be quoted
   },
 ];
 
 export const assets = [
   {
-    id: 'g7777777-7777-7777-7777-777777777777',
-    product_type_id: 'd4444444-4444-4444-4444-444444444444',
-    client_id: 'a1111111-1111-1111-1111-111111111111',
+    product_type_id: 'c4011bcb-fb6a-4927-a8ae-e68569db592a',
+    client_id: 'd0834ae7-4e10-4394-b419-05a969365eae',
     manufacturer_number: 'HP-PRN-12345',
-    supplier_id: 'a1111111-1111-1111-1111-111111111111', // HP
+    supplier_id: '05e80e18-e381-488c-9179-924347d79db2', // HP
     purchase_date: '2023-01-15',
     last_service_date: '2024-01-10',
     note: 'Under warranty until 2025',
   },
   {
-    id: 'h8888888-8888-8888-8888-888888888888',
-    product_type_id: 'e5555555-5555-5555-5555-555555555555',
-    client_id: 'b2222222-2222-2222-2222-222222222222',
+    product_type_id: '5af6a343-d4c4-41f1-acf9-c77d3ab93b94',
+    client_id: 'd0834ae7-4e10-4394-b419-05a969365eae',
     manufacturer_number: 'IKE-CHR-67890',
-    supplier_id: 'b2222222-2222-2222-2222-22222222222', // IKEA
+    supplier_id: '05e80e18-e381-488c-9179-924347d79db2', // IKEA
     purchase_date: '2022-07-01',
     last_service_date: '2023-06-15',
     note: 'Reupholstered in 2023',
   },
   {
-    id: 'i9999999-9999-9999-9999-999999999999',
-    product_type_id: 'f6666666-6666-6666-6666-666666666666',
-    client_id: 'c3333333-3333-3333-3333-333333333333',
+    product_type_id: '6e405b29-5602-4d55-bc68-f5da7419d10e',
+    client_id: '4509057c-e359-4488-bd20-ffdab7a65dad',
     manufacturer_number: 'NESP-CFM-54321',
-    supplier_id: 'a1111111-1111-1111-1111-111111111111', // HP
+    supplier_id: '05e80e18-e381-488c-9179-924347d79db2', // HP
     purchase_date: '2024-03-20',
     last_service_date: null,
     note: 'Quote pending for maintenance plan',

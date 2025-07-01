@@ -192,10 +192,14 @@ async function seedProduct_types() {
     CREATE TABLE IF NOT EXISTS product_types (
       id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
       name VARCHAR(255) NOT NULL,
-      supplier1 VARCHAR(255) NOT NULL,
-      supplier2 VARCHAR(255),
-      manufacturer VARCHAR(255) NOT NULL,
+      supplier1_id UUID NOT NULL,
+      supplier2_id UUID,
+      manufacturer_id UUID NOT NULL,
       price INT
+
+      FOREIGN KEY (supplier1_id) REFERENCES suppliers_manufacturers(id)
+      FOREIGN KEY (supplier2_id) REFERENCES suppliers_manufacturers(id)
+      FOREIGN KEY (manufacturer_id) REFERENCES suppliers_manufacturers(id)
     );
   `;
   
@@ -233,8 +237,8 @@ async function seedAssets() {
   const insertedAssets = await Promise.all(
     assets.map(
       (asset) => sql`
-        INSERT INTO assets (id, product_type_id, client_id, manufacturer_number, supplier_id, purchase_date, last_service_date, note)
-        VALUES (${asset.id}, ${asset.product_type_id}, ${asset.client_id}, ${asset.manufacturer_number}, ${asset.supplier_id}, ${asset.purchase_date}, ${asset.last_service_date}, ${asset.note})
+        INSERT INTO assets (product_type_id, client_id, manufacturer_number, supplier_id, purchase_date, last_service_date, note)
+        VALUES (${asset.product_type_id}, ${asset.client_id}, ${asset.manufacturer_number}, ${asset.supplier_id}, ${asset.purchase_date}, ${asset.last_service_date}, ${asset.note})
         ON CONFLICT (id) DO NOTHING;
       `,
     ),
