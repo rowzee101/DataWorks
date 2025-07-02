@@ -4,7 +4,7 @@ import { useState } from 'react';
 import AssetsTable from '@/app/ui/Assetstable'; 
 import type { Asset } from '@/app/lib/definitions'; 
 
-import Table from '@/app/ui/invoices/table';
+// import Table from '@/app/ui/invoices/table';
 
 type TabsProps = {
   clientId: number;
@@ -48,9 +48,10 @@ export function Tabs({ assets, clientId, searchQuery }: TabsProps) {
       {/* Tab Content */}
       <div className="mt-4">
         {activeTab === 'assets' && < AssetsTable assets={filteredAssets} />}
-        {activeTab === 'tickets' && <Table query={searchQuery_} currentPage={currentPage} />}
+        {activeTab === 'tickets' && <div>Show tickets for client {clientId} here.</div>}
         {activeTab === 'users' && <div>Show Users for client {clientId} here.</div>}
       </div>
     </div>
   );
 }
+{/* <Table query={searchQuery_} currentPage={currentPage} /> */}
