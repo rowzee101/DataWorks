@@ -22,7 +22,7 @@ export function Tabs({ assets, clientId, searchQuery }: TabsProps) {
 
 
   const [activeTab, setActiveTab] = useState<'assets' | 'tickets' | 'users'>('assets');
-  const searchQuery_ = ' ';
+  const searchQuery_ = searchQuery ||'';
   
   const filteredAssets = assets.filter(asset =>
     asset.asset_number.toLowerCase().includes(searchQuery_.toLowerCase()) ||
@@ -47,7 +47,7 @@ export function Tabs({ assets, clientId, searchQuery }: TabsProps) {
 
       {/* Tab Content */}
       <div className="mt-4">
-        {activeTab === 'assets' && < AssetsTable assets={filteredAssets} />}
+        {activeTab === 'assets' && < AssetsTable assets={assets} />}
         {activeTab === 'tickets' && <div>Show tickets for client {clientId} here.</div>}
         {activeTab === 'users' && <div>Show Users for client {clientId} here.</div>}
       </div>
