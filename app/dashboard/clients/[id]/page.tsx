@@ -58,7 +58,6 @@ export default async function ClientDetailPage({ params }: any) {
 
         {/* Tabs => Assets, Tickets and Users */}
         <div className="pt-4 border-t text-sm text-gray-700 mt-8 mb-6">
-          <h3 className="text-lg font-semibold mb-4">Search field be here</h3>
           <Tabs assets={assets} clientId={Number(params.id)}/>
         </div>
       </div>

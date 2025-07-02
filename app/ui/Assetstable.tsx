@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 import Link from 'next/link'; 
 import { useDebouncedCallback } from 'use-debounce';
+import { AddAsset } from '@/app/ui/invoices/buttons';
 
 type Asset = {
   id: number;
@@ -106,6 +107,9 @@ export default function AssetsTable({ assets }: AssetsTableProps) {
         onChange={onSearchChange}
         className="mb-4 p-2 border rounded w-full max-w-sm"
       />
+      <div className="mb-4 flex justify-end">
+        <AddAsset />
+      </div>
 
       <div className="inline-block min-w-full align-middle">
         <div className="rounded-lg bg-gray-50 p-2 md:pt-0">
@@ -125,7 +129,7 @@ export default function AssetsTable({ assets }: AssetsTableProps) {
                   <p>{asset.manufacturer_number}</p>
                 </div>
                 <div className="mb-2">
-                  <p className="text-sm text-gray-500">Asset Barnumber</p>
+                  <p className="text-sm text-gray-500">Asset Bar-code</p>
                   <p>{asset.asset_barnumber}</p>
                 </div>
                 <div className="mb-2">
@@ -156,7 +160,7 @@ export default function AssetsTable({ assets }: AssetsTableProps) {
               <tr>
                 <th className="px-4 py-5 font-medium sm:pl-6">Asset Number</th>
                 <th className="px-3 py-5 font-medium">Manufacturer Number</th>
-                <th className="px-3 py-5 font-medium">Asset Barnumber</th>
+                <th className="px-3 py-5 font-medium">Asset Bar-code</th>
                 <th className="px-3 py-5 font-medium">Purchase Date</th>
                 <th className="px-3 py-5 font-medium">Last Service Date</th>
                 <th className="px-3 py-5 font-medium">Note</th>
