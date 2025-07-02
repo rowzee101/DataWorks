@@ -4,6 +4,11 @@ import { useState } from 'react';
 import AssetsTable from '@/app/ui/Assetstable'; 
 import type { Asset } from '@/app/lib/definitions'; 
 
+
+import Pagination from '@/app/ui/invoices/pagination';
+import Search from '@/app/ui/search';
+import Table from '@/app/ui/invoices/table';
+
 type TabsProps = {
   clientId: number;
   assets: Asset[];
@@ -14,6 +19,11 @@ type TabsProps = {
 };
 
 export function Tabs({ assets, clientId, searchQuery }: TabsProps) {
+
+  const currentPage = 1;
+
+
+
   const [activeTab, setActiveTab] = useState<'assets' | 'tickets' | 'users'>('assets');
   const searchQuery_ = 'CR';
   
@@ -23,6 +33,7 @@ export function Tabs({ assets, clientId, searchQuery }: TabsProps) {
   );
   return (
     <div className="mt-6">
+      <Search placeholder="Search invoices..." />
       {/* Tab Buttons */}
       <div className="flex space-x-4 border-b">
         {['assets', 'tickets', 'users'].map((tab) => (
@@ -41,7 +52,7 @@ export function Tabs({ assets, clientId, searchQuery }: TabsProps) {
       {/* Tab Content */}
       <div className="mt-4">
         {activeTab === 'assets' && < AssetsTable assets={filteredAssets} />}
-        {activeTab === 'tickets' && <div>Show Tickets for client {clientId} here.</div>}
+        {activeTab === 'tickets' && <Table query={searchQuery_} currentPage={currentPage} />}
         {activeTab === 'users' && <div>Show Users for client {clientId} here.</div>}
       </div>
     </div>
