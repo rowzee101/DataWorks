@@ -289,7 +289,7 @@ export async function fetchClients() {
       SELECT
         id,
         name
-      FROM customers
+      FROM clients
       ORDER BY name ASC
     `;
 
@@ -306,7 +306,7 @@ export async function fetchSupplierManufacturer() {
       SELECT
         id,
         name
-      FROM customers
+      FROM suppliers_manufacturers
       ORDER BY name ASC
     `;
 
@@ -323,7 +323,7 @@ export async function fetchProductType() {
       SELECT
         id,
         name
-      FROM customers
+      FROM product_types
       ORDER BY name ASC
     `;
 
