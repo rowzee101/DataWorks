@@ -106,7 +106,7 @@ export default function AssetsTable({ assets }: AssetsTableProps) {
           placeholder="Search assets..."
           value={searchTerm}
           onChange={onSearchChange}
-          className="p-2 border rounded flex-1 w-full"
+          className="p-2 border rounded flex-1 max-w-md"
         />
         <AddAsset />
       </div>
