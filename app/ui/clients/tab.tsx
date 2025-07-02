@@ -4,9 +4,6 @@ import { useState } from 'react';
 import AssetsTable from '@/app/ui/Assetstable'; 
 import type { Asset } from '@/app/lib/definitions'; 
 
-
-import Pagination from '@/app/ui/invoices/pagination';
-import Search from '@/app/ui/search';
 import Table from '@/app/ui/invoices/table';
 
 type TabsProps = {
@@ -25,7 +22,7 @@ export function Tabs({ assets, clientId, searchQuery }: TabsProps) {
 
 
   const [activeTab, setActiveTab] = useState<'assets' | 'tickets' | 'users'>('assets');
-  const searchQuery_ = 'CR';
+  const searchQuery_ = ' ';
   
   const filteredAssets = assets.filter(asset =>
     asset.asset_number.toLowerCase().includes(searchQuery_.toLowerCase()) ||
@@ -33,7 +30,6 @@ export function Tabs({ assets, clientId, searchQuery }: TabsProps) {
   );
   return (
     <div className="mt-6">
-      <Search placeholder="Search invoices..." />
       {/* Tab Buttons */}
       <div className="flex space-x-4 border-b">
         {['assets', 'tickets', 'users'].map((tab) => (
