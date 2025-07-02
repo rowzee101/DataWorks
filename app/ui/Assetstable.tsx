@@ -100,14 +100,14 @@ export default function AssetsTable({ assets }: AssetsTableProps) {
 
   return (
     <div className="mt-6 flow-root">
-      <input
-        type="text"
-        placeholder="Search assets..."
-        value={searchTerm}
-        onChange={onSearchChange}
-        className="mb-4 p-2 border rounded w-full max-w-sm"
-      />
-      <div className="mb-4 flex justify-end">
+      <div className="flex items-center gap-2 mb-4">
+        <input
+          type="text"
+          placeholder="Search assets..."
+          value={searchTerm}
+          onChange={onSearchChange}
+          className="p-2 border rounded flex-1 max-w-md"
+        />
         <AddAsset />
       </div>
 
