@@ -220,6 +220,7 @@ export async function fetchFilteredCustomers(query: string) {
 
 
 //////////////////////////
+import type { Asset , Client , ProductType , SupplierManufacturer } from './definitions';
 
 // This function fetches client data for the dashboard, including the number of assets associated with each client.
 // It returns an array of objects containing client ID, name, and asset count.
@@ -268,7 +269,7 @@ export async function getClientById(id: number) {
   }
 }
 
-import type { Asset } from './definitions';
+
 
 export async function getAssetsByClientId(clientId: number): Promise<Asset[]> {
   try {
@@ -282,3 +283,53 @@ export async function getAssetsByClientId(clientId: number): Promise<Asset[]> {
   }
 }
 
+export async function fetchClients() {
+  try {
+    const Clients = await sql<Client[]>`
+      SELECT
+        id,
+        name
+      FROM customers
+      ORDER BY name ASC
+    `;
+
+    return Clients;
+  } catch (err) {
+    console.error('Database Error:', err);
+    throw new Error('Failed to fetch all Clients.');
+  }
+}
+
+export async function fetchSupplierManufacturer() {
+  try {
+    const SupplierManufacturer = await sql<SupplierManufacturer[]>`
+      SELECT
+        id,
+        name
+      FROM customers
+      ORDER BY name ASC
+    `;
+
+    return SupplierManufacturer;
+  } catch (err) {
+    console.error('Database Error:', err);
+    throw new Error('Failed to fetch all SupplierManufacturer.');
+  }
+}
+
+export async function fetchProductType() {
+  try {
+    const ProductType = await sql<ProductType[]>`
+      SELECT
+        id,
+        name
+      FROM customers
+      ORDER BY name ASC
+    `;
+
+    return ProductType;
+  } catch (err) {
+    console.error('Database Error:', err);
+    throw new Error('Failed to fetch all ProductType.');
+  }
+}

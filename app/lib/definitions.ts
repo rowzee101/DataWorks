@@ -87,12 +87,54 @@ export type InvoiceForm = {
   status: 'pending' | 'paid';
 };
 
+
 export type Asset = {
   id: number;
   asset_barnumber: string;
-  asset_number: string;
+  product_type_id: number;
+  client_id: number;
   manufacturer_number: string;
-  purchase_date: string;
+  asset_number: string;
+  supplier_id: number | null;
+  purchase_date: string;         // ISO timestamp
   last_service_date: string | null;
   note: string | null;
 };
+
+
+export type ClientType = {
+  id: number;
+  name: string;
+};
+
+export type Client = {
+  id: number;
+  name: string;
+  website: string;
+  main_number: string;
+  state: string;
+  address: string;
+  country: string;
+  client_type: number; // foreign key to ClientType
+  created_at: string;  // ISO timestamp
+  brief: string | null;
+};
+
+export type SupplierManufacturer = {
+  id: number;
+  name: string;
+  website: string;
+  main_number: string | null;
+  country: string;
+  brief: string | null;
+};
+
+export type ProductType = {
+  id: number;
+  name: string;
+  supplier1_id: number;
+  supplier2_id: number | null;
+  manufacturer_id: number;
+  price: number | null;
+};
+
