@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react';
 import Link from 'next/link'; 
+import { useDebouncedCallback } from 'use-debounce';
 
 type Asset = {
   id: number;
@@ -20,14 +21,27 @@ interface AssetsTableProps {
 
 export default function AssetsTable({ assets }: AssetsTableProps) {
   const [searchTerm, setSearchTerm] = useState('');
+  const [debouncedSearch, setDebouncedSearch] = useState('');
+
+
+  // Debounce the search input by 300ms
+  const handleSearch = useDebouncedCallback((value: string) => {
+    setDebouncedSearch(value);
+  }, 300);
+
+  const onSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchTerm(e.target.value);
+    handleSearch(e.target.value);
+  };
+
 
   const filteredAssets = assets.filter((asset) => {
     const term = searchTerm.toLowerCase();
     return (
-      asset.asset_number.toLowerCase().includes(term) ||
-      asset.manufacturer_number.toLowerCase().includes(term) ||
-      asset.asset_barnumber.toLowerCase().includes(term) ||
-      (asset.note?.toLowerCase().includes(term) ?? false)
+      (asset.asset_number || '').toLowerCase().includes(term) ||
+      (asset.manufacturer_number || '').toLowerCase().includes(term) ||
+      (asset.asset_barnumber || '').toLowerCase().includes(term) ||
+      (asset.note || '').toLowerCase().includes(term)
     );
   });
 
@@ -37,7 +51,7 @@ export default function AssetsTable({ assets }: AssetsTableProps) {
         type="text"
         placeholder="Search assets..."
         value={searchTerm}
-        onChange={(e) => setSearchTerm(e.target.value)}
+        onChange={onSearchChange}
         className="mb-4 p-2 border rounded w-full max-w-sm"
       />
 
@@ -72,7 +86,7 @@ export default function AssetsTable({ assets }: AssetsTableProps) {
             ))
           ) : (
             <tr>
-              <td colSpan={6} className="text-center p-4">
+              <td colSpan={7} className="text-center p-4">
                 No assets found.
               </td>
             </tr>
