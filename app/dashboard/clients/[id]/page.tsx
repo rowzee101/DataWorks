@@ -8,7 +8,11 @@ type PageProps = {
   params: { id: string };
 };
 
-export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+export async function generateMetadata({
+  params,
+}: {
+  params: { id: string };
+}) {
   const client = await getClientById(Number(params.id));
   if (!client) return { title: 'Client Not Found' };
 
@@ -16,7 +20,6 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     title: client.name,
   };
 }
-
 
 export default async function ClientDetailPage({ params }: any) {
   
