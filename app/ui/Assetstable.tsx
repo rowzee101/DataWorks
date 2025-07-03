@@ -13,16 +13,19 @@ type Asset = {
   purchase_date: string;
   last_service_date: string | null;
   note: string | null;
-  // add other fields as needed
+  product_type_id: number;
 };
 
 interface AssetsTableProps {
   assets: Asset[];
+  productTypes: { id: number; name: string }[];
 }
 
-export default function AssetsTable({ assets }: AssetsTableProps) {
+export default function AssetsTable({ assets , productTypes }: AssetsTableProps) {
   const [searchTerm, setSearchTerm] = useState('');
   const [debouncedSearch, setDebouncedSearch] = useState('');
+
+  const productTypeMap = new Map(productTypes.map(pt => [pt.id, pt.name]));
 
 
   // Debounce the search input by 300ms
@@ -42,61 +45,12 @@ export default function AssetsTable({ assets }: AssetsTableProps) {
       (asset.asset_number || '').toLowerCase().includes(term) ||
       (asset.manufacturer_number || '').toLowerCase().includes(term) ||
       (asset.asset_barnumber || '').toLowerCase().includes(term) ||
-      (asset.note || '').toLowerCase().includes(term)
+      (asset.note || '').toLowerCase().includes(term) ||
+      (asset.purchase_date || '').toLowerCase().includes(term) ||
+      (asset.last_service_date || '').toLowerCase().includes(term) ||
+      (asset.product_type_id || '').toString().toLowerCase().includes(term)
     );
   });
-
-  // return (
-  //   <div>
-  //     <input
-  //       type="text"
-  //       placeholder="Search assets..."
-  //       value={searchTerm}
-  //       onChange={onSearchChange}
-  //       className="mb-4 p-2 border rounded w-full max-w-sm"
-  //     />
-
-  //     <table className="min-w-full border-collapse border border-gray-300">
-  //       <thead>
-  //         <tr>
-  //           <th className="border border-gray-300 px-4 py-2">Asset Number</th>
-  //           <th className="border border-gray-300 px-4 py-2">Manufacturer Number</th>
-  //           <th className="border border-gray-300 px-4 py-2">Asset Barnumber</th>
-  //           <th className="border border-gray-300 px-4 py-2">Purchase Date</th>
-  //           <th className="border border-gray-300 px-4 py-2">Last Service Date</th>
-  //           <th className="border border-gray-300 px-4 py-2">Note</th>
-  //           <th className="border border-gray-300 px-4 py-2">Actions</th> {/* New  Edit column */}
-  //         </tr>
-  //       </thead>
-  //       <tbody>
-  //         {filteredAssets.length > 0 ? (
-  //           filteredAssets.map((asset) => (
-  //             <tr key={asset.id}>
-  //               <td className="border border-gray-300 px-4 py-2">{asset.asset_number}</td>
-  //               <td className="border border-gray-300 px-4 py-2">{asset.manufacturer_number}</td>
-  //               <td className="border border-gray-300 px-4 py-2">{asset.asset_barnumber}</td>
-  //               <td className="border border-gray-300 px-4 py-2">{new Date(asset.purchase_date).toLocaleDateString()}</td>
-  //               <td className="border border-gray-300 px-4 py-2">{asset.last_service_date ? new Date(asset.last_service_date).toLocaleDateString() : '-'}</td>
-  //               <td className="border border-gray-300 px-4 py-2">{asset.note || '-'}</td>
-  //               <td className="border border-gray-300 px-4 py-2 text-center"> 
-  //                 <Link href={`/assets/${asset.id}/edit`} className="text-blue-600 hover:underline">
-  //                   Edit
-  //                 </Link>
-  //               </td>
-  //             </tr>
-  //           ))
-  //         ) : (
-  //           <tr>
-  //             <td colSpan={7} className="text-center p-4">
-  //               No assets found.
-  //             </td>
-  //           </tr>
-  //         )}
-  //       </tbody>
-  //     </table>
-  //   </div>
-  // );
-
 
   return (
     <div className="mt-6 flow-root">
@@ -123,6 +77,10 @@ export default function AssetsTable({ assets }: AssetsTableProps) {
                 <div className="mb-2">
                   <p className="text-sm text-gray-500">Asset Number</p>
                   <p className="font-medium">{asset.asset_number}</p>
+                </div>
+                <div className="mb-2">
+                  <p className="text-sm text-gray-500">Asset</p>
+                  <p>{productTypeMap.get(asset.product_type_id) || 'Unknown'}</p>
                 </div>
                 <div className="mb-2">
                   <p className="text-sm text-gray-500">Manufacturer Number</p>
@@ -155,6 +113,7 @@ export default function AssetsTable({ assets }: AssetsTableProps) {
             <thead className="rounded-lg text-left text-sm font-normal">
               <tr>
                 <th className="px-4 py-5 font-medium sm:pl-6">Asset Number</th>
+                <th className="px-3 py-5 font-medium">Asset</th>
                 <th className="px-3 py-5 font-medium">Manufacturer Number</th>
                 <th className="px-3 py-5 font-medium">Asset Bar-code</th>
                 <th className="px-3 py-5 font-medium">Purchase Date</th>
@@ -174,6 +133,9 @@ export default function AssetsTable({ assets }: AssetsTableProps) {
                   >
                     <td className="whitespace-nowrap py-3 pl-6 pr-3">
                       {asset.asset_number}
+                    </td>
+                    <td className="whitespace-nowrap px-3 py-3">
+                      {productTypeMap.get(asset.product_type_id) || 'Unknown'}
                     </td>
                     <td className="whitespace-nowrap px-3 py-3">
                       {asset.manufacturer_number}

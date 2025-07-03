@@ -11,12 +11,13 @@ type TabsProps = {
   clientId: number;
   assets: Asset[];
   searchQuery?: string;
+  productTypes: { id: number; name: string }[];
 
 
   // tickets and users to be implemented later
 };
 
-export function Tabs({ assets, clientId }: TabsProps) {
+export function Tabs({ assets, clientId, productTypes }: TabsProps) {
 
   const [activeTab, setActiveTab] = useState<'assets' | 'tickets' | 'users'>('assets');
   return (
@@ -38,7 +39,7 @@ export function Tabs({ assets, clientId }: TabsProps) {
 
       {/* Tab Content */}
       <div className="mt-4">
-        {activeTab === 'assets' && < AssetsTable assets={assets} />}
+        {activeTab === 'assets' && < AssetsTable assets={assets} productTypes = {productTypes} />}
         {activeTab === 'tickets' && <div>Show tickets for client {clientId} here.</div>}
         {activeTab === 'users' && <div>Show Users for client {clientId} here.</div>}
       </div>

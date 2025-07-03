@@ -1,4 +1,4 @@
-import { getClientById , getAssetsByClientId } from '@/app/lib/data';
+import { fetchProductType, getClientById , getAssetsByClientId } from '@/app/lib/data';
 import { notFound } from 'next/navigation';
 import { Tabs } from '@/app/ui/clients/tab'; 
 
@@ -10,6 +10,7 @@ export default async function ClientDetailPage({ params }: any) {
   
   const client = await getClientById(Number(params.id));
   const assets = await getAssetsByClientId(Number(params.id));
+  const productTypes = await fetchProductType();
 
   if (!client) return notFound();
 
@@ -58,7 +59,7 @@ export default async function ClientDetailPage({ params }: any) {
 
         {/* Tabs => Assets, Tickets and Users */}
         <div className="pt-6 text-sm text-gray-700">
-          <Tabs assets={assets} clientId={Number(params.id)}/>
+          <Tabs assets={assets} clientId={Number(params.id)} productTypes = {productTypes}/>
         </div>
       </div>
     </div>
