@@ -3,7 +3,7 @@
 import React, { useState } from 'react';
 import Link from 'next/link'; 
 import { useDebouncedCallback } from 'use-debounce';
-import { AddAsset , EditAsset} from '@/app/ui/invoices/buttons';
+import { AddAsset , EditAsset, DeleteAsset} from '@/app/ui/invoices/buttons';
 
 type Asset = {
   id: number;
@@ -194,6 +194,7 @@ export default function AssetsTable({ assets }: AssetsTableProps) {
                     <td className="whitespace-nowrap py-3 pl-6 pr-3">
                       <div className="flex justify-end">
                         <EditAsset id={asset.id.toString()} />
+                        <DeleteAsset id={asset.id.toString()} />
                       </div>
                     </td>
                   </tr>
