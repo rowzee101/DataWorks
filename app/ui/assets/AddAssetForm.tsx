@@ -59,7 +59,7 @@ export function AddAssetForm({
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
+    <form onSubmit={handleSubmit(onSubmit)} className="space-y-4 full-width">
       <div>
         <label>Asset Number</label>
         <input
