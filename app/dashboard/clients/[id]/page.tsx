@@ -21,6 +21,8 @@ export async function generateMetadata({
   };
 }
 
+
+
 export default async function ClientDetailPage({ params }: any) {
   
   const client = await getClientById(Number(params.id));
