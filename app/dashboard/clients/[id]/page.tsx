@@ -23,7 +23,7 @@ export async function generateMetadata({
 
 
 
-export default async function ClientDetailPage({ params }: any) {
+export default async function ClientDetailPage({ params }: { params: { id: string } }) {
   
   const client = await getClientById(Number(params.id));
   const assets = await getAssetsByClientId(Number(params.id));
