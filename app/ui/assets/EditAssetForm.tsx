@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import Select from 'react-select';
-import { addNewAsset } from '@/app/lib/actions'; // You may rename this to updateAsset
+import { updateAsset } from '@/app/lib/actions'; // You may rename this to updateAsset
 
 type Option = {
   value: number;
@@ -38,6 +38,7 @@ export function EditAssetForm({
   const [client, setClient] = useState<Option | null>(null);
   const [productType, setProductType] = useState<Option | null>(null);
   const [supplier, setSupplier] = useState<Option | null>(null);
+  const assetId = initialData.asset_id;
 
   useEffect(() => {
     setClient(clients.find((c) => c.value === initialData.client_id) || null);
@@ -48,7 +49,7 @@ export function EditAssetForm({
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
-    await addNewAsset(formData); // Replace with `updateAsset(formData)` if needed
+    await updateAsset(assetId.toString(), formData); // Convert assetId to string
   };
 
   return (

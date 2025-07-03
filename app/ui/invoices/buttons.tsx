@@ -64,3 +64,15 @@ export function EditAsset({ id }: { id: string }) {
     </Link>
   );
 }
+
+
+export function DeleteAsset({ id }: { id: string }) {
+  return (
+    <Link
+      href={`/dashboard/assets/${id}/delete`}
+      className="rounded-md border p-2 hover:bg-gray-100"
+    >
+      <TrashIcon className="w-5" />
+    </Link>
+  );
+}
