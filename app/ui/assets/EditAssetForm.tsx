@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import Select from 'react-select';
 import { updateAsset } from '@/app/lib/actions'; // You may rename this to updateAsset
+import { DeleteAsset } from '@/app/ui/invoices/buttons'; // Adjust the import path as needed
 
 type Option = {
   value: number;
@@ -165,6 +166,7 @@ export function EditAssetForm({
         >
           Update Asset
         </button>
+        <DeleteAsset id={assetId.toString()} />
       </div>
     </form>
   );
