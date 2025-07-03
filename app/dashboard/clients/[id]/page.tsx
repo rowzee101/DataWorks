@@ -1,3 +1,5 @@
+import { Metadata } from 'next';
+
 import { fetchProductType, getClientById , getAssetsByClientId } from '@/app/lib/data';
 import { notFound } from 'next/navigation';
 import { Tabs } from '@/app/ui/clients/tab'; 
@@ -5,6 +7,16 @@ import { Tabs } from '@/app/ui/clients/tab';
 type PageProps = {
   params: { id: string };
 };
+
+export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+  const client = await getClientById(Number(params.id));
+  if (!client) return { title: 'Client Not Found' };
+
+  return {
+    title: client.name,
+  };
+}
+
 
 export default async function ClientDetailPage({ params }: any) {
   

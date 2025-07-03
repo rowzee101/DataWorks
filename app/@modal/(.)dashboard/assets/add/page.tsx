@@ -1,6 +1,13 @@
+import { Metadata } from 'next';
+
 import { Modal } from '@/app/ui/components/Modal';
 import { fetchClients, fetchProductType, fetchSupplierManufacturer } from '@/app/lib/data';
 import { AddAssetForm } from '@/app/ui/assets/AddAssetForm';
+
+
+export const metadata: Metadata = {
+  title: 'Add Asset',
+};
 
 export default async function AddAssetModal() {
 

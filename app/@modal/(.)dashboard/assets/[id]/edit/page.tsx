@@ -36,6 +36,12 @@ import {
   fetchSupplierManufacturer,
 } from '@/app/lib/data';
 
+import { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: 'Editing Asset',
+};
+
 type PageProps = {
   params: { id: string };
 };

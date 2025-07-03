@@ -3,6 +3,12 @@ import { Modal } from '@/app/ui/components/Modal';
 import { getAssetById, fetchProductType } from '@/app/lib/data';
 import DeleteAssetClient from '@/app/ui/assets/DeleteAssetForm'; // 👇 we'll define this next
 
+import { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: 'Delete Asset?',
+};
+
 type PageProps = {
   params: { id: string };
 };
