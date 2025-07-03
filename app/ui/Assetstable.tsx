@@ -144,7 +144,7 @@ export default function AssetsTable({ assets }: AssetsTableProps) {
                   <p className="text-sm text-gray-500">Note</p>
                   <p>{asset.note || '-'}</p>
                 </div>
-                <div className="mt-3 flex justify-end">
+                <div className="flex justify-end gap-2">
                   <EditAsset id={asset.id.toString()} />
                   <DeleteAsset id={asset.id.toString()} />
                 </div>
@@ -193,7 +193,7 @@ export default function AssetsTable({ assets }: AssetsTableProps) {
                       {asset.note || '-'}
                     </td>
                     <td className="whitespace-nowrap py-3 pl-6 pr-3">
-                      <div className="flex justify-end">
+                      <div className="flex justify-end gap-2">
                         <EditAsset id={asset.id.toString()} />
                         <DeleteAsset id={asset.id.toString()} />
                       </div>
