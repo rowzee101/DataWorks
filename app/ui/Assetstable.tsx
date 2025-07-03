@@ -193,12 +193,7 @@ export default function AssetsTable({ assets }: AssetsTableProps) {
                     </td>
                     <td className="whitespace-nowrap py-3 pl-6 pr-3">
                       <div className="flex justify-end">
-                        <Link
-                          href={`/assets/${asset.id}/edit`}
-                          className="text-blue-600 hover:underline"
-                        >
-                          Edit
-                        </Link>
+                        <EditAsset id={asset.id.toString()} />
                       </div>
                     </td>
                   </tr>
