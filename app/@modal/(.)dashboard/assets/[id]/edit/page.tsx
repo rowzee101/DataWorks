@@ -40,13 +40,8 @@ type PageProps = {
   params: { id: string };
 };
 
-export default async function EditAssetModal({ params }: PageProps) {
-  const assetId = Number(params.id);
-  const asset = await getAssetById(assetId);
-
-  if (!asset) {
-    return <div>Asset not found.</div>;
-  }
+export default async function EditAssetModal(props: any) {
+  const { params } = await props;
 
   const assetRow = await getAssetById(Number(params.id));
 
