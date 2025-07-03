@@ -146,6 +146,7 @@ export default function AssetsTable({ assets }: AssetsTableProps) {
                 </div>
                 <div className="mt-3 flex justify-end">
                   <EditAsset id={asset.id.toString()} />
+                  <DeleteAsset id={asset.id.toString()} />
                 </div>
               </div>
             ))}
