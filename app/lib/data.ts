@@ -333,3 +333,16 @@ export async function fetchProductType() {
     throw new Error('Failed to fetch all ProductType.');
   }
 }
+
+
+export async function getAssetById(id: number) {
+  try {
+    const result = await sql`
+      SELECT * FROM assets WHERE id = ${id};
+    `;
+    return result[0] || null;
+  } catch (error) {
+    console.error('Error fetching asset:', error);
+    return null;
+  }
+}

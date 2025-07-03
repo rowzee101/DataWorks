@@ -138,3 +138,15 @@ export type ProductType = {
   price: number | null;
 };
 
+export type AssetData = {
+  asset_id: number;
+  asset_number: string;
+  asset_barnumber?: string;
+  manufacturer_number: string;
+  purchase_date?: string;
+  last_service_date?: string;
+  note?: string;
+  client_id?: number;
+  supplier_id?: number;
+  product_type_id?: number;
+};
