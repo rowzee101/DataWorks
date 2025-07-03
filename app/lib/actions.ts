@@ -97,6 +97,7 @@ export async function updateInvoice(id: string, prevState: State,  formData: For
     console.error(error);
   }
  
+  // Revalidate the path to update the invoices displayed
   revalidatePath('/dashboard/invoices');
   redirect('/dashboard/invoices');
 }
@@ -128,4 +129,120 @@ export async function authenticate(
     }
     throw error;
   }
+}
+
+
+ 
+const AssetFormSchema = z.object({
+  asset_number: z.string({
+    required_error: 'Asset number is required.',
+  }),
+  asset_barnumber: z.string().optional(),
+  product_type_id: z.string({
+    required_error: 'Please select a product type.',
+  }),
+  client_id: z.string({
+    required_error: 'Please select a client.',
+  }),
+  manufacturer_number: z.string({
+    required_error: 'Manufacturer number is required.',
+  }),
+  supplier_id: z.string().optional(), // optional because DB allows null
+  purchase_date: z.string().optional(), // optional if you let DB default
+  last_service_date: z.string().optional(), // optional since it's nullable
+  note: z.string().optional(),
+});
+
+// const AddNewAsset = AssetFormSchema;
+// export async function addNewAsset(prevState: State, formData: FormData) {
+//   const validatedFields = AddNewAsset.safeParse({
+//     asset_number: formData.get('asset_number'),
+//     product_type_id: formData.get('product_type_id'),
+//     manufacturer_number: formData.get('manufacturer_number'),
+//     asset_barnumber: formData.get('asset_barnumber'),
+//     purchase_date: formData.get('purchase_date'),
+//     last_service_date: formData.get('last_service_date'),
+//     note: formData.get('note'),
+//     client_id: formData.get('client_id'),
+//     supplier_id: formData.get('supplier_id'),
+//   });
+    
+//   // If form validation fails, return errors early. Otherwise, continue.
+//   if (!validatedFields.success) {
+//     return {
+//       errors: validatedFields.error.flatten().fieldErrors,
+//       message: 'Missing Fields. Failed to Add Asset.',
+//     };
+//   }
+//   const { asset_number, product_type_id, manufacturer_number, asset_barnumber, purchase_date, last_service_date, note, client_id, supplier_id} = validatedFields.data;
+//   const safeNote = note === undefined ? null : note;
+//   const safeSupplierId = supplier_id === undefined ? null : supplier_id;
+//   const safePurchaseDate = purchase_date === undefined ? null : purchase_date;
+//   const safeLastServiceDate = last_service_date === undefined ? null : last_service_date;
+//   const safeAssetBarNumber = asset_barnumber === undefined ? null : asset_barnumber;
+
+//   try {
+//     await sql`
+//       INSERT INTO assets  (product_type_id, client_id, manufacturer_number, asset_number,  supplier_id, purchase_date, last_service_date, note, asset_barnumber)
+//       VALUES (${product_type_id}, ${client_id}, ${manufacturer_number}, ${asset_number}, ${safeSupplierId}, ${safePurchaseDate}, ${safeLastServiceDate}, ${safeNote}, ${safeAssetBarNumber})
+//     `;
+//   } catch (error) {
+//     // We'll log the error to the console for now
+//     console.error(error);
+//   }
+
+//   revalidatePath('/dashboard/assets'); // revalidate the path to update the assets displayed
+//   redirect('/dashboard/assets'); // redirect to the assets page after adding
+// }
+
+const AddNewAsset = AssetFormSchema;
+
+export async function addNewAsset(formData: FormData) {
+  const validatedFields = AddNewAsset.safeParse({
+    asset_number: formData.get('asset_number')?.toString(),
+    product_type_id: formData.get('product_type_id')?.toString(),
+    manufacturer_number: formData.get('manufacturer_number')?.toString(),
+    asset_barnumber: formData.get('asset_barnumber')?.toString(),
+    purchase_date: formData.get('purchase_date')?.toString(),
+    last_service_date: formData.get('last_service_date')?.toString(),
+    note: formData.get('note')?.toString(),
+    client_id: formData.get('client_id')?.toString(),
+    supplier_id: formData.get('supplier_id')?.toString(),
+  });
+
+  if (!validatedFields.success) {
+    return {
+      errors: validatedFields.error.flatten().fieldErrors,
+      message: 'Missing Fields. Failed to Add Asset.',
+    };
+  }
+
+  const {
+    asset_number,
+    product_type_id,
+    manufacturer_number,
+    asset_barnumber,
+    purchase_date,
+    last_service_date,
+    note,
+    client_id,
+    supplier_id,
+  } = validatedFields.data;
+
+  try {
+    await sql`
+      INSERT INTO assets 
+        (product_type_id, client_id, manufacturer_number, asset_number, supplier_id, purchase_date, last_service_date, note, asset_barnumber)
+      VALUES
+        (${Number(product_type_id)}, ${Number(client_id)}, ${manufacturer_number}, ${asset_number}, 
+         ${supplier_id ? Number(supplier_id) : null}, 
+         ${purchase_date ?? null}, ${last_service_date ?? null}, ${note ?? null}, ${asset_barnumber ?? null})
+    `;
+  } catch (error) {
+    console.error(error);
+    return { message: 'Failed to add asset due to database error.' };
+  }
+
+  revalidatePath('/dashboard/assets');
+  redirect('/dashboard/assets');
 }
