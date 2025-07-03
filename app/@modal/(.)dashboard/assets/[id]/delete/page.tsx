@@ -7,7 +7,8 @@ type PageProps = {
   params: { id: string };
 };
 
-export default async function DeleteAssetModal({ params }: PageProps) {
+export default async function DeleteAssetModal(props: any) {
+  const { params } = await props;
   const assetRow = await getAssetById(Number(params.id));
   const productTypes = await fetchProductType();
 
