@@ -8,18 +8,18 @@ type PageProps = {
   params: { id: string };
 };
 
-export async function generateMetadata({ params }: PageProps) {
+export async function generateMetadata({ params }: any) {
   const client = await getClientById(Number(params.id));
   if (!client) return { title: 'Client Not Found' };
 
   return {
-    title: client?.name || 'Client',
+    title: client.name,
   };
 }
 
 
-
-export default async function ClientDetailPage({ params }: PageProps) {
+export default async function ClientDetailPage({ params }: any) {
+  
   const client = await getClientById(Number(params.id));
   const assets = await getAssetsByClientId(Number(params.id));
   const productTypes = await fetchProductType();
