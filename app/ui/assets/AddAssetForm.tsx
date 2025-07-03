@@ -179,39 +179,68 @@ export function AddAssetForm({
   };
 
   return (
-    <form onSubmit={handleSubmit} className="grid grid-cols-1 md:grid-cols-2 gap-4 w-full">
-      <div>
-        <label>Asset Number</label>
-        <input name="asset_number" required className="input" />
+    <form onSubmit={handleSubmit} className="grid grid-cols-1 md:grid-cols-2 gap-6 w-full">
+      {/* Asset Number */}
+      <div className="bg-gray-50 p-4 rounded-lg shadow-sm">
+        <label className="block mb-1 font-medium text-sm text-gray-700">Asset Number</label>
+        <input
+          name="asset_number"
+          required
+          className="w-full p-2 border border-gray-300 rounded bg-white"
+        />
       </div>
 
-      <div>
-        <label>Asset Barcode</label>
-        <input name="asset_barnumber" className="input" />
+      {/* Asset Barcode */}
+      <div className="bg-gray-50 p-4 rounded-lg shadow-sm">
+        <label className="block mb-1 font-medium text-sm text-gray-700">Asset Barcode</label>
+        <input
+          name="asset_barnumber"
+          className="w-full p-2 border border-gray-300 rounded bg-white"
+        />
       </div>
 
-      <div>
-        <label>Manufacturer Number</label>
-        <input name="manufacturer_number" required className="input" />
+      {/* Manufacturer Number */}
+      <div className="bg-gray-50 p-4 rounded-lg shadow-sm">
+        <label className="block mb-1 font-medium text-sm text-gray-700">Manufacturer Number</label>
+        <input
+          name="manufacturer_number"
+          required
+          className="w-full p-2 border border-gray-300 rounded bg-white"
+        />
       </div>
 
-      <div>
-        <label>Purchase Date</label>
-        <input type="date" name="purchase_date" className="input" />
+      {/* Purchase Date */}
+      <div className="bg-gray-50 p-4 rounded-lg shadow-sm">
+        <label className="block mb-1 font-medium text-sm text-gray-700">Purchase Date</label>
+        <input
+          type="date"
+          name="purchase_date"
+          className="w-full p-2 border border-gray-300 rounded bg-white"
+        />
       </div>
 
-      <div>
-        <label>Last Service Date</label>
-        <input type="date" name="last_service_date" className="input" />
+      {/* Last Service Date */}
+      <div className="bg-gray-50 p-4 rounded-lg shadow-sm">
+        <label className="block mb-1 font-medium text-sm text-gray-700">Last Service Date</label>
+        <input
+          type="date"
+          name="last_service_date"
+          className="w-full p-2 border border-gray-300 rounded bg-white"
+        />
       </div>
 
-      <div>
-        <label>Note</label>
-        <textarea name="note" className="input" />
+      {/* Note */}
+      <div className="bg-gray-50 p-4 rounded-lg shadow-sm md:col-span-2">
+        <label className="block mb-1 font-medium text-sm text-gray-700">Note</label>
+        <textarea
+          name="note"
+          className="w-full p-2 border border-gray-300 rounded bg-white"
+        />
       </div>
 
-      <div>
-        <label>Client</label>
+      {/* Client */}
+      <div className="bg-gray-50 p-4 rounded-lg shadow-sm">
+        <label className="block mb-1 font-medium text-sm text-gray-700">Client</label>
         <Select
           options={clients}
           isClearable
@@ -221,8 +250,9 @@ export function AddAssetForm({
         <input type="hidden" name="client_id" value={client?.value ?? ''} />
       </div>
 
-      <div>
-        <label>Product Type</label>
+      {/* Product Type */}
+      <div className="bg-gray-50 p-4 rounded-lg shadow-sm">
+        <label className="block mb-1 font-medium text-sm text-gray-700">Product Type</label>
         <Select
           options={productTypes}
           isClearable
@@ -232,8 +262,9 @@ export function AddAssetForm({
         <input type="hidden" name="product_type_id" value={productType?.value ?? ''} />
       </div>
 
-      <div>
-        <label>Supplier</label>
+      {/* Supplier */}
+      <div className="bg-gray-50 p-4 rounded-lg shadow-sm">
+        <label className="block mb-1 font-medium text-sm text-gray-700">Supplier</label>
         <Select
           options={suppliers}
           isClearable
@@ -243,9 +274,15 @@ export function AddAssetForm({
         <input type="hidden" name="supplier_id" value={supplier?.value ?? ''} />
       </div>
 
-      <button type="submit" className="bg-blue-600 text-white px-4 py-2 rounded col-span-2">
-        Add Asset
-      </button>
+      {/* Submit */}
+      <div className="md:col-span-2">
+        <button
+          type="submit"
+          className="w-full bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 transition"
+        >
+          Add Asset
+        </button>
+      </div>
     </form>
   );
 }

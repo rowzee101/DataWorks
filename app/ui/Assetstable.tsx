@@ -3,7 +3,7 @@
 import React, { useState } from 'react';
 import Link from 'next/link'; 
 import { useDebouncedCallback } from 'use-debounce';
-import { AddAsset } from '@/app/ui/invoices/buttons';
+import { AddAsset , EditAsset} from '@/app/ui/invoices/buttons';
 
 type Asset = {
   id: number;
@@ -145,12 +145,7 @@ export default function AssetsTable({ assets }: AssetsTableProps) {
                   <p>{asset.note || '-'}</p>
                 </div>
                 <div className="mt-3 flex justify-end">
-                  <Link
-                    href={`/assets/${asset.id}/edit`}
-                    className="text-blue-600 hover:underline"
-                  >
-                    Edit
-                  </Link>
+                  <EditAsset id={asset.id.toString()} />
                 </div>
               </div>
             ))}

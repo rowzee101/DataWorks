@@ -52,3 +52,15 @@ export function AddAsset() {
     </Link>
   );
 }
+
+
+export function EditAsset({ id }: { id: string }) {
+  return (
+    <Link
+      href={`/dashboard/assets/${id}/edit`}
+      className="rounded-md border p-2 hover:bg-gray-100"
+    >
+      <PencilIcon className="w-5" />
+    </Link>
+  );
+}
