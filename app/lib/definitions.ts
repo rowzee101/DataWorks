@@ -150,3 +150,8 @@ export type AssetData = {
   supplier_id?: number;
   product_type_id?: number;
 };
+
+export type Clienttype = {
+  id: number;
+  name: string;
+}

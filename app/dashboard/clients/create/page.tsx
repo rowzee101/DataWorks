@@ -4,26 +4,22 @@ export const metadata: Metadata = {
   title: 'Add New Client',
 };
 
-import Form from '@/app/ui/invoices/create-form';
-import Breadcrumbs from '@/app/ui/invoices/breadcrumbs';
-import { fetchCustomers } from '@/app/lib/data';
- 
+import { AddClientForm } from '@/app/ui/clients/AddClientForm';
+
+// You may need to import or define fetchClientTypes and Option type
+import { fetchClientTypes } from '@/app/lib/data'; // adjust path as needed
+import type { Option } from '@/app/ui/clients/AddClientForm';
+
 export default async function Page() {
-  const customers = await fetchCustomers();
- 
+  const rawClientTypes = await fetchClientTypes();
+  const clientTypes: Option[] = rawClientTypes.map((type: any) => ({
+    value: type.id,
+    label: type.name,
+  }));
+
   return (
     <main>
-      <Breadcrumbs
-        breadcrumbs={[
-          { label: 'Clients', href: '/dashboard/clients' },
-          {
-            label: 'Add New Client',
-            href: '/dashboard/clients/create',
-            active: true,
-          },
-        ]}
-      />
-      <Form customers={customers} />
+      <AddClientForm clientTypes={clientTypes} />
     </main>
   );
 }

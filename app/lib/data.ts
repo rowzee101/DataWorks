@@ -220,7 +220,7 @@ export async function fetchFilteredCustomers(query: string) {
 
 
 //////////////////////////
-import type { Asset , Client , ProductType , SupplierManufacturer } from './definitions';
+import type { Asset , Client , ProductType , SupplierManufacturer , Clienttype} from './definitions';
 
 // This function fetches client data for the dashboard, including the number of assets associated with each client.
 // It returns an array of objects containing client ID, name, and asset count.
@@ -344,5 +344,22 @@ export async function getAssetById(id: number) {
   } catch (error) {
     console.error('Error fetching asset:', error);
     return null;
+  }
+}
+
+export async function fetchClientTypes() {
+  try {
+    const ClientTypes = await sql<Clienttype[]>`
+      SELECT
+        id,
+        name
+      FROM product_types
+      ORDER BY name ASC
+    `;
+
+    return ClientTypes;
+  } catch (err) {
+    console.error('Database Error:', err);
+    throw new Error('Failed to fetch all ProductType.');
   }
 }

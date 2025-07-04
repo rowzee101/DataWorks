@@ -264,3 +264,73 @@ export async function deleteAssetByID(id: string) {
   await sql`DELETE FROM assets WHERE id = ${id}`;
   revalidatePath('/dashboard/assets');
 }
+
+
+
+
+const ClientFormSchema = z.object({
+  name: z.string({ required_error: 'Client name is required.' }),
+  website: z.string({ required_error: 'Website is required.' }),
+  main_number: z.string({ required_error: 'Main number is required.' }),
+  state: z.string({ required_error: 'State is required.' }),
+  address: z.string({ required_error: 'Address is required.' }),
+  country: z.string({ required_error: 'Country is required.' }),
+  client_type: z.string({ required_error: 'Client type is required.' }),
+  brief: z.string().optional(),
+});
+
+const AddNewClient = ClientFormSchema;
+
+export async function addNewClient(formData: FormData) {
+  const validatedFields = AddNewClient.safeParse({
+    name: formData.get('name')?.toString(),
+    website: formData.get('website')?.toString(),
+    main_number: formData.get('main_number')?.toString(),
+    state: formData.get('state')?.toString(),
+    address: formData.get('address')?.toString(),
+    country: formData.get('country')?.toString(),
+    client_type: formData.get('client_type')?.toString(),
+    brief: formData.get('brief')?.toString(),
+  });
+
+  if (!validatedFields.success) {
+    return {
+      errors: validatedFields.error.flatten().fieldErrors,
+      message: 'Missing or invalid fields. Failed to add client.',
+    };
+  }
+
+  const {
+    name,
+    website,
+    main_number,
+    state,
+    address,
+    country,
+    client_type,
+    brief,
+  } = validatedFields.data;
+
+  try {
+    await sql`
+      INSERT INTO clients (name, website, main_number, state, address, country, client_type, created_at, brief)
+      VALUES (
+        ${name},
+        ${website},
+        ${main_number},
+        ${state},
+        ${address},
+        ${country},
+        ${Number(client_type)},
+        NOW(),
+        ${brief ?? null}
+      )
+    `;
+  } catch (error) {
+    console.error(error);
+    return { message: 'Failed to add client due to database error.' };
+  }
+
+  revalidatePath('/dashboard/clients');
+  redirect('/dashboard/clients');
+}
