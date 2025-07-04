@@ -1,6 +1,7 @@
 import { Metadata } from 'next';
 import { fetchAssetsExceptID, fetchProductType , getAssetsByClientId } from '@/app/lib/data';
-import { Tabs } from '@/app/ui/assets/tab';
+import dynamic from 'next/dynamic';
+const Tabs = dynamic(() => import('@/app/ui/assets/tab'), { ssr: false });
 
 export const metadata: Metadata = {
   title: 'Assets',
@@ -13,7 +14,7 @@ export default async function Page() {
   return (
     <div className="p-6 block border rounded-xl bg-[#FFFFFF]">
       <div className="pt-6 text-sm text-gray-700">
-        <Tabs assets={assets} clientId={0} productTypes = {productTypes} Myassets={myAssets}/>
+        <Tabs assets={assets} productTypes = {productTypes} Myassets={myAssets}/>
       </div>
     </div>
   );

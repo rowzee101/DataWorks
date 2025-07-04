@@ -8,17 +8,15 @@ import type { Asset } from '@/app/lib/definitions';
 // import Table from '@/app/ui/invoices/table';
 
 type TabsProps = {
-  clientId: number;
   assets: Asset[];
   Myassets: Asset[];
   searchQuery?: string;
   productTypes: { id: number; name: string }[];
 
-
   // tickets and users to be implemented later
 };
 
-export function Tabs({ assets, clientId, productTypes , Myassets }: TabsProps) {
+export default function Tabs({ assets, productTypes , Myassets }: TabsProps) {
 
   const [activeTab, setActiveTab] = useState<'Client Assets' | 'My Assets'>('Client Assets');
   return (
