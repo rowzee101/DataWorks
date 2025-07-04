@@ -24,7 +24,7 @@ export function ClientCell({ clientId, clientName, assetCount }: Props) {
       </Link>
 
       {/* Overlay button absolutely positioned */}
-      <div className="absolute top-2 right-2 z-10 gap-2">
+      <div className="absolute top-2 right-2 z-10 flex flex-row gap-2">
         <UpdateClient id={String(clientId)} />
         <DeleteClient id={String(clientId)} />
       </div>

@@ -2,6 +2,8 @@
 
 import { useRouter } from 'next/navigation';
 import { useRef, useState, useTransition } from 'react';
+import html2pdf from 'html2pdf.js';
+import { DocumentArrowDownIcon} from '@heroicons/react/24/outline';
 
 type DeleteButtonProps = {
   onDelete: () => Promise<void>;
@@ -62,6 +64,38 @@ export function DeleteButton({
       } disabled:opacity-50 ${holding ? 'scale-95' : ''} ${className}`}
     >
       {isPending ? 'Deleting...' : label}
+    </button>
+  );
+}
+
+///////////////////////////
+
+
+
+
+export function DownloadPDFButton({ clientName }: { clientName: string }) {
+  const handleDownload = () => {
+    const element = document.getElementById('pdf-content');
+    if (!element) return;
+
+    const opt = {
+      margin: 0.5,
+      filename: `${clientName}_info.pdf`,
+      image: { type: 'jpeg', quality: 0.98 },
+      html2canvas: { scale: 2 },
+      jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' },
+    };
+
+    html2pdf().set(opt).from(element).save();
+  };
+
+  return (
+    <button
+      onClick={handleDownload}
+      className="flex h-10 items-center rounded-lg bg-white px-4 text-sm font-medium text-black transition-colors hover:bg-gray-100 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black"
+    >
+      Download PDF
+      <DocumentArrowDownIcon className="h-5 md:ml-4" />
     </button>
   );
 }
