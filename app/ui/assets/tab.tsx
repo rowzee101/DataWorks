@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import AssetsTable from '@/app/ui/Assetstable'; 
-import type { Asset } from '@/app/lib/definitions'; 
+import type { Asset , ProductType } from '@/app/lib/definitions'; 
 
 
 // import Table from '@/app/ui/invoices/table';
@@ -15,8 +15,16 @@ type TabsProps = {
 
   // tickets and users to be implemented later
 };
-
-export default async function Tabs({ assets, productTypes , Myassets }: TabsProps) {
+export default async function Tabs({
+  assets,
+  productTypes,
+  Myassets,
+}: {
+  assets: Asset[];
+  productTypes: ProductType[];
+  Myassets: Asset[];
+}) {
+// export default async function Tabs({ assets, productTypes , Myassets }: TabsProps) {
 
   const [activeTab, setActiveTab] = useState<'Client Assets' | 'My Assets'>('Client Assets');
   return (
