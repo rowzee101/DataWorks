@@ -3,6 +3,7 @@
 import { useRouter } from 'next/navigation';
 import { useTransition } from 'react';
 import { deleteClientByID } from '@/app/lib/actions';
+import { DeleteButton } from '@/app/ui/clientSided/buttons';
 
 export default function DeleteClient({
   clientId,
@@ -24,22 +25,15 @@ export default function DeleteClient({
     <div className="p-6">
       <h2 className="text-lg font-semibold mb-4">Delete client</h2>
       <p className="mb-6">
-        Are you sure you want to delete client <strong>{clientName}</strong>
+        Hold the delete button for 2 seconds to delete <strong>{clientName}</strong>.
       </p>
       <div className="flex justify-end gap-4">
-        <button
-          onClick={() => router.push('/dashboard/assets')}
-          className="px-4 py-2 border rounded text-gray-700 hover:bg-gray-100"
-        >
-          Cancel
-        </button>
-        <button
-          onClick={handleDelete}
-          disabled={isPending}
-          className="px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700 disabled:opacity-50"
-        >
-          {isPending ? 'Deleting...' : 'Delete'}
-        </button>
+        <DeleteButton
+          onDelete={() => deleteClientByID(clientId.toString())}
+          confirmText={`Are you absolutely sure you want to delete "${clientName}"?`}
+          cancelUrl="/dashboard/clients"
+          holdDurationMs={2000} // 2 seconds hold
+        />
       </div>
     </div>
   );
