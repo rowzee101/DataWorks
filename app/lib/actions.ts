@@ -334,3 +334,62 @@ export async function addNewClient(formData: FormData) {
   revalidatePath('/dashboard/clients');
   redirect('/dashboard/clients');
 }
+
+
+export async function updateClient(id: string, formData: FormData) {
+  const validatedFields = AddNewClient.safeParse({
+    name: formData.get('name')?.toString(),
+    website: formData.get('website')?.toString(),
+    main_number: formData.get('main_number')?.toString(),
+    state: formData.get('state')?.toString(),
+    address: formData.get('address')?.toString(),
+    country: formData.get('country')?.toString(),
+    client_type: formData.get('client_type')?.toString(),
+    brief: formData.get('brief')?.toString(),
+  });
+
+  if (!validatedFields.success) {
+    return {
+      errors: validatedFields.error.flatten().fieldErrors,
+      message: 'Missing Fields. Failed to Update Asset.',
+    };
+  }
+
+
+  const {
+    name,
+    website,
+    main_number,
+    state,
+    address,
+    country,
+    client_type,
+    brief,
+  } = validatedFields.data;
+
+  try {
+  await sql`
+    UPDATE clients SET
+      name = ${name},
+      website = ${website},
+      main_number = ${main_number},
+      state = ${state},
+      address = ${address},
+      country = ${country},
+      client_type = ${Number(client_type)},
+      brief = ${brief ?? null}
+    WHERE id = ${id}
+  `;
+  } catch (error) {
+    console.error(error);
+    return { message: 'Failed to update asset due to database error.' };
+  }
+
+  revalidatePath('/dashboard/clients');
+  redirect('/dashboard/clients');
+}
+
+export async function deleteClientByID(id: string) {
+  await sql`DELETE FROM clients WHERE id = ${id}`;
+  revalidatePath('/dashboard/clients');
+}

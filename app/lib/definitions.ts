@@ -117,7 +117,8 @@ export type Client = {
   country: string;
   client_type: number; // foreign key to ClientType
   created_at: string;  // ISO timestamp
-  brief: string | null;
+  brief?: string;
+
 };
 
 export type SupplierManufacturer = {

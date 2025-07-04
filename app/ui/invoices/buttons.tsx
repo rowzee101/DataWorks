@@ -76,3 +76,25 @@ export function DeleteAsset({ id }: { id: string }) {
     </Link>
   );
 }
+
+export function UpdateClient({ id }: { id: string }) {
+  return (
+    <Link
+      href={`/dashboard/clients/${id}/edit`}
+      className="rounded-md border p-2 hover:bg-gray-100"
+    >
+      <PencilIcon className="w-5" />
+    </Link>
+  );
+}
+
+export function DeleteClient({ id }: { id: string }) {
+  return (
+    <Link
+      href={`/dashboard/clients/${id}/delete`}
+      className="rounded-md border p-2 hover:bg-gray-100"
+    >
+      <TrashIcon className="w-5" />
+    </Link>
+  );
+}

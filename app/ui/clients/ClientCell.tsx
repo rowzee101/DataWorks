@@ -1,6 +1,7 @@
 'use client';
 
 import Link from 'next/link';
+import { UpdateClient } from '@/app/ui/invoices/buttons'; // Adjust the import path as needed
 
 type Props = {
   clientId: number;
@@ -18,6 +19,7 @@ export function ClientCell({ clientId, clientName, assetCount }: Props) {
       <div className="text-sm text-gray-600">
         {assetCount} {assetCount === 1 ? 'asset' : 'assets'}
       </div>
+      <UpdateClient id={String(clientId)} />
     </Link>
   );
 }
