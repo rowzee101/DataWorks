@@ -379,7 +379,7 @@ export async function fetchAssets() {
   }
 }
 
-export async function fetchAssetsExceptID(Id: string) {
+export async function fetchAssetsExceptID(Id: number) {
   try {
     const assets = await sql<Asset[]>`
       SELECT *

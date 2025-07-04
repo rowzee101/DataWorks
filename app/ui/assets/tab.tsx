@@ -16,7 +16,7 @@ type TabsProps = {
   // tickets and users to be implemented later
 };
 
-export default function Tabs({ assets, productTypes , Myassets }: TabsProps) {
+export  function Tabs({ assets, productTypes , Myassets }: TabsProps) {
 
   const [activeTab, setActiveTab] = useState<'Client Assets' | 'My Assets'>('Client Assets');
   return (
