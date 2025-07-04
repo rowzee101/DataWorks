@@ -15,7 +15,7 @@ export function ClientCell({ clientId, clientName, assetCount }: Props) {
       {/* Link covers full card */}
       <Link
         href={`/dashboard/clients/${clientId}`}
-        className="block border rounded-xl p-4 hover:bg-gray-50 transition bg-sky-600"
+        className="block border rounded-xl p-4 hover:bg-gray-50 transition bg-[#FFFFFF]"
       >
         <div className="text-lg font-semibold">{clientName}</div>
         <div className="text-sm text-gray-600">

@@ -363,3 +363,48 @@ export async function fetchClientTypes() {
     throw new Error('Failed to fetch all ProductType.');
   }
 }
+
+export async function fetchAssets() {
+  try {
+    const Assets = await sql<Asset[]>`
+      SELECT
+        id,
+        name,
+        client_id,
+        product_type_id,
+        supplier_manufacturer_id,
+        purchase_date,
+        warranty_expiration_date
+      FROM assets
+      ORDER BY purchase_date DESC
+    `;
+
+    return Assets;
+  } catch (err) {
+    console.error('Database Error:', err);
+    throw new Error('Failed to fetch all Assets.');
+  }
+}
+
+export async function fetchAssetsExceptID(Id: string) {
+  try {
+    const assets = await sql<Asset[]>`
+      SELECT
+        id,
+        name,
+        client_id,
+        product_type_id,
+        supplier_manufacturer_id,
+        purchase_date,
+        warranty_expiration_date
+      FROM assets
+      WHERE id != ${Id}
+      ORDER BY purchase_date DESC
+    `;
+
+    return assets;
+  } catch (err) {
+    console.error('Database Error:', err);
+    throw new Error('Failed to fetch assets excluding the given ID.');
+  }
+}
