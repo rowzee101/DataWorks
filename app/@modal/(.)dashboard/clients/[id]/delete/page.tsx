@@ -14,16 +14,16 @@ type PageProps = {
 
 export default async function DeleteAssetModal(props: any) {
   const { params } = await props;
-  const assetRow = await getClientById(Number(params.id));
+  const clientRow = await getClientById(Number(params.id));
 
-  if (!assetRow) return <div>Client not found.</div>;
+  if (!clientRow) return <div>Client not found.</div>;
 
 
   return (
     <Modal>
       <DeleteClient
-        clientId={assetRow.id}
-        clientName={assetRow.asset_number || 'Unknown Client'}
+        clientId={clientRow.id}
+        clientName={clientRow.name || 'Unknown Client'}
       />
     </Modal>
   );
