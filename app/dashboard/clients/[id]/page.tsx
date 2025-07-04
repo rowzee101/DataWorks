@@ -1,7 +1,7 @@
 import { Metadata } from 'next';
 
 import { fetchProductType, getClientById , getAssetsByClientId } from '@/app/lib/data';
-import { DownloadPDFButton } from '@/app/ui/clientSided/buttons';
+
 import { notFound } from 'next/navigation';
 import { Tabs } from '@/app/ui/clients/tab'; 
 
@@ -32,7 +32,7 @@ export default async function ClientDetailPage({ params }: any) {
   const mapQuery = encodeURIComponent(fullAddress);
 
   return (
-    <div className="p-6" id="pdf-content">
+    <div className="p-6">
       <div className="rounded-2xl shadow bg-white p-6 flex flex-col gap-4 w-full">
         <div className="flex flex-col md:flex-row gap-4">
           {/* Mini Map */}
@@ -66,10 +66,7 @@ export default async function ClientDetailPage({ params }: any) {
             </a>
           </p>
         </div>
-        {/* Download Button */}
-        <div className="mb-4 flex justify-end">
-          <DownloadPDFButton clientName={client.name} />
-        </div>
+        
       </div>
       <div className="rounded-2xl shadow bg-white p-6 flex flex-col gap-4 w-full">
         
