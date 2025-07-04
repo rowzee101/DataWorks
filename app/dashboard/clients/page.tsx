@@ -34,12 +34,11 @@ export default async function DashboardPage() {
       ))}
       <Link
         href="/dashboard/clients/create"
-        className="flex items-center justify-center h-48 bg-white rounded-lg shadow hover:shadow-lg transition-shadow duration-200"
-        
-      > 
+        className="block border rounded-xl p-4 hover:bg-gray-50 transition"
+      >
         <div className="flex flex-col items-center justify-center text-gray-600">
           <PlusIcon className="h-8 w-8 mb-2" />
-          <span className="text-sm">Add New Client</span>
+          <span className="text-lg font-semibold">Add New Client</span>
         </div>
       </Link>
 
