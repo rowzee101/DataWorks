@@ -61,6 +61,8 @@ import {
   UserGroupIcon,
   HomeIcon,
   DocumentDuplicateIcon,
+  BuildingOffice2Icon,
+  InboxStackIcon,
 } from '@heroicons/react/24/outline';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
@@ -68,45 +70,34 @@ import clsx from 'clsx';
 
 const links = [
   { name: 'Home', href: '/dashboard', icon: HomeIcon },
-  {
-    name: 'Invoices',
-    href: '/dashboard/invoices',
-    icon: DocumentDuplicateIcon,
-  },
-  { name: 'Clients', href: '/dashboard/clients', icon: UserGroupIcon },
-  {
-    name: 'Trials',
-    href: '/dashboard/trials',
-    icon: DocumentDuplicateIcon,
-  },
+  { name: 'Clients', href: '/dashboard/clients', icon: BuildingOffice2Icon },
+  { name: 'Invoices', href: '/dashboard/invoices',icon: DocumentDuplicateIcon, },
+  { name: 'Assets', href: '/dashboard/assets', icon: InboxStackIcon },
+  { name: 'Users', href: '/dashboard/users', icon: UserGroupIcon },
 ];
 
 export default function NavLinks() {
   const pathname = usePathname();
-
   return (
-    <div className="rounded-sm bg-[#2a2a2a] p-1">
+    <>
       {links.map((link) => {
         const LinkIcon = link.icon;
-        const isActive = pathname === link.href;
-
         return (
           <Link
             key={link.name}
             href={link.href}
             className={clsx(
-              'flex h-[48px] grow items-center justify-center gap-2 rounded-sm p-3 text-sm font-medium md:flex-none md:justify-start md:p-2 md:px-3',
+              'flex h-[48px] grow items-center justify-center gap-2 rounded-md bg-1D1E18 p-3 text-sm font-medium hover:bg-[#aad2ba] hover:text-white-600 md:flex-none md:justify-start md:p-2 md:px-3',
               {
-                'bg-[#3a3a3a] text-white': isActive,
-                'text-white hover:bg-[#3a3a3a]': !isActive,
+                'bg-sky-100 text-white-600': pathname === link.href,
               },
             )}
-          >
+            >
             <LinkIcon className="w-6" />
             <p className="hidden md:block">{link.name}</p>
           </Link>
         );
       })}
-    </div>
+    </>
   );
 }
