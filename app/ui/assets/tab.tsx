@@ -17,7 +17,7 @@ type TabsProps = {
 };
 
 
-export default async function Tabs({ assets, productTypes , Myassets }: TabsProps) {
+export function Tabs({ assets, productTypes , Myassets }: TabsProps) {
 
   const [activeTab, setActiveTab] = useState<'Client Assets' | 'My Assets'>('Client Assets');
   return (
@@ -39,10 +39,13 @@ export default async function Tabs({ assets, productTypes , Myassets }: TabsProp
 
       {/* Tab Content */}
       <div className="mt-4">
-        {activeTab === 'Client Assets' && < AssetsTable assets={assets} productTypes = {productTypes} />}
-        {activeTab === 'My Assets' && < AssetsTable assets={Myassets} productTypes = {productTypes} />}
+        {activeTab === 'Client Assets' && <div className="mt-4"> dada </div>}
+        {activeTab === 'My Assets' && <div className="mt-4"> dada </div>}
       </div>
     </div>
   );
 }
 {/* <Table query={searchQuery_} currentPage={currentPage} /> */}
+
+{/* < AssetsTable assets={assets} productTypes = {productTypes} />
+< AssetsTable assets={Myassets} productTypes = {productTypes} /> */}
