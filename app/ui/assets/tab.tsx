@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import AssetsTable from '@/app/ui/Assetstable'; 
-import type { Asset , ProductType } from '@/app/lib/definitions'; 
+import type { Asset } from '@/app/lib/definitions'; 
 
 
 // import Table from '@/app/ui/invoices/table';
@@ -15,23 +15,16 @@ type TabsProps = {
 
   // tickets and users to be implemented later
 };
-export default async function Tabs({
-  assets,
-  productTypes,
-  Myassets,
-}: {
-  assets: Asset[];
-  productTypes: ProductType[];
-  Myassets: Asset[];
-}) {
-// export default async function Tabs({ assets, productTypes , Myassets }: TabsProps) {
+
+
+export default async function Tabs({ assets, productTypes , Myassets }: TabsProps) {
 
   const [activeTab, setActiveTab] = useState<'Client Assets' | 'My Assets'>('Client Assets');
   return (
     <div className="mt-6">
       {/* Tab Buttons */}
       <div className="flex space-x-4 border-b">
-        {['assets', 'tickets', 'users'].map((tab) => (
+        {['Client Assets', 'My Assets'].map((tab) => (
           <button
             key={tab}
             onClick={() => setActiveTab(tab as typeof activeTab)}

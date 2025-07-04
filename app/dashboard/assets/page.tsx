@@ -1,7 +1,7 @@
 import { Metadata } from 'next';
 import { fetchAssetsExceptID, fetchProductType , getAssetsByClientId } from '@/app/lib/data';
 import TabsWrapper from '@/app/lib/Tabswrapper';
-// import  Tabs  from '@/app/ui/assets/tab';
+import  Tabs  from '@/app/ui/assets/tab';
 
 export const metadata: Metadata = {
   title: 'Assets',
@@ -14,8 +14,8 @@ export default async function AssetsPage( params: any) {
   return (
     <div className="p-6 block border rounded-xl bg-[#FFFFFF]">
       <div className="pt-6 text-sm text-gray-700">
-        <TabsWrapper assets={assets} productTypes={productTypes} Myassets={myAssets} clientId={0} />
-        {/* <Tabs assets={assets} productTypes = {productTypes} Myassets={myAssets}/> */}
+        {/* <TabsWrapper assets={assets} productTypes={productTypes} Myassets={myAssets} clientId={0} /> */}
+        <Tabs assets={assets} productTypes = {productTypes} Myassets={myAssets}/>
       </div>
     </div>
   );
