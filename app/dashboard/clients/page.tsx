@@ -9,6 +9,8 @@ import { InvoicesTableSkeleton } from '@/app/ui/skeletons';
 import { Suspense } from 'react';
 import { fetchInvoicesPages } from '@/app/lib/data';
 import { Metadata } from 'next';
+import Link from 'next/link';
+import PlusIcon from '@heroicons/react/24/outline/PlusIcon';
 
 export const metadata: Metadata = {
   title: 'Clients',
@@ -30,6 +32,17 @@ export default async function DashboardPage() {
           assetCount={client.asset_count}
         />
       ))}
+      <Link
+        href="/dashboard/clients/create"
+        className="flex items-center justify-center h-48 bg-white rounded-lg shadow hover:shadow-lg transition-shadow duration-200"
+        
+      > 
+        <div className="flex flex-col items-center justify-center text-gray-600">
+          <PlusIcon className="h-8 w-8 mb-2" />
+          <span className="text-sm">Add New Client</span>
+        </div>
+      </Link>
+
     </div>
   );
 }
