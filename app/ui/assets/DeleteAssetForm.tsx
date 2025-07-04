@@ -3,6 +3,7 @@
 import { useRouter } from 'next/navigation';
 import { useTransition } from 'react';
 import { deleteAssetByID } from '@/app/lib/actions';
+import { DeleteButton } from '@/app/ui/clientSided/buttons';
 
 export default function DeleteAssetClient({
   assetId,
@@ -36,13 +37,12 @@ export default function DeleteAssetClient({
         >
           Cancel
         </button>
-        <button
-          onClick={handleDelete}
-          disabled={isPending}
-          className="px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700 disabled:opacity-50"
-        >
-          {isPending ? 'Deleting...' : 'Delete'}
-        </button>
+        <DeleteButton
+          onDelete={() => deleteAssetByID(assetId.toString())}
+          confirmText={`Are you absolutely sure you want to delete "${productTypeName}"?`}
+          cancelUrl="/dashboard/clients"
+          holdDurationMs={2000} // 2 seconds hold
+        />
       </div>
     </div>
   );

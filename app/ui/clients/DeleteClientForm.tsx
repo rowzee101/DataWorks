@@ -28,6 +28,12 @@ export default function DeleteClient({
         Hold the delete button for 2 seconds to delete <strong>{clientName}</strong>.
       </p>
       <div className="flex justify-end gap-4">
+        <button
+          onClick={() => router.push('/dashboard/clients')}
+          className="px-4 py-2 border rounded text-gray-700 hover:bg-gray-100"
+        >
+          Cancel
+        </button>
         <DeleteButton
           onDelete={() => deleteClientByID(clientId.toString())}
           confirmText={`Are you absolutely sure you want to delete "${clientName}"?`}
