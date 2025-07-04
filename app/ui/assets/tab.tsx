@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import AssetsTable from '@/app/ui/Assetstable'; 
 import type { Asset } from '@/app/lib/definitions'; 
+import { Suspense } from 'react';
 
 
 // import Table from '@/app/ui/invoices/table';
@@ -39,13 +40,11 @@ export function Tabs({ assets, productTypes , Myassets }: TabsProps) {
 
       {/* Tab Content */}
       <div className="mt-4">
-        {activeTab === 'Client Assets' && <div className="mt-4"> dada </div>}
-        {activeTab === 'My Assets' && <div className="mt-4"> dada </div>}
+        <Suspense fallback={<div>Loading assets...</div>}>
+          {activeTab === 'Client Assets' && <AssetsTable assets={assets} productTypes={productTypes} />}
+          {activeTab === 'My Assets' && <AssetsTable assets={Myassets} productTypes={productTypes} />}
+        </Suspense>
       </div>
     </div>
   );
 }
-{/* <Table query={searchQuery_} currentPage={currentPage} /> */}
-
-{/* < AssetsTable assets={assets} productTypes = {productTypes} />
-< AssetsTable assets={Myassets} productTypes = {productTypes} /> */}
