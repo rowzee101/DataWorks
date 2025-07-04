@@ -367,14 +367,7 @@ export async function fetchClientTypes() {
 export async function fetchAssets() {
   try {
     const Assets = await sql<Asset[]>`
-      SELECT
-        id,
-        name,
-        client_id,
-        product_type_id,
-        supplier_manufacturer_id,
-        purchase_date,
-        warranty_expiration_date
+      SELECT *
       FROM assets
       ORDER BY purchase_date DESC
     `;
@@ -389,14 +382,7 @@ export async function fetchAssets() {
 export async function fetchAssetsExceptID(Id: string) {
   try {
     const assets = await sql<Asset[]>`
-      SELECT
-        id,
-        name,
-        client_id,
-        product_type_id,
-        supplier_manufacturer_id,
-        purchase_date,
-        warranty_expiration_date
+      SELECT *
       FROM assets
       WHERE id != ${Id}
       ORDER BY purchase_date DESC
