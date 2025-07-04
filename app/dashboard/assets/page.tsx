@@ -3,6 +3,8 @@ import { fetchAssetsExceptID, fetchProductType , getAssetsByClientId } from '@/a
 import TabsWrapper from '@/app/lib/Tabswrapper';
 import  {Tabs}  from '@/app/ui/assets/tab';
 
+export const dynamic = 'force-dynamic';
+
 export const metadata: Metadata = {
   title: 'Assets',
 };
