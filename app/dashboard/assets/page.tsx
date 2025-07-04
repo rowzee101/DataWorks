@@ -1,5 +1,5 @@
 import { Metadata } from 'next';
-import { fetchAssetsExceptID, fetchProductType , getAssetsByClientId } from '@/app/lib/data';
+import { fetchAssetsExceptClientID, fetchProductType , getAssetsByClientId } from '@/app/lib/data';
 import TabsWrapper from '@/app/lib/Tabswrapper';
 import  {Tabs}  from '@/app/ui/assets/tab';
 
@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 };
 
 export default async function AssetsPage( params: any) {
-  const assets = await fetchAssetsExceptID(1);
+  const assets = await fetchAssetsExceptClientID(1);
   const productTypes = await fetchProductType();
   const myAssets = await getAssetsByClientId(1);
   return (

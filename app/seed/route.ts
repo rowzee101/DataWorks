@@ -223,7 +223,7 @@ async function seedAssets() {
       manufacturer_number VARCHAR(255) NOT NULL,
       asset_number VARCHAR(255) NOT NULL UNIQUE,
       supplier_id INT,
-      purchase_date TIMESTAMP DEFAULT NOW(),
+      purchase_date TIMESTAMP DEFAULT NOW() NOT NULL,
       last_service_date DATE,
       note TEXT,
 

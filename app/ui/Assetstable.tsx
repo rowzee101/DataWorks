@@ -51,6 +51,19 @@ export default function AssetsTable({ assets , productTypes }: AssetsTableProps)
   };
 
 
+  // const filteredAssets = assets.filter((asset) => {
+  //   const term = searchTerm.toLowerCase();
+  //   return (
+  //     (asset.asset_number || '').toLowerCase().includes(term) ||
+  //     (asset.manufacturer_number || '').toLowerCase().includes(term) ||
+  //     (asset.asset_barnumber || '').toLowerCase().includes(term) ||
+  //     (asset.note || '').toLowerCase().includes(term) ||
+  //     (asset.purchase_date || '').toLowerCase().includes(term) ||
+  //     (asset.last_service_date || '').toLowerCase().includes(term) ||
+  //     (asset.product_type_id || '').toString().toLowerCase().includes(term)
+  //   );
+  // });
+
   const filteredAssets = assets.filter((asset) => {
     const term = searchTerm.toLowerCase();
     return (
@@ -58,11 +71,18 @@ export default function AssetsTable({ assets , productTypes }: AssetsTableProps)
       (asset.manufacturer_number || '').toLowerCase().includes(term) ||
       (asset.asset_barnumber || '').toLowerCase().includes(term) ||
       (asset.note || '').toLowerCase().includes(term) ||
-      (asset.purchase_date || '').toLowerCase().includes(term) ||
-      (asset.last_service_date || '').toLowerCase().includes(term) ||
+      (asset.purchase_date
+        ? new Date(asset.purchase_date).toISOString().toLowerCase()
+        : ''
+      ).includes(term) ||
+      (asset.last_service_date
+        ? new Date(asset.last_service_date).toISOString().toLowerCase()
+        : ''
+      ).includes(term) ||
       (asset.product_type_id || '').toString().toLowerCase().includes(term)
     );
   });
+
 
   return (
     <div className="mt-6 flow-root">

@@ -379,18 +379,18 @@ export async function fetchAssets() {
   }
 }
 
-export async function fetchAssetsExceptID(Id: number) {
+export async function fetchAssetsExceptClientID(Id: number) {
   try {
     const assets = await sql<Asset[]>`
       SELECT *
       FROM assets
-      WHERE id != ${Id}
+      WHERE client_id != ${Id}
       ORDER BY purchase_date DESC
     `;
 
     return assets;
   } catch (err) {
     console.error('Database Error:', err);
-    throw new Error('Failed to fetch assets excluding the given ID.');
+    throw new Error('Failed to fetch assets excluding the given client_id.');
   }
 }
