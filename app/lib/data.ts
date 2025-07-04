@@ -353,7 +353,7 @@ export async function fetchClientTypes() {
       SELECT
         id,
         name
-      FROM product_types
+      FROM client_types
       ORDER BY name ASC
     `;
 
