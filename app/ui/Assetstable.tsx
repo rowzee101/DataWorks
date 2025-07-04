@@ -28,6 +28,17 @@ export default function AssetsTable({ assets , productTypes }: AssetsTableProps)
   const productTypeMap = new Map(productTypes.map(pt => [pt.id, pt.name]));
 
 
+  // // Debounce the search input by 300ms
+  // const handleSearch = useManualDebounce((value: string) => {
+  //   setDebouncedSearch(value);
+  // }, 300);
+
+  // const onSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  //   const value = e.target.value;
+  //   setSearchTerm(value);
+  //   handleSearch(value);
+  // };
+
   // Debounce the search input by 300ms
   const handleSearch = useManualDebounce((value: string) => {
     setDebouncedSearch(value);

@@ -1,9 +1,16 @@
 'use client';
 
 import { useState } from 'react';
-import AssetsTable from '@/app/ui/Assetstable'; 
+// import AssetsTable from '@/app/ui/Assetstable'; 
 import type { Asset } from '@/app/lib/definitions'; 
 import { Suspense } from 'react';
+
+import dynamic from 'next/dynamic';
+
+const AssetsTable = dynamic(() => import('@/app/ui/Assetstable'), {
+  ssr: false,
+  loading: () => <div>Loading assets...</div>,
+});
 
 
 // import Table from '@/app/ui/invoices/table';
@@ -20,12 +27,12 @@ type TabsProps = {
 
 export function Tabs({ assets, productTypes , Myassets }: TabsProps) {
 
-  const [activeTab, setActiveTab] = useState<'Client Assets' | 'My Assets'>('Client Assets');
+  const [activeTab, setActiveTab] = useState<'Client Assets' | 'My Assets' | 'Product Types'>('Client Assets');
   return (
     <div className="mt-6">
       {/* Tab Buttons */}
       <div className="flex space-x-4 border-b">
-        {['Client Assets', 'My Assets'].map((tab) => (
+        {['Client Assets', 'My Assets','Product Types'].map((tab) => (
           <button
             key={tab}
             onClick={() => setActiveTab(tab as typeof activeTab)}
@@ -40,10 +47,9 @@ export function Tabs({ assets, productTypes , Myassets }: TabsProps) {
 
       {/* Tab Content */}
       <div className="mt-4">
-        <Suspense fallback={<div>Loading assets...</div>}>
           {activeTab === 'Client Assets' && <AssetsTable assets={assets} productTypes={productTypes} />}
           {activeTab === 'My Assets' && <AssetsTable assets={Myassets} productTypes={productTypes} />}
-        </Suspense>
+          {activeTab === 'Product Types' && <div className="text-gray-600">Product Types content goes here.</div>}
       </div>
     </div>
   );
