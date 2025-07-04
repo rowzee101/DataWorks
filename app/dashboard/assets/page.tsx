@@ -1,7 +1,6 @@
 import { Metadata } from 'next';
 import { fetchAssetsExceptID, fetchProductType , getAssetsByClientId } from '@/app/lib/data';
-import dynamic from 'next/dynamic';
-import  Tabs  from '@/app/ui/assets/tab';
+// import  Tabs  from '@/app/ui/assets/tab';
 
 export const metadata: Metadata = {
   title: 'Assets',
@@ -14,7 +13,7 @@ export default async function AssetsPage( params: any) {
   return (
     <div className="p-6 block border rounded-xl bg-[#FFFFFF]">
       <div className="pt-6 text-sm text-gray-700">
-        <Tabs assets={assets} productTypes = {productTypes} Myassets={myAssets}/>
+        {/* <Tabs assets={assets} productTypes = {productTypes} Myassets={myAssets}/> */}
       </div>
     </div>
   );
