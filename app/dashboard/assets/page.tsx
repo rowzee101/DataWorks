@@ -1,7 +1,7 @@
 import { Metadata } from 'next';
 import { fetchAssetsExceptID, fetchProductType , getAssetsByClientId } from '@/app/lib/data';
 import dynamic from 'next/dynamic';
-import { Tabs } from '@/app/ui/assets/tab';
+import  Tabs  from '@/app/ui/assets/tab';
 
 export const metadata: Metadata = {
   title: 'Assets',
