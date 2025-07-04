@@ -1,10 +1,9 @@
 'use client';
 
 import React, { useState } from 'react';
-import Link from 'next/link'; 
-import { useDebouncedCallback } from 'use-debounce';
 import { AddAsset , EditAsset, DeleteAsset} from '@/app/ui/invoices/buttons';
 import { DownloadPDFButton } from '@/app/ui/clientSided/buttons';
+import { useManualDebounce } from '@/app/lib/manualDebounce'; // adjust path as needed
 
 type Asset = {
   id: number;
@@ -30,13 +29,14 @@ export default function AssetsTable({ assets , productTypes }: AssetsTableProps)
 
 
   // Debounce the search input by 300ms
-  const handleSearch = useDebouncedCallback((value: string) => {
+  const handleSearch = useManualDebounce((value: string) => {
     setDebouncedSearch(value);
   }, 300);
 
   const onSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setSearchTerm(e.target.value);
-    handleSearch(e.target.value);
+    const value = e.target.value;
+    setSearchTerm(value);
+    handleSearch(value);
   };
 
 
