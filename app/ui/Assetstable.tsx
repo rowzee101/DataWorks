@@ -68,7 +68,7 @@ export default function AssetsTable({ assets , productTypes }: AssetsTableProps)
         {/* Download Button */}
         <DownloadPDFButton clientName={'Assets Table'} />
       </div>
-      <div className="w-full overflow-x-auto">
+      <div className="w-full overflow-x-auto" id="pdf-content">
         <div className="inline-block min-w-full align-middle">
           <div className="rounded-lg bg-gray-50 p-2 md:pt-0">
             {/* Responsive (mobile) layout could be added here if needed */}
