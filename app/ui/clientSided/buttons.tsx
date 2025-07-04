@@ -72,21 +72,70 @@ export function DeleteButton({
 
 
 
-
 export function DownloadPDFButton({ clientName }: { clientName: string }) {
   const handleDownload = () => {
     const element = document.getElementById('pdf-content');
     if (!element) return;
 
+    // Measure the element's width and height to decide orientation
+    const rect = element.getBoundingClientRect();
+    const isLandscape = rect.width > rect.height;
+
+    // Save original styles to restore after PDF generation
+    const originalTransform = element.style.transform;
+    const originalTransformOrigin = element.style.transformOrigin;
+
+    // Scale the content down temporarily
+    const scaleFactor = 0.85;
+    element.style.transform = `scale(${scaleFactor})`;
+    element.style.transformOrigin = 'top left';
+
+    // Options for html2pdf
     const opt = {
       margin: 0.5,
       filename: `${clientName}_info.pdf`,
       image: { type: 'jpeg', quality: 0.98 },
-      html2canvas: { scale: 2 },
-      jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' },
+      html2canvas: {
+        scale: 2,
+        useCORS: true,
+      },
+      jsPDF: {
+        unit: 'in',
+        format: 'letter',
+        orientation: isLandscape ? 'landscape' : 'portrait',
+      },
     };
 
-    html2pdf().set(opt).from(element).save();
+    interface Html2PdfOptions {
+      margin: number;
+      filename: string;
+      image: { type: string; quality: number };
+      html2canvas: {
+      scale: number;
+      useCORS: boolean;
+      };
+      jsPDF: {
+      unit: string;
+      format: string;
+      orientation: 'landscape' | 'portrait';
+      };
+    }
+
+    // html2pdf.js typings are not official, so we use 'any' for the chain
+    (html2pdf() as any)
+      .set(opt as Html2PdfOptions)
+      .from(element)
+      .save()
+      .then((): void => {
+      // Restore original styles
+      element.style.transform = originalTransform;
+      element.style.transformOrigin = originalTransformOrigin;
+      })
+      .catch((error: unknown): void => {
+      console.error('PDF generation failed:', error);
+      element.style.transform = originalTransform;
+      element.style.transformOrigin = originalTransformOrigin;
+      });
   };
 
   return (
@@ -99,3 +148,4 @@ export function DownloadPDFButton({ clientName }: { clientName: string }) {
     </button>
   );
 }
+
