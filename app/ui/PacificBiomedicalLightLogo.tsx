@@ -9,9 +9,8 @@ export default function PACBioLogo() {
       <Image
         src="/Logo-W-Text.png"
         alt="Pacific Bio-medical Logo"
-        width={171}
-        height={50}
-        className="rotate-[15deg]"
+        width={204}
+        height={60}
       />
     </div>
   );
