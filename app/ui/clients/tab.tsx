@@ -29,7 +29,7 @@ export function Tabs({ assets, clientId, productTypes }: TabsProps) {
             key={tab}
             onClick={() => setActiveTab(tab as typeof activeTab)}
             className={`pb-2 font-semibold ${
-              activeTab === tab ? 'border-b-2 border-blue-600 text-blue-600' : 'text-gray-600'
+              activeTab === tab ? 'border-b-2 border-[#205B34] text-[#205B34]' : 'text-gray-600'
             }`}
           >
             {tab.charAt(0).toUpperCase() + tab.slice(1)}

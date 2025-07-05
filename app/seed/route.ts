@@ -19,8 +19,8 @@ async function seedUsers() {
     users.map(async (user) => {
       const hashedPassword = await bcrypt.hash(user.password, 10);
       return sql`
-        INSERT INTO users (id, name, email, password)
-        VALUES (${user.id}, ${user.name}, ${user.email}, ${hashedPassword})
+        INSERT INTO users (name, email, password)
+        VALUES (${user.name}, ${user.email}, ${hashedPassword})
         ON CONFLICT (id) DO NOTHING;
       `;
     }),
@@ -249,17 +249,17 @@ async function seedAssets() {
 export async function GET() {
   try {
     const result = await sql.begin((sql) => [
-      // seedUsers(),
+      seedUsers(),
       // seedCustomers(),
       // seedInvoices(),
       // seedRevenue(),
 
 
-      seedClientTypes(),
-      seedClients(),
-      seedSuppliers_manufacturers(),
-      seedProduct_types(),
-      seedAssets(),
+      // seedClientTypes(),
+      // seedClients(),
+      // seedSuppliers_manufacturers(),
+      // seedProduct_types(),
+      // seedAssets(),
     ]);
 
     return Response.json({ message: 'Database seeded successfully' });
