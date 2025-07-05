@@ -498,11 +498,11 @@ export async function updateProductType(id: string, formData: FormData) {
     return { message: 'Failed to update product type due to database error.' };
   }
 
-  revalidatePath('/dashboard/product-types');
-  redirect('/dashboard/product-types');
+  revalidatePath('/dashboard/assets');
+  redirect('/dashboard/assets-types');
 }
 
 export async function deleteProductTypeByID(id: string) {
   await sql`DELETE FROM product_types WHERE id = ${id}`;
-  revalidatePath('/dashboard/product-types');
+  revalidatePath('/dashboard/assets');
 }

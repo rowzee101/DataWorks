@@ -141,7 +141,7 @@ export function DownloadPDFButton({ clientName }: { clientName: string }) {
   return (
     <button
       onClick={handleDownload}
-      className="flex h-10 items-center rounded-lg bg-white px-4 text-sm font-medium text-black transition-colors hover:bg-gray-100 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black"
+      className="flex h-10 items-center rounded-lg bg-gray-100 px-4 text-sm font-medium text-black transition-colors hover:bg-g[#b4e4c5] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black"
     >
       Download PDF
       <DocumentArrowDownIcon className="h-5 md:ml-4" />

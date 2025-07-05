@@ -45,7 +45,7 @@ export function AddAsset() {
   return (
     <Link
       href="/dashboard/assets/add"
-      className="flex h-10 items-center rounded-lg bg-blue-600 px-4 text-sm font-medium text-white transition-colors hover:bg-blue-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600"
+      className="flex h-10 items-center rounded-lg bg-[#205B34] px-4 text-sm font-medium text-white transition-colors hover:bg-g[#b4e4c5] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600"
     >
       <span className="hidden md:block">Add Asset</span>{' '}
       <PlusIcon className="h-5 md:ml-4" />
@@ -70,7 +70,7 @@ export function DeleteAsset({ id }: { id: string }) {
   return (
     <Link
       href={`/dashboard/assets/${id}/delete`}
-      className="rounded-md border p-2 hover:bg-gray-100"
+      className="rounded-md border p-2 hover:bg-[#4F201D] bg-[#872928]"
     >
       <TrashIcon className="w-5" />
     </Link>
@@ -92,7 +92,7 @@ export function DeleteClient({ id }: { id: string }) {
   return (
     <Link
       href={`/dashboard/clients/${id}/delete`}
-      className="rounded-md border p-2 hover:bg-gray-100"
+      className="rounded-md border p-2 hover:bg-[#4F201D] bg-[#872928]"
     >
       <TrashIcon className="w-5" />
     </Link>
@@ -103,7 +103,7 @@ export function AddProductType() {
   return (
     <Link
       href="/dashboard/assets/products/add"
-      className="flex h-10 items-center rounded-lg bg-blue-600 px-4 text-sm font-medium text-white transition-colors hover:bg-blue-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600"
+      className="flex h-10 items-center rounded-lg bg-[#205B34] px-4 text-sm font-medium text-white transition-colors hover:bg-g[#b4e4c5] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600"
     >
       <span className="hidden md:block">Add New Product</span>{' '}
       <PlusIcon className="h-5 md:ml-4" />
@@ -126,7 +126,7 @@ export function DeleteProductType({ id }: { id: string }) {
   return (
     <Link
       href={`/dashboard/assets/products/${id}/delete`}
-      className="rounded-md border p-2 hover:bg-gray-100"
+      className="rounded-md border p-2 hover:bg-[#4F201D] bg-[#872928]"
     >
       <TrashIcon className="w-5" />
     </Link>
