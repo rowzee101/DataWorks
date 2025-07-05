@@ -4,21 +4,13 @@ import React, { useState } from 'react';
 import { AddAsset , EditAsset, DeleteAsset} from '@/app/ui/invoices/buttons';
 import { DownloadPDFButton } from '@/app/ui/clientSided/buttons';
 import { useManualDebounce } from '@/app/lib/manualDebounce'; // adjust path as needed
+import type { Asset } from '@/app/lib/definitions'; // adjust path as needed
+import type { ProductType } from '@/app/lib/definitions'; // adjust path as needed
 
-type Asset = {
-  id: number;
-  asset_barnumber: string;
-  asset_number: string;
-  manufacturer_number: string;
-  purchase_date: string;
-  last_service_date: string | null;
-  note: string | null;
-  product_type_id: number;
-};
 
 interface AssetsTableProps {
   assets: Asset[];
-  productTypes: { id: number; name: string }[];
+  productTypes: ProductType[];
 }
 
 export default function AssetsTable({ assets , productTypes }: AssetsTableProps) {
@@ -26,18 +18,6 @@ export default function AssetsTable({ assets , productTypes }: AssetsTableProps)
   const [debouncedSearch, setDebouncedSearch] = useState('');
 
   const productTypeMap = new Map(productTypes.map(pt => [pt.id, pt.name]));
-
-
-  // // Debounce the search input by 300ms
-  // const handleSearch = useManualDebounce((value: string) => {
-  //   setDebouncedSearch(value);
-  // }, 300);
-
-  // const onSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-  //   const value = e.target.value;
-  //   setSearchTerm(value);
-  //   handleSearch(value);
-  // };
 
   // Debounce the search input by 300ms
   const handleSearch = useManualDebounce((value: string) => {
@@ -49,20 +29,6 @@ export default function AssetsTable({ assets , productTypes }: AssetsTableProps)
     setSearchTerm(value);
     handleSearch(value);
   };
-
-
-  // const filteredAssets = assets.filter((asset) => {
-  //   const term = searchTerm.toLowerCase();
-  //   return (
-  //     (asset.asset_number || '').toLowerCase().includes(term) ||
-  //     (asset.manufacturer_number || '').toLowerCase().includes(term) ||
-  //     (asset.asset_barnumber || '').toLowerCase().includes(term) ||
-  //     (asset.note || '').toLowerCase().includes(term) ||
-  //     (asset.purchase_date || '').toLowerCase().includes(term) ||
-  //     (asset.last_service_date || '').toLowerCase().includes(term) ||
-  //     (asset.product_type_id || '').toString().toLowerCase().includes(term)
-  //   );
-  // });
 
   const filteredAssets = assets.filter((asset) => {
     const term = searchTerm.toLowerCase();

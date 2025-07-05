@@ -243,6 +243,8 @@ export async function dashboardFetchClientData(): Promise<ClientWithAssetCount[]
       ORDER BY c.name ASC;
     `;
 
+    // add where id != myId
+
     return result.map(row => ({
       id: row.id,
       name: row.name,
@@ -320,9 +322,7 @@ export async function fetchSupplierManufacturer() {
 export async function fetchProductType() {
   try {
     const ProductType = await sql<ProductType[]>`
-      SELECT
-        id,
-        name
+      SELECT *
       FROM product_types
       ORDER BY name ASC
     `;
@@ -392,5 +392,18 @@ export async function fetchAssetsExceptClientID(Id: number) {
   } catch (err) {
     console.error('Database Error:', err);
     throw new Error('Failed to fetch assets excluding the given client_id.');
+  }
+}
+
+
+export async function fetchProductTypeByID(id: number) {
+  try {
+    const result = await sql`
+      SELECT * FROM product_types WHERE id = ${id};
+    `;
+    return result[0] || null;
+  } catch (error) {
+    console.error('Error fetching ProductType:', error);
+    return null;
   }
 }

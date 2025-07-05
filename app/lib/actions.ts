@@ -393,3 +393,116 @@ export async function deleteClientByID(id: string) {
   await sql`DELETE FROM clients WHERE id = ${id}`;
   revalidatePath('/dashboard/clients');
 }
+
+
+
+///////////// Product Type Actions //////////////
+const ProductTypeFormSchema = z.object({
+  name: z.string({
+    required_error: 'Product type name is required.',
+  }),
+  supplier1_id: z.string({
+    required_error: 'Supplier 1 is required.',
+  }),
+  supplier2_id: z.string().optional(), // optional due to DB
+  manufacturer_id: z.string({
+    required_error: 'Manufacturer is required.',
+  }),
+  price: z.string().optional(), // optional, will parse to int or null
+});
+
+const AddNewProductType = ProductTypeFormSchema;
+
+export async function addNewProductType(formData: FormData) {
+  const validatedFields = AddNewProductType.safeParse({
+    name: formData.get('name')?.toString(),
+    supplier1_id: formData.get('supplier1_id')?.toString(),
+    supplier2_id: formData.get('supplier2_id')?.toString(),
+    manufacturer_id: formData.get('manufacturer_id')?.toString(),
+    price: formData.get('price')?.toString(),
+  });
+
+  if (!validatedFields.success) {
+    return {
+      errors: validatedFields.error.flatten().fieldErrors,
+      message: 'Missing Fields. Failed to Add Product Type.',
+    };
+  }
+
+  const {
+    name,
+    supplier1_id,
+    supplier2_id,
+    manufacturer_id,
+    price,
+  } = validatedFields.data;
+
+  try {
+    await sql`
+      INSERT INTO product_types
+        (name, supplier1_id, supplier2_id, manufacturer_id, price)
+      VALUES
+        (
+          ${name},
+          ${Number(supplier1_id)},
+          ${supplier2_id ? Number(supplier2_id) : null},
+          ${Number(manufacturer_id)},
+          ${price ? Number(price) : null}
+        )
+    `;
+  } catch (error) {
+    console.error(error);
+    return { message: 'Failed to add product type due to database error.' };
+  }
+
+  revalidatePath('/dashboard/assets');
+  redirect('/dashboard/assets');
+}
+
+export async function updateProductType(id: string, formData: FormData) {
+  const validatedFields = AddNewProductType.safeParse({
+    name: formData.get('name')?.toString(),
+    supplier1_id: formData.get('supplier1_id')?.toString(),
+    supplier2_id: formData.get('supplier2_id')?.toString(),
+    manufacturer_id: formData.get('manufacturer_id')?.toString(),
+    price: formData.get('price')?.toString(),
+  });
+
+  if (!validatedFields.success) {
+    return {
+      errors: validatedFields.error.flatten().fieldErrors,
+      message: 'Missing Fields. Failed to Update Product Type.',
+    };
+  }
+
+  const {
+    name,
+    supplier1_id,
+    supplier2_id,
+    manufacturer_id,
+    price,
+  } = validatedFields.data;
+
+  try {
+    await sql`
+      UPDATE product_types SET
+        name = ${name},
+        supplier1_id = ${Number(supplier1_id)},
+        supplier2_id = ${supplier2_id ? Number(supplier2_id) : null},
+        manufacturer_id = ${Number(manufacturer_id)},
+        price = ${price ? Number(price) : null}
+      WHERE id = ${id}
+    `;
+  } catch (error) {
+    console.error(error);
+    return { message: 'Failed to update product type due to database error.' };
+  }
+
+  revalidatePath('/dashboard/product-types');
+  redirect('/dashboard/product-types');
+}
+
+export async function deleteProductTypeByID(id: string) {
+  await sql`DELETE FROM product_types WHERE id = ${id}`;
+  revalidatePath('/dashboard/product-types');
+}

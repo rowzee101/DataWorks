@@ -166,7 +166,6 @@ export function EditAssetForm({
         >
           Update Asset
         </button>
-        <DeleteAsset id={assetId.toString()} />
       </div>
     </form>
   );
