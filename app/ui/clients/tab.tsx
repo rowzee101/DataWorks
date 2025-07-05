@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import AssetsTable from '@/app/ui/Assetstable'; 
-import type { Asset } from '@/app/lib/definitions'; 
+import type { Asset , ProductType} from '@/app/lib/definitions'; 
 
 
 // import Table from '@/app/ui/invoices/table';
@@ -11,7 +11,7 @@ type TabsProps = {
   clientId: number;
   assets: Asset[];
   searchQuery?: string;
-  productTypes: { id: number; name: string }[];
+  productTypes: ProductType[];
 
 
   // tickets and users to be implemented later
