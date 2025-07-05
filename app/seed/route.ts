@@ -245,25 +245,27 @@ async function seedAssets() {
   return insertedAssets;
 }
 
+import { redirect } from 'next/navigation';
 
 export async function GET() {
-  try {
-    const result = await sql.begin((sql) => [
-      seedUsers(),
-      // seedCustomers(),
-      // seedInvoices(),
-      // seedRevenue(),
+  redirect('/dashboard'); 
+  // try {
+  //   const result = await sql.begin((sql) => [
+  //     seedUsers(),
+  //     // seedCustomers(),
+  //     // seedInvoices(),
+  //     // seedRevenue(),
 
 
-      // seedClientTypes(),
-      // seedClients(),
-      // seedSuppliers_manufacturers(),
-      // seedProduct_types(),
-      // seedAssets(),
-    ]);
+  //     // seedClientTypes(),
+  //     // seedClients(),
+  //     // seedSuppliers_manufacturers(),
+  //     // seedProduct_types(),
+  //     // seedAssets(),
+  //   ]);
 
-    return Response.json({ message: 'Database seeded successfully' });
-  } catch (error) {
-    return Response.json({ error }, { status: 500 });
-  }
+  //   return Response.json({ message: 'Database seeded successfully' });
+  // } catch (error) {
+  //   return Response.json({ error }, { status: 500 });
+  // }
 }

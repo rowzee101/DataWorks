@@ -15,14 +15,18 @@ async function resetDatabase() {
 }
 
 
-export async function GET() {
-  try {
-    const result = await sql.begin((sql) => [
-      resetDatabase(),
-    ]);
+import { redirect } from 'next/navigation';
 
-    return Response.json({ message: 'Database reseted successfully' });
-  } catch (error) {
-    return Response.json({ error }, { status: 500 });
-  }
+
+export async function GET() {
+  redirect('/dashboard'); 
+  // try {
+  //   const result = await sql.begin((sql) => [
+  //     resetDatabase(),
+  //   ]);
+
+  //   return Response.json({ message: 'Database reseted successfully' });
+  // } catch (error) {
+  //   return Response.json({ error }, { status: 500 });
+  // }
 }
