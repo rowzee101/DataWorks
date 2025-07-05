@@ -9,7 +9,6 @@ export const metadata: Metadata = {
     default: 'PacificMed Dashboard',
   },
   description: 'PacificMed Asset Management App',
-  metadataBase: new URL('https://next-learn-dashboard.vercel.sh'),
 };
 
 export default function RootLayout({
