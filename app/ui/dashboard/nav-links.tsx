@@ -58,7 +58,7 @@
 'use client';
 
 import {
-  UserGroupIcon,
+  CubeIcon,
   HomeIcon,
   DocumentDuplicateIcon,
   BuildingOffice2Icon,
@@ -73,7 +73,7 @@ const links = [
   { name: 'Clients', href: '/dashboard/clients', icon: BuildingOffice2Icon },
   { name: 'Invoices', href: '/dashboard/invoices',icon: DocumentDuplicateIcon, },
   { name: 'Assets', href: '/dashboard/assets', icon: InboxStackIcon },
-  { name: 'Users', href: '/dashboard/users', icon: UserGroupIcon },
+  { name: 'Suppliers & Manufacturers', href: '/dashboard/suppliers&manufacturers', icon: CubeIcon },
 ];
 
 export default function NavLinks() {
