@@ -26,7 +26,7 @@ export default async function DashboardPage() {
       ))}
 
       <Link
-        href="/dashboard/suppliers/add"
+        href="/dashboard/suppliers&manufacturers/add"
         className="block border rounded-xl p-4 hover:bg-gray-50 transition"
       >
         <div className="flex flex-col items-center justify-center text-gray-600">
