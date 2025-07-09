@@ -14,7 +14,7 @@ export function SupplierCell({ supplierId, supplierName, productCount, assetCoun
   return (
     <div className="relative">
       <Link
-        href={`/dashboard/suppliers/${supplierId}`}
+        href={`/dashboard/suppliers&manufacturers/${supplierId}`}
         className="block border rounded-xl p-4 hover:bg-gray-50 transition bg-[#FFFFFF]"
       >
         <div className="text-lg font-semibold">{supplierName}</div>

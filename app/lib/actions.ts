@@ -540,7 +540,7 @@ export async function addNewSupplier(formData: FormData) {
 
   try {
     await sql`
-      INSERT INTO suppliers (name, website, main_number, country, brief)
+      INSERT INTO suppliers_manufacturers (name, website, main_number, country, brief)
       VALUES (${name}, ${website}, ${main_number ?? null}, ${country}, ${brief ?? null})
     `;
   } catch (error) {
@@ -548,8 +548,8 @@ export async function addNewSupplier(formData: FormData) {
     return { message: 'Failed to add supplier due to database error.' };
   }
 
-  revalidatePath('/dashboard/suppliers');
-  redirect('/dashboard/suppliers');
+  revalidatePath('/dashboard/suppliers&manufacturers');
+  redirect('/dashboard/suppliers&manufacturers');
 }
 
 // Update Supplier
@@ -573,7 +573,7 @@ export async function updateSupplier(id: string, formData: FormData) {
 
   try {
     await sql`
-      UPDATE suppliers SET
+      UPDATE suppliers_manufacturers SET
         name = ${name},
         website = ${website},
         main_number = ${main_number ?? null},
@@ -586,15 +586,15 @@ export async function updateSupplier(id: string, formData: FormData) {
     return { message: 'Failed to update supplier due to database error.' };
   }
 
-  revalidatePath('/dashboard/suppliers');
-  redirect('/dashboard/suppliers');
+  revalidatePath('/dashboard/suppliers&manufacturers');
+  redirect('/dashboard/suppliers&manufacturers');
 }
 
 // Delete Supplier
 export async function deleteSupplierByID(id: string) {
   try {
-    await sql`DELETE FROM suppliers WHERE id = ${id}`;
-    revalidatePath('/dashboard/suppliers');
+    await sql`DELETE FROM suppliers_manufacturers WHERE id = ${id}`;
+    revalidatePath('/dashboard/suppliers&manufacturers');
   } catch (error) {
     console.error(error);
     return { message: 'Failed to delete supplier.' };

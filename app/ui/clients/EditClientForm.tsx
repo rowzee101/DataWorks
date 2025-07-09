@@ -149,7 +149,7 @@ export function EditClientForm({
       <div className="md:col-span-2">
         <button
           type="submit"
-          className="w-full bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 transition"
+          className="w-full bg-[#6acb8c] text-white py-2 px-4 rounded-md hover:bg-[#6acb8c] transition"
         >
           Update Client
         </button>
