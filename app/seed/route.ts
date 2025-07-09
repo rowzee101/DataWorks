@@ -245,27 +245,40 @@ async function seedAssets() {
   return insertedAssets;
 }
 
-import { redirect } from 'next/navigation';
+import { createSchema } from '@/app/lib/create-schema';
 
 export async function GET() {
-  redirect('/dashboard'); 
-  // try {
-  //   const result = await sql.begin((sql) => [
-  //     seedUsers(),
-  //     // seedCustomers(),
-  //     // seedInvoices(),
-  //     // seedRevenue(),
-
-
-  //     // seedClientTypes(),
-  //     // seedClients(),
-  //     // seedSuppliers_manufacturers(),
-  //     // seedProduct_types(),
-  //     // seedAssets(),
-  //   ]);
-
-  //   return Response.json({ message: 'Database seeded successfully' });
-  // } catch (error) {
-  //   return Response.json({ error }, { status: 500 });
-  // }
+  try {
+    await createSchema();
+    return Response.json({ message: 'Schema created successfully' });
+  } catch (error) {
+    console.error(error);
+    return Response.json({ error: 'Failed to create schema' }, { status: 500 });
+  }
 }
+
+
+// import { redirect } from 'next/navigation';
+
+// export async function GET() {
+//   redirect('/dashboard'); 
+//   // try {
+//   //   const result = await sql.begin((sql) => [
+//   //     seedUsers(),
+//   //     // seedCustomers(),
+//   //     // seedInvoices(),
+//   //     // seedRevenue(),
+
+
+//   //     // seedClientTypes(),
+//   //     // seedClients(),
+//   //     // seedSuppliers_manufacturers(),
+//   //     // seedProduct_types(),
+//   //     // seedAssets(),
+//   //   ]);
+
+//   //   return Response.json({ message: 'Database seeded successfully' });
+//   // } catch (error) {
+//   //   return Response.json({ error }, { status: 500 });
+//   // }
+// }
