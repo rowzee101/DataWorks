@@ -17,7 +17,7 @@ export async function generateMetadata({ params }: any) {
   };
 }
 
-export default async function SupplierDetailPage({ params }: PageProps) {
+export default async function SupplierDetailPage({ params }: any) {
   const supplierManufacturer = await fetchSupplierManufacturer();
     
   const supplier = await fetchSupplierByID(Number(params.id));
