@@ -35,12 +35,12 @@ type TabsProps = {
 
 export function Tabs({ assets, productTypes , Myassets  , SupplierManufacturer}: TabsProps) {
 
-  const [activeTab, setActiveTab] = useState<'Client Assets' | 'My Assets' | 'Product Types'>('Client Assets');
+  const [activeTab, setActiveTab] = useState<'Client Assets' | 'My Assets' | 'Product Types' >('Client Assets');
   return (
     <div className="mt-6">
       {/* Tab Buttons */}
       <div className="flex space-x-4 border-b">
-        {['Client Assets', 'My Assets','Product Types'].map((tab) => (
+        {['Client Assets', 'My Assets','Product Types' , 'Suppliers & Manufacturers'].map((tab) => (
           <button
             key={tab}
             onClick={() => setActiveTab(tab as typeof activeTab)}

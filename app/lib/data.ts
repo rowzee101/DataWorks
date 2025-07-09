@@ -305,9 +305,7 @@ export async function fetchClients() {
 export async function fetchSupplierManufacturer() {
   try {
     const SupplierManufacturer = await sql<SupplierManufacturer[]>`
-      SELECT
-        id,
-        name
+      SELECT * 
       FROM suppliers_manufacturers
       ORDER BY name ASC
     `;
@@ -405,5 +403,63 @@ export async function fetchProductTypeByID(id: number) {
   } catch (error) {
     console.error('Error fetching ProductType:', error);
     return null;
+  }
+}
+
+export async function fetchSupplierByID(id: number) {
+  try {
+    const result = await sql`
+      SELECT * FROM suppliers_manufacturers WHERE id = ${id};
+    `;
+    return result[0] || null;
+  } catch (error) {
+    console.error('Error fetching suppliers_manufacturers:', error);
+    return null;
+  }
+}
+
+export async function fetchSupplierManufacturerWithCounts() {
+  try{
+    const result = await sql`
+      SELECT 
+        s.id,
+        s.name,
+        COUNT(DISTINCT pt.id) AS product_count,
+        COUNT(DISTINCT a.id) AS asset_count
+      FROM suppliers_manufacturers s
+      LEFT JOIN product_types pt 
+        ON s.id = pt.supplier1_id 
+        OR s.id = pt.supplier2_id 
+        OR s.id = pt.manufacturer_id
+      LEFT JOIN assets a 
+        ON s.id = a.supplier_id
+      GROUP BY s.id
+      ORDER BY s.name;
+    `;
+    
+
+    return result;
+  }
+  catch (error) {
+    console.error('Error fetching suppliers with counts:', error);
+    throw new Error('Failed to fetch suppliers with product and asset counts.');
+  }
+}
+
+export async function fetchProductTypesBySupplierId(supplierId: number) {
+  try{
+    const result = await sql<ProductType[]>`
+      SELECT *
+      FROM product_types
+      WHERE supplier1_id = ${supplierId}
+        OR supplier2_id = ${supplierId}
+        OR manufacturer_id = ${supplierId};
+    `;
+
+    return result;
+  }
+  catch (error) {
+    console.error('Error fetching product types by supplier ID:', error);
+    throw new Error('Failed to fetch product types for the given supplier ID.');
   }
 }

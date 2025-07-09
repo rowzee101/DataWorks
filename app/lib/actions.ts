@@ -506,3 +506,97 @@ export async function deleteProductTypeByID(id: string) {
   await sql`DELETE FROM product_types WHERE id = ${id}`;
   revalidatePath('/dashboard/assets');
 }
+
+
+// Schema for validating Supplier form data
+const SupplierFormSchema = z.object({
+  name: z.string({ required_error: 'Supplier name is required.' }),
+  website: z.string({ required_error: 'Website is required.' }).url('Must be a valid URL'),
+  main_number: z.string().optional(), // Optional field
+  country: z.string({ required_error: 'Country is required.' }),
+  brief: z.string().optional(), // Optional text area
+});
+
+const AddNewSupplier = SupplierFormSchema;
+
+// Create Supplier
+export async function addNewSupplier(formData: FormData) {
+  const validatedFields = AddNewSupplier.safeParse({
+    name: formData.get('name')?.toString(),
+    website: formData.get('website')?.toString(),
+    main_number: formData.get('main_number')?.toString(),
+    country: formData.get('country')?.toString(),
+    brief: formData.get('brief')?.toString(),
+  });
+
+  if (!validatedFields.success) {
+    return {
+      errors: validatedFields.error.flatten().fieldErrors,
+      message: 'Missing or invalid fields. Failed to add supplier.',
+    };
+  }
+
+  const { name, website, main_number, country, brief } = validatedFields.data;
+
+  try {
+    await sql`
+      INSERT INTO suppliers (name, website, main_number, country, brief)
+      VALUES (${name}, ${website}, ${main_number ?? null}, ${country}, ${brief ?? null})
+    `;
+  } catch (error) {
+    console.error(error);
+    return { message: 'Failed to add supplier due to database error.' };
+  }
+
+  revalidatePath('/dashboard/suppliers');
+  redirect('/dashboard/suppliers');
+}
+
+// Update Supplier
+export async function updateSupplier(id: string, formData: FormData) {
+  const validatedFields = AddNewSupplier.safeParse({
+    name: formData.get('name')?.toString(),
+    website: formData.get('website')?.toString(),
+    main_number: formData.get('main_number')?.toString(),
+    country: formData.get('country')?.toString(),
+    brief: formData.get('brief')?.toString(),
+  });
+
+  if (!validatedFields.success) {
+    return {
+      errors: validatedFields.error.flatten().fieldErrors,
+      message: 'Missing or invalid fields. Failed to update supplier.',
+    };
+  }
+
+  const { name, website, main_number, country, brief } = validatedFields.data;
+
+  try {
+    await sql`
+      UPDATE suppliers SET
+        name = ${name},
+        website = ${website},
+        main_number = ${main_number ?? null},
+        country = ${country},
+        brief = ${brief ?? null}
+      WHERE id = ${id}
+    `;
+  } catch (error) {
+    console.error(error);
+    return { message: 'Failed to update supplier due to database error.' };
+  }
+
+  revalidatePath('/dashboard/suppliers');
+  redirect('/dashboard/suppliers');
+}
+
+// Delete Supplier
+export async function deleteSupplierByID(id: string) {
+  try {
+    await sql`DELETE FROM suppliers WHERE id = ${id}`;
+    revalidatePath('/dashboard/suppliers');
+  } catch (error) {
+    console.error(error);
+    return { message: 'Failed to delete supplier.' };
+  }
+}
