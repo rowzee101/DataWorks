@@ -1,5 +1,3 @@
-'use client';
-
 import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { fetchProductTypesBySupplierId, fetchSupplierByID, fetchSupplierManufacturer } from '@/app/lib/data';
@@ -10,7 +8,7 @@ type PageProps = {
   params: { id: string };
 };
 
-export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+export async function generateMetadata({ params }: any) {
   const supplier = await fetchSupplierByID(Number(params.id));
   if (!supplier) return { title: 'Supplier Not Found' };
 
