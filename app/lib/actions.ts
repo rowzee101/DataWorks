@@ -204,6 +204,7 @@ export async function addNewAsset(formData: FormData) {
 
   revalidatePath('/dashboard/assets');
   revalidatePath('/dashboard/clients');
+  revalidatePath('/dashboard/suppliers&manufacturers');
 }
 
 export async function updateAsset(id: string, formData: FormData) {
@@ -259,12 +260,14 @@ export async function updateAsset(id: string, formData: FormData) {
 
   revalidatePath('/dashboard/assets');
   revalidatePath('/dashboard/clients');
+  revalidatePath('/dashboard/suppliers&manufacturers');
 }
 
 export async function deleteAssetByID(id: string) {
   await sql`DELETE FROM assets WHERE id = ${id}`;
   revalidatePath('/dashboard/assets');
   revalidatePath('/dashboard/clients');
+  revalidatePath('/dashboard/suppliers&manufacturers');
 }
 
 
@@ -334,7 +337,9 @@ export async function addNewClient(formData: FormData) {
     return { message: 'Failed to add client due to database error.' };
   }
 
+  revalidatePath('/dashboard/assets');
   revalidatePath('/dashboard/clients');
+  revalidatePath('/dashboard/suppliers&manufacturers');
   redirect('/dashboard/clients');
 }
 
@@ -388,13 +393,17 @@ export async function updateClient(id: string, formData: FormData) {
     return { message: 'Failed to update asset due to database error.' };
   }
 
+  revalidatePath('/dashboard/assets');
   revalidatePath('/dashboard/clients');
+  revalidatePath('/dashboard/suppliers&manufacturers');
   redirect('/dashboard/clients');
 }
 
 export async function deleteClientByID(id: string) {
   await sql`DELETE FROM clients WHERE id = ${id}`;
+  revalidatePath('/dashboard/assets');
   revalidatePath('/dashboard/clients');
+  revalidatePath('/dashboard/suppliers&manufacturers');
 }
 
 
@@ -460,6 +469,7 @@ export async function addNewProductType(formData: FormData) {
   }
 
   revalidatePath('/dashboard/assets');
+  revalidatePath('/dashboard/clients');
   revalidatePath('/dashboard/suppliers&manufacturers');
 }
 
@@ -503,12 +513,14 @@ export async function updateProductType(id: string, formData: FormData) {
   }
 
   revalidatePath('/dashboard/assets');
+  revalidatePath('/dashboard/clients');
   revalidatePath('/dashboard/suppliers&manufacturers');
 }
 
 export async function deleteProductTypeByID(id: string) {
   await sql`DELETE FROM product_types WHERE id = ${id}`;
   revalidatePath('/dashboard/assets');
+  revalidatePath('/dashboard/clients');
   revalidatePath('/dashboard/suppliers&manufacturers');
 }
 
@@ -554,6 +566,8 @@ export async function addNewSupplier(formData: FormData) {
     return { message: 'Failed to add supplier due to database error.' };
   }
 
+  revalidatePath('/dashboard/assets');
+  revalidatePath('/dashboard/clients');
   revalidatePath('/dashboard/suppliers&manufacturers');
 }
 
@@ -591,6 +605,8 @@ export async function updateSupplier(id: string, formData: FormData) {
     return { message: 'Failed to update supplier due to database error.' };
   }
 
+  revalidatePath('/dashboard/assets');
+  revalidatePath('/dashboard/clients');
   revalidatePath('/dashboard/suppliers&manufacturers');
 }
 
@@ -598,6 +614,8 @@ export async function updateSupplier(id: string, formData: FormData) {
 export async function deleteSupplierByID(id: string) {
   try {
     await sql`DELETE FROM suppliers_manufacturers WHERE id = ${id}`;
+    revalidatePath('/dashboard/assets');
+    revalidatePath('/dashboard/clients');
     revalidatePath('/dashboard/suppliers&manufacturers');
   } catch (error) {
     console.error(error);
