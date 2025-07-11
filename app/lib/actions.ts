@@ -195,6 +195,7 @@ export async function addNewAsset(formData: FormData) {
         (${Number(product_type_id)}, ${Number(client_id)}, ${manufacturer_number}, ${asset_number}, 
          ${supplier_id ? Number(supplier_id) : null}, 
          ${purchase_date ?? null}, ${last_service_date ?? null}, ${note ?? null}, ${asset_barnumber ?? null})
+         ON CONFLICT (asset_number) DO NOTHING;
     `;
   } catch (error) {
     console.error(error);
@@ -325,6 +326,7 @@ export async function addNewClient(formData: FormData) {
         NOW(),
         ${brief ?? null}
       )
+        ON CONFLICT (name) DO NOTHING;
     `;
   } catch (error) {
     console.error(error);
@@ -449,6 +451,7 @@ export async function addNewProductType(formData: FormData) {
           ${Number(manufacturer_id)},
           ${price ? Number(price) : null}
         )
+          ON CONFLICT (name) DO NOTHING;
     `;
   } catch (error) {
     console.error(error);
@@ -542,6 +545,7 @@ export async function addNewSupplier(formData: FormData) {
     await sql`
       INSERT INTO suppliers_manufacturers (name, website, main_number, country, brief)
       VALUES (${name}, ${website}, ${main_number ?? null}, ${country}, ${brief ?? null})
+      ON CONFLICT (name) DO NOTHING;
     `;
   } catch (error) {
     console.error(error);

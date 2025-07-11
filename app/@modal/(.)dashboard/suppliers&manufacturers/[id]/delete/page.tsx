@@ -17,7 +17,7 @@ export default async function DeleteSupplierModal(props: any) {
   const supplierRow = await fetchSupplierManufacturer();
 
   // filter the supplierRow to find the one with the matching id
-    const supplierId = params.id;
+    const supplierId = Number(params.id);
     const supplier = supplierRow.find((row: any) => row.id === supplierId);
     if (!supplier) return <div>Supplier or Manufacturer not found.</div>;
 
