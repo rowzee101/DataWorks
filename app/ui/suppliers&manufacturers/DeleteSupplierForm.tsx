@@ -37,7 +37,7 @@ export default function DeleteSupplier({
         <DeleteButton
           onDelete={handleDelete}
           confirmText={`Are you absolutely sure you want to delete "${supplierName}"?`}
-          cancelUrl="/dashboard/suppliers"
+          cancelUrl="/dashboard/suppliers&manufacturers"
           holdDurationMs={2000}
         />
       </div>
