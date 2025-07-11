@@ -40,7 +40,7 @@ export function Tabs({ assets, productTypes , Myassets  , SupplierManufacturer}:
     <div className="mt-6">
       {/* Tab Buttons */}
       <div className="flex space-x-4 border-b">
-        {['Client Assets', 'My Assets','Product Types' , 'Suppliers & Manufacturers'].map((tab) => (
+        {['Client Assets', 'My Assets','Product Types'].map((tab) => (
           <button
             key={tab}
             onClick={() => setActiveTab(tab as typeof activeTab)}

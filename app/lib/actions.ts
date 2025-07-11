@@ -203,7 +203,7 @@ export async function addNewAsset(formData: FormData) {
   }
 
   revalidatePath('/dashboard/assets');
-  redirect('/dashboard/assets');
+  revalidatePath('/dashboard/clients');
 }
 
 export async function updateAsset(id: string, formData: FormData) {
@@ -258,11 +258,13 @@ export async function updateAsset(id: string, formData: FormData) {
   }
 
   revalidatePath('/dashboard/assets');
+  revalidatePath('/dashboard/clients');
 }
 
 export async function deleteAssetByID(id: string) {
   await sql`DELETE FROM assets WHERE id = ${id}`;
   revalidatePath('/dashboard/assets');
+  revalidatePath('/dashboard/clients');
 }
 
 
@@ -458,7 +460,7 @@ export async function addNewProductType(formData: FormData) {
   }
 
   revalidatePath('/dashboard/assets');
-  redirect('/dashboard/assets');
+  revalidatePath('/dashboard/suppliers&manufacturers');
 }
 
 export async function updateProductType(id: string, formData: FormData) {
@@ -501,12 +503,13 @@ export async function updateProductType(id: string, formData: FormData) {
   }
 
   revalidatePath('/dashboard/assets');
-  redirect('/dashboard/assets-types');
+  revalidatePath('/dashboard/suppliers&manufacturers');
 }
 
 export async function deleteProductTypeByID(id: string) {
   await sql`DELETE FROM product_types WHERE id = ${id}`;
   revalidatePath('/dashboard/assets');
+  revalidatePath('/dashboard/suppliers&manufacturers');
 }
 
 
@@ -552,7 +555,6 @@ export async function addNewSupplier(formData: FormData) {
   }
 
   revalidatePath('/dashboard/suppliers&manufacturers');
-  redirect('/dashboard/suppliers&manufacturers');
 }
 
 // Update Supplier
@@ -590,7 +592,6 @@ export async function updateSupplier(id: string, formData: FormData) {
   }
 
   revalidatePath('/dashboard/suppliers&manufacturers');
-  redirect('/dashboard/suppliers&manufacturers');
 }
 
 // Delete Supplier
