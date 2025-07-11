@@ -29,7 +29,7 @@ export default function DeleteProductType({
       </p>
       <div className="flex justify-end gap-4">
         <button
-          onClick={() => router.push('/dashboard/product-types')}
+          onClick={() => router.back()}
           className="px-4 py-2 border rounded text-gray-700 hover:bg-gray-100"
         >
           Cancel
@@ -37,7 +37,7 @@ export default function DeleteProductType({
         <DeleteButton
           onDelete={() => deleteProductTypeByID(productTypeId.toString())}
           confirmText={`Are you absolutely sure you want to delete "${productTypeName}"?`}
-          cancelUrl="/dashboard/product-types"
+          cancelUrl="/dashboard/assets"
           holdDurationMs={2000}
         />
       </div>

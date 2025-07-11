@@ -32,7 +32,7 @@ export default function DeleteAssetClient({
       </p>
       <div className="flex justify-end gap-4">
         <button
-          onClick={() => router.push('/dashboard/assets')}
+          onClick={() => router.back()}
           className="px-4 py-2 border rounded text-gray-700 hover:bg-gray-100"
         >
           Cancel
