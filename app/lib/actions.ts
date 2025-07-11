@@ -258,7 +258,6 @@ export async function updateAsset(id: string, formData: FormData) {
   }
 
   revalidatePath('/dashboard/assets');
-  redirect('/dashboard/assets');
 }
 
 export async function deleteAssetByID(id: string) {
