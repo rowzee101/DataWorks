@@ -137,7 +137,7 @@ export function DeleteProductType({ id }: { id: string }) {
 export function AddSupplier() {
   return (
     <Link
-      href="/dashboard/assets/suppliers&manufacturers/add"
+      href="/dashboard/suppliers&manufacturers/add"
       className="flex h-10 items-center rounded-lg bg-[#205B34] px-4 text-sm font-medium text-white transition-colors hover:bg-[#b4e4c5] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600"
     >
       <span className="hidden md:block">Add New Supplier or Manufacturer</span>{' '}
@@ -149,7 +149,7 @@ export function AddSupplier() {
 export function EditSupplier({ id }: { id: string }) {
   return (
     <Link
-      href={`/dashboard/assets/suppliers&manufacturers/${id}/edit`}
+      href={`/dashboard/suppliers&manufacturers/${id}/edit`}
       className="rounded-md border p-2 hover:bg-gray-100"
     >
       <PencilIcon className="w-5" />
@@ -160,7 +160,7 @@ export function EditSupplier({ id }: { id: string }) {
 export function DeleteSupplier({ id }: { id: string }) {
   return (
     <Link
-      href={`/dashboard/assets/suppliers&manufacturers/${id}/delete`}
+      href={`/dashboard/suppliers&manufacturers/${id}/delete`}
       className="rounded-md border p-2 hover:bg-[#872928] bg-[#c74543]"
     >
       <TrashIcon className="w-5" />
