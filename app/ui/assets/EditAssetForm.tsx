@@ -4,7 +4,6 @@ import { useState, useEffect } from 'react';
 import Select from 'react-select';
 import { updateAsset } from '@/app/lib/actions'; // You may rename this to updateAsset
 import { DeleteAsset } from '@/app/ui/invoices/buttons'; // Adjust the import path as needed
-import { useRouter } from 'next/navigation';
 
 type Option = {
   value: number;
@@ -41,7 +40,6 @@ export function EditAssetForm({
   const [productType, setProductType] = useState<Option | null>(null);
   const [supplier, setSupplier] = useState<Option | null>(null);
   const assetId = initialData.asset_id;
-  const router = useRouter();
 
   useEffect(() => {
     setClient(clients.find((c) => c.value === initialData.client_id) || null);
@@ -52,13 +50,9 @@ export function EditAssetForm({
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
+    await updateAsset(assetId.toString(), formData); // Convert assetId to string
+
     
-
-    const res = await updateAsset(assetId.toString(), formData); // Convert assetId to string
-
-    if (!res?.errors || Object.keys(res.errors).length === 0) {
-      router.push('/dashboard/assets');
-    }
   };
 
   return (
