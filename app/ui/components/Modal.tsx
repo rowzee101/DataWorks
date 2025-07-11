@@ -6,7 +6,7 @@ export function Modal({ children }: { children: React.ReactNode }) {
   const router = useRouter();
 
   const onClose = () => {
-    router.push('/dashboard'); // Navigate back to close the modal
+    router.back(); // Navigate back to close the modal
   };
 
   return (
