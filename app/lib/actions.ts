@@ -528,7 +528,7 @@ export async function deleteProductTypeByID(id: string) {
 // Schema for validating Supplier form data
 const SupplierFormSchema = z.object({
   name: z.string({ required_error: 'Supplier name is required.' }),
-  website: z.string({ required_error: 'Website is required.' }).url('Must be a valid URL'),
+  website: z.string({ required_error: 'Website is required.' }),
   main_number: z.string().optional(), // Optional field
   country: z.string({ required_error: 'Country is required.' }),
   brief: z.string().optional(), // Optional text area
