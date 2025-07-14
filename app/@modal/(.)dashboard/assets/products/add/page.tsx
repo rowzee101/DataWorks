@@ -5,6 +5,8 @@ import { fetchSupplierManufacturer } from '@/app/lib/data';
 import { AddProductTypeForm } from '@/app/ui/assets/AddProductTypeForm';
 
 
+export const dynamic = 'force-dynamic';
+
 export const metadata: Metadata = {
   title: 'Add New Product',
 };
