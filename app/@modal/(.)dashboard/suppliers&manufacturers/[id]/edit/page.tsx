@@ -15,6 +15,7 @@ export const metadata: Metadata = {
   title: 'Editing Asset',
 };
 
+export const dynamic = 'force-dynamic';
 
 const countryOptions = Object.entries(countries.getNames('en')).map(([code, name]) => ({
   value: name,

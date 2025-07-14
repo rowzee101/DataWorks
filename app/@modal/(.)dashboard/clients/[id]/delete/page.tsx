@@ -12,6 +12,8 @@ type PageProps = {
   params: { id: string };
 };
 
+export const dynamic = 'force-dynamic';
+
 export default async function DeleteAssetModal(props: any) {
   const { params } = await props;
   const clientRow = await getClientById(Number(params.id));
