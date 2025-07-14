@@ -197,7 +197,7 @@ export function AddAssetForm({
   };
 
   return (
-    <form onSubmit={handleSubmit} className="grid grid-cols-1 md:grid-cols-2 gap-6 w-full">
+    <form onSubmit={handleFormSubmit} className="grid grid-cols-1 md:grid-cols-2 gap-6 w-full">
       {/* Asset Number */}
       <div className="bg-gray-50 p-4 rounded-lg shadow-sm">
         <label className="block mb-1 font-medium text-sm text-gray-700">Asset Number</label>
