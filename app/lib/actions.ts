@@ -7,6 +7,12 @@ import postgres from 'postgres';
 
 const sql = postgres(process.env.POSTGRES_URL!, { ssl: 'require' });
  
+
+const emptyToNull = (value: string | undefined) => {
+  return value === undefined || value.trim() === '' ? null : value;
+};
+
+
 const FormSchema = z.object({
   id: z.string(),
   customerId: z.string({
