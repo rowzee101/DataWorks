@@ -177,7 +177,7 @@ export function AddAssetForm({
 
   const handleSubmit = async (formData: FormData) => {
     await addNewAsset(formData);
-    router.push('/dashboard/assets'); // redirect after add (optional)
+    router.back();
   };
 
   const handleFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
