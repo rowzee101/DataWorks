@@ -188,15 +188,30 @@ export async function addNewAsset(formData: FormData) {
   } = validatedFields.data;
 
   try {
+    // await sql`
+    //   INSERT INTO assets 
+    //     (product_type_id, client_id, manufacturer_number, asset_number, supplier_id, purchase_date, last_service_date, note, asset_barnumber)
+    //   VALUES
+    //     (${Number(product_type_id)}, ${Number(client_id)}, ${manufacturer_number}, ${asset_number}, 
+    //      ${supplier_id ? Number(supplier_id) : null}, 
+    //      ${purchase_date ?? null}, ${last_service_date ?? null}, ${note ?? null}, ${asset_barnumber ?? null})
+    //      ON CONFLICT (asset_number) DO NOTHING;
+    // `;
+
+    const columns = ['product_type_id', 'client_id', 'manufacturer_number', 'asset_number', 'supplier_id', 'last_service_date', 'note', 'asset_barnumber'];
+    const values = [Number(product_type_id), Number(client_id), manufacturer_number, asset_number, supplier_id ? Number(supplier_id) : null, emptyToNull(last_service_date), emptyToNull(note), emptyToNull(asset_barnumber)];
+
+    if (purchase_date && purchase_date.trim() !== '') {
+      columns.push('purchase_date');
+      values.push(purchase_date);
+    }
+
     await sql`
-      INSERT INTO assets 
-        (product_type_id, client_id, manufacturer_number, asset_number, supplier_id, purchase_date, last_service_date, note, asset_barnumber)
-      VALUES
-        (${Number(product_type_id)}, ${Number(client_id)}, ${manufacturer_number}, ${asset_number}, 
-         ${supplier_id ? Number(supplier_id) : null}, 
-         ${purchase_date ?? null}, ${last_service_date ?? null}, ${note ?? null}, ${asset_barnumber ?? null})
-         ON CONFLICT (asset_number) DO NOTHING;
+      INSERT INTO assets (${sql(columns)})
+      VALUES (${sql(values)})
+      ON CONFLICT (asset_number) DO NOTHING;
     `;
+
   } catch (error) {
     console.error(error);
     return { message: 'Failed to add asset due to database error.' };

@@ -175,3 +175,44 @@ export function DownloadPDFButton({ clientName }: { clientName: string }) {
 //     </button>
 //   );
 // }
+
+
+
+type AddButtonProps = {
+  onAdd: () => Promise<void>;
+  label?: string;
+  redirectUrl?: string; // Optional: after success
+  className?: string;
+  disabled?: boolean;
+};
+
+export function AddButton({
+  onAdd,
+  label = 'Add',
+  redirectUrl,
+  className = '',
+  disabled = false,
+}: AddButtonProps) {
+  const router = useRouter();
+  const [isPending, startTransition] = useTransition();
+
+  const handleClick = () => {
+    if (disabled || isPending) return;
+    startTransition(async () => {
+      await onAdd();
+      if (redirectUrl) {
+        router.push(redirectUrl);
+      }
+    });
+  };
+
+  return (
+    <button
+      onClick={handleClick}
+      disabled={isPending || disabled}
+      className={`w-full bg-[#6acb8c] text-white py-2 px-4 rounded-md hover:bg-[#6acb8c] transition disabled:opacity-50 ${className}`}
+    >
+      {isPending ? 'Adding...' : label}
+    </button>
+  );
+}
