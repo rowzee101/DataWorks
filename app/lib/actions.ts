@@ -523,6 +523,7 @@ export async function updateProductType(id: string, formData: FormData) {
     supplier2_id: formData.get('supplier2_id')?.toString(),
     manufacturer_id: formData.get('manufacturer_id')?.toString(),
     price: formData.get('price')?.toString(),
+    asset_type_id: formData.get('asset_type_id')?.toString(),
   });
 
   if (!validatedFields.success) {
@@ -538,6 +539,7 @@ export async function updateProductType(id: string, formData: FormData) {
     supplier2_id,
     manufacturer_id,
     price,
+    asset_type_id,
   } = validatedFields.data;
 
   try {
@@ -547,7 +549,8 @@ export async function updateProductType(id: string, formData: FormData) {
         supplier1_id = ${Number(supplier1_id)},
         supplier2_id = ${supplier2_id ? Number(supplier2_id) : null},
         manufacturer_id = ${Number(manufacturer_id)},
-        price = ${price ? Number(price) : null}
+        price = ${price ? Number(price) : null},
+        asset_type_id = ${asset_type_id ? Number(asset_type_id) : null}
       WHERE id = ${id}
     `;
   } catch (error) {
