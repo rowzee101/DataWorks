@@ -5,6 +5,7 @@ import { EditProductTypeForm } from '@/app/ui/assets/EditProductTypeForm';
 import {
   fetchSupplierManufacturer,
   fetchProductTypeByID,
+  fetchAssetTypes,
 } from '@/app/lib/data';
 
 import { Metadata } from 'next';
@@ -21,6 +22,8 @@ export const dynamic = 'force-dynamic';
 
 export default async function EditAssetModal(props: any) {
   const { params } = await props;
+
+  const assetTypes = await fetchAssetTypes();
 
   const productTypeRowList = await fetchProductTypeByID(Number(params.id));
 
@@ -53,7 +56,7 @@ export default async function EditAssetModal(props: any) {
       <EditProductTypeForm
         initialData={product_converted}
         suppliers={toOption(suppliers)}
-        assetTypes={toOption(productTypeRowList.asset_types)}
+        assetTypes={toOption(assetTypes)}
       />
     </Modal>
   );

@@ -1,29 +1,3 @@
-// import { Modal } from '@/app/ui/components/Modal';
-// import { getAssetById, fetchClients, fetchProductType, fetchSupplierManufacturer } from '@/app/lib/data';
-// import { EditAssetForm } from '@/app/ui/assets/EditAssetForm';
-
-// export default async function AddAssetModal() {
-
-//   const clients = await fetchClients();
-//   const productTypes = await fetchProductType();
-//   const suppliers = await fetchSupplierManufacturer();
-
-//   const toOption = (items: { id: number; name: string }[]) =>
-//     items.map((i) => ({ value: i.id, label: i.name }));
-//   return (
-//     <Modal>
-//       {/* <AddAssetForm /> */}
-//       <EditAssetForm
-//         clients={toOption(clients)}
-//         productTypes={toOption(productTypes)}
-//         suppliers={toOption(suppliers)}
-//       />
-//     </Modal>
-//   );
-// }
-
-
-// app/dashboard/assets/[id]/edit/@modal/page.tsx
 
 import { Modal } from '@/app/ui/components/Modal';
 import { EditAssetForm } from '@/app/ui/assets/EditAssetForm';
@@ -34,6 +8,7 @@ import {
   fetchClients,
   fetchProductType,
   fetchSupplierManufacturer,
+  fetchAssetTypes,
 } from '@/app/lib/data';
 
 import { Metadata } from 'next';
@@ -74,10 +49,11 @@ export default async function EditAssetModal(props: any) {
     service_due_date: assetRow.service_due_date?.toISOString().split('T')[0] ?? null,
   };
 
-  const [clients, productTypes, suppliers] = await Promise.all([
+  const [clients, productTypes, suppliers, assetTypes] = await Promise.all([
     fetchClients(),
     fetchProductType(),
     fetchSupplierManufacturer(),
+    fetchAssetTypes(),
   ]);
 
   const toOption = (items: { id: number; name: string }[]) =>
@@ -91,7 +67,7 @@ export default async function EditAssetModal(props: any) {
         clients={toOption(clients)}
         productTypes={toOption(productTypes)}
         suppliers={toOption(suppliers)}
-        assetTypes={toOption([])}
+        assetTypes={toOption(assetTypes)}
       />
     </Modal>
   );
