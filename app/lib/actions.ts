@@ -138,7 +138,12 @@ export async function authenticate(
 }
 
 
- 
+const isValidDate = (value: string | undefined | null) => {
+  if (!value) return false;
+  const date = new Date(value);
+  return !isNaN(date.getTime()); // true if valid date
+};
+
 const AssetFormSchema = z.object({
   asset_number: z.string({
     required_error: 'Asset number is required.',
@@ -156,9 +161,11 @@ const AssetFormSchema = z.object({
   supplier_id: z.string().optional(), // optional because DB allows null
   manufacturer_id: z.string().optional(), // optional because DB allows null
   asset_type_id: z.string().optional(), // optional because DB allows null
-  purchase_date: z.string().optional(), // optional if you let DB default
-  last_service_date: z.string().optional(), // optional since it's nullable
-  service_due_date: z.string().optional(), // optional since it's nullable
+  purchase_date: z.string({
+    required_error: 'Purchase date is required.',
+  }).refine((val) => val !== '', { message: 'Purchase date cannot be empty.' }).refine((val) => !isNaN(new Date(val).getTime()), { message: 'Invalid date format.' }),
+  last_service_date: z.string().transform((val) => val === '' ? undefined : val).optional(),
+  service_due_date: z.string().transform((val) => val === '' ? undefined : val).optional(),
   note: z.string().optional(),
 });
 
@@ -202,30 +209,39 @@ export async function addNewAsset(formData: FormData) {
     supplier_id,
   } = validatedFields.data;
 
+  const validPurchaseDate = isValidDate(purchase_date) ? purchase_date : null;
+  const validServiceDueDate = isValidDate(service_due_date) ? service_due_date : null;
+  const validLastServiceDate = isValidDate(last_service_date) ? last_service_date : null;
   try {
     await sql`
       INSERT INTO assets 
-        (product_type_id, client_id, manufacturer_number, asset_number, supplier_id, purchase_date, last_service_date, note, asset_barnumber, asset_type_id, manufacturer_id, service_due_date)
+        (product_type_id, 
+        client_id, 
+        manufacturer_number, 
+        asset_number, 
+        supplier_id, 
+        purchase_date, 
+        last_service_date, 
+        note, 
+        asset_barnumber, 
+        asset_type_id, 
+        manufacturer_id, 
+        service_due_date)
       VALUES
-        (${Number(product_type_id)}, ${Number(client_id)}, ${manufacturer_number}, ${asset_number}, 
-         ${supplier_id ? Number(supplier_id) : null}, 
-         ${purchase_date ?? null}, ${last_service_date ?? null}, ${note ?? null}, ${asset_barnumber ?? null}, ${asset_type_id ?? null}, ${manufacturer_id ?? null}, ${service_due_date ?? null})
+        (${Number(product_type_id)},
+        ${Number(client_id)},
+        ${manufacturer_number},
+        ${asset_number}, 
+        ${supplier_id ? Number(supplier_id) : null}, 
+        ${validPurchaseDate ?? null}, 
+        ${validLastServiceDate ?? null}, 
+        ${note ?? null}, 
+        ${asset_barnumber ?? null}, 
+        ${asset_type_id ?? null}, 
+        ${manufacturer_id ?? null}, 
+        ${validServiceDueDate ?? null})
          ON CONFLICT (asset_number) DO NOTHING;
     `;
-
-    // const columns = ['product_type_id', 'client_id', 'manufacturer_number', 'asset_number', 'supplier_id', 'last_service_date', 'note', 'asset_barnumber'];
-    // const values = [Number(product_type_id), Number(client_id), manufacturer_number, asset_number, supplier_id ? Number(supplier_id) : null, emptyToNull(last_service_date), emptyToNull(note), emptyToNull(asset_barnumber)];
-
-    // if (purchase_date && purchase_date.trim() !== '') {
-    //   columns.push('purchase_date');
-    //   values.push(purchase_date);
-    // }
-
-    // await sql`
-    //   INSERT INTO assets (${sql(columns)})
-    //   VALUES (${sql(values)})
-    //   ON CONFLICT (asset_number) DO NOTHING;
-    // `;
 
   } catch (error) {
     console.error(error);
@@ -238,11 +254,6 @@ export async function addNewAsset(formData: FormData) {
   redirect('/dashboard/success');
 }
 
-const isValidDate = (value: string | undefined | null) => {
-  if (!value) return false;
-  const date = new Date(value);
-  return !isNaN(date.getTime()); // true if valid date
-};
 
 export async function updateAsset(id: string, formData: FormData) {
   const validatedFields = AddNewAsset.safeParse({
@@ -297,7 +308,7 @@ export async function updateAsset(id: string, formData: FormData) {
         purchase_date = ${validPurchaseDate ?? null},
         last_service_date = ${validLastServiceDate ?? null},
         note = ${note ?? null},
-        asset_barnumber = ${asset_barnumber ?? null}
+        asset_barnumber = ${asset_barnumber ?? null},
         asset_type_id = ${asset_type_id ?? null},
         manufacturer_id = ${manufacturer_id ?? null},
         service_due_date = ${validServiceDueDate ?? null}
