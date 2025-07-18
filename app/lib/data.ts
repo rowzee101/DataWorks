@@ -468,7 +468,7 @@ export async function fetchAssetTypes() {
   try {
     const Assettype = await sql<Assettype[]>`
       SELECT * 
-      FROM asset_types
+      FROM asset_type
       ORDER BY name ASC
     `;
 
