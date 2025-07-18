@@ -112,15 +112,15 @@ export default function AssetsTable({ assets , productTypes , supplierNmanufactu
                   </div>
                   <div className="mb-2">
                     <p className="text-sm text-gray-500">Purchase Date</p>
-                    <p>{new Date(asset.purchase_date).toLocaleDateString()}</p>
+                    <p>{new Date(asset.purchase_date).toLocaleDateString('en-GB')}</p>
                   </div>
                   <div className="mb-2">
                     <p className="text-sm text-gray-500">Last Service Date</p>
-                    <p>{asset.last_service_date ? new Date(asset.last_service_date).toLocaleDateString() : '-'}</p>
+                    <p>{asset.last_service_date ? new Date(asset.last_service_date).toLocaleDateString('en-GB') : '-'}</p>
                   </div>
                   <div className="mb-2">
                     <p className="text-sm text-gray-500">Service Due Date</p>
-                    <p>{asset.service_due_date ? new Date(asset.service_due_date).toLocaleDateString() : '-'}</p>
+                    <p>{asset.service_due_date ? new Date(asset.service_due_date).toLocaleDateString('en-GB') : '-'}</p>
                   </div>
                   <div className="mb-2">
                     <p className="text-sm text-gray-500">Note</p>
@@ -181,16 +181,16 @@ export default function AssetsTable({ assets , productTypes , supplierNmanufactu
                         {asset.supplier_id !== null ? (supplierMap.get(asset.supplier_id) || '-') : '-'}
                       </td>
                       <td className="whitespace-nowrap px-3 py-3">
-                        {new Date(asset.purchase_date).toLocaleDateString()}
+                        {new Date(asset.purchase_date).toLocaleDateString('en-GB')}
                       </td>
                       <td className="whitespace-nowrap px-3 py-3">
                         {asset.last_service_date
-                          ? new Date(asset.last_service_date).toLocaleDateString()
+                          ? new Date(asset.last_service_date).toLocaleDateString('en-GB')
                           : '-'}
                       </td>
                       <td className="whitespace-nowrap px-3 py-3">
                         {asset.service_due_date
-                          ? new Date(asset.service_due_date).toLocaleDateString()
+                          ? new Date(asset.service_due_date).toLocaleDateString('en-GB')
                           : '-'}
                       </td>
                       <td className="whitespace-nowrap px-3 py-3">
