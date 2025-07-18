@@ -3,7 +3,7 @@
 import React, { useState } from 'react';
 import { useManualDebounce } from '@/app/lib/manualDebounce';
 import { DownloadPDFButton } from '@/app/ui/clientSided/buttons';
-import { AddProductType, EditProductType, DeleteProductType } from '@/app/ui/invoices/buttons';
+import { AddProductType, EditProductType, DeleteProductType , AddAssetType} from '@/app/ui/invoices/buttons';
 import { Assettype, ProductType } from '@/app/lib/definitions';
 
 type SupplierManufacturer = {
@@ -62,6 +62,7 @@ export default function ProductTypesTable({ productTypes, suppliersManufacturers
           className="p-2 border rounded flex-1 w-full"
         />
         <AddProductType />
+        <AddAssetType />
         <DownloadPDFButton clientName={'Product Types Table'} />
       </div>
 
