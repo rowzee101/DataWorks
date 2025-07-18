@@ -144,6 +144,12 @@ const isValidDate = (value: string | undefined | null) => {
   return !isNaN(date.getTime()); // true if valid date
 };
 
+const safeNumber = (val: string | undefined | null) => {
+  if (!val || val.trim() === '') return null;
+  const n = Number(val);
+  return isNaN(n) ? null : n;
+};
+
 const AssetFormSchema = z.object({
   asset_number: z.string({
     required_error: 'Asset number is required.',
@@ -228,17 +234,17 @@ export async function addNewAsset(formData: FormData) {
         manufacturer_id, 
         service_due_date)
       VALUES
-        (${Number(product_type_id)},
-        ${Number(client_id)},
+        (${safeNumber(product_type_id)},
+        ${safeNumber(client_id)},
         ${manufacturer_number},
         ${asset_number}, 
-        ${supplier_id ? Number(supplier_id) : null}, 
+        ${safeNumber(supplier_id) ?? null}, 
         ${validPurchaseDate ?? null}, 
         ${validLastServiceDate ?? null}, 
         ${note ?? null}, 
         ${asset_barnumber ?? null}, 
-        ${asset_type_id ?? null}, 
-        ${manufacturer_id ?? null}, 
+        ${safeNumber(asset_type_id) ?? null}, 
+        ${safeNumber(manufacturer_id) ?? null}, 
         ${validServiceDueDate ?? null})
          ON CONFLICT (asset_number) DO NOTHING;
     `;
@@ -300,17 +306,17 @@ export async function updateAsset(id: string, formData: FormData) {
   try {
     await sql`
       UPDATE assets SET
-        product_type_id = ${Number(product_type_id)},
-        client_id = ${Number(client_id)},
+        product_type_id = ${safeNumber(product_type_id)},
+        client_id = ${safeNumber(client_id)},
         manufacturer_number = ${manufacturer_number},
         asset_number = ${asset_number},
-        supplier_id = ${supplier_id ? Number(supplier_id) : null},
+        supplier_id = ${safeNumber(supplier_id) ?? null},
         purchase_date = ${validPurchaseDate ?? null},
         last_service_date = ${validLastServiceDate ?? null},
         note = ${note ?? null},
         asset_barnumber = ${asset_barnumber ?? null},
-        asset_type_id = ${asset_type_id ?? null},
-        manufacturer_id = ${manufacturer_id ?? null},
+        asset_type_id = ${safeNumber(asset_type_id) ?? null},
+        manufacturer_id = ${safeNumber(manufacturer_id) ?? null},
         service_due_date = ${validServiceDueDate ?? null}
       WHERE id = ${id}
     `;
@@ -388,7 +394,7 @@ export async function addNewClient(formData: FormData) {
         ${state},
         ${address},
         ${country},
-        ${Number(client_type)},
+        ${safeNumber(client_type)},
         NOW(),
         ${brief ?? null}
       )
@@ -447,7 +453,7 @@ export async function updateClient(id: string, formData: FormData) {
       state = ${state},
       address = ${address},
       country = ${country},
-      client_type = ${Number(client_type)},
+      client_type = ${safeNumber(client_type)},
       brief = ${brief ?? null}
     WHERE id = ${id}
   `;
@@ -522,11 +528,11 @@ export async function addNewProductType(formData: FormData) {
       VALUES
         (
           ${name},
-          ${Number(supplier1_id)},
-          ${supplier2_id ? Number(supplier2_id) : null},
-          ${Number(manufacturer_id)},
-          ${price ? Number(price) : null},
-          ${asset_type_id ? Number(asset_type_id) : null}
+          ${safeNumber(supplier1_id)},
+          ${safeNumber(supplier2_id) ?? null},
+          ${safeNumber(manufacturer_id)},
+          ${safeNumber(price) ?? null},
+          ${safeNumber(asset_type_id) ?? null}
         )
           ON CONFLICT (name) DO NOTHING;
     `;
@@ -571,11 +577,11 @@ export async function updateProductType(id: string, formData: FormData) {
     await sql`
       UPDATE product_types SET
         name = ${name},
-        supplier1_id = ${Number(supplier1_id)},
-        supplier2_id = ${supplier2_id ? Number(supplier2_id) : null},
-        manufacturer_id = ${Number(manufacturer_id)},
-        price = ${price ? Number(price) : null},
-        asset_type_id = ${asset_type_id ? Number(asset_type_id) : null}
+        supplier1_id = ${safeNumber(supplier1_id)},
+        supplier2_id = ${safeNumber(supplier2_id) ?? null},
+        manufacturer_id = ${safeNumber(manufacturer_id)},
+        price = ${safeNumber(price) ?? null},
+        asset_type_id = ${safeNumber(asset_type_id) ?? null}
       WHERE id = ${id}
     `;
   } catch (error) {
