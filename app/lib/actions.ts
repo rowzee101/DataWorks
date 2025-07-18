@@ -665,3 +665,47 @@ export async function deleteSupplierByID(id: string) {
     return { message: 'Failed to delete supplier.' };
   }
 }
+
+export async function addNewAssetType(formData: FormData) {
+  const validatedFields = z.object({
+    name: z.string({ required_error: 'Asset Type Name is required.' }),
+  }).safeParse({
+    name: formData.get('name')?.toString(),
+  });
+
+  if (!validatedFields.success) {
+    return {
+      errors: validatedFields.error.flatten().fieldErrors,
+      message: 'Missing Fields. Failed to Add Asset Type.',
+    };
+  }
+
+  const { name } = validatedFields.data;
+
+  try {
+    await sql`
+      INSERT INTO asset_type (name)
+      VALUES (${name})
+      ON CONFLICT (name) DO NOTHING;
+    `;
+  } catch (error) {
+    console.error(error);
+    return { message: 'Failed to add asset type due to database error.' };
+  }
+
+  revalidatePath('/dashboard/assets');
+  revalidatePath('/dashboard/clients');
+  revalidatePath('/dashboard/suppliers&manufacturers');
+}
+
+export async function deleteAssetTypeByID(id: string) {
+  try {
+    await sql`DELETE FROM asset_type WHERE id = ${id}`;
+    revalidatePath('/dashboard/assets');
+    revalidatePath('/dashboard/clients');
+    revalidatePath('/dashboard/suppliers&manufacturers');
+  } catch (error) {
+    console.error(error);
+    return { message: 'Failed to delete asset type.' };
+  }
+}

@@ -111,6 +111,19 @@ export function AddProductType() {
   );
 }   
 
+
+export function AddAssetType() {
+  return (
+    <Link
+      href="/dashboard/assets/types/add"
+      className="flex h-10 items-center rounded-lg bg-[#205B34] px-4 text-sm font-medium text-white transition-colors hover:bg-[#b4e4c5] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600"
+    >
+      <span className="hidden md:block">Add New Product Type</span>{' '}
+      <PlusIcon className="h-5 md:ml-4" />
+    </Link>
+  );
+}  
+
 export function EditProductType({ id }: { id: string }) {
   return (
     <Link
