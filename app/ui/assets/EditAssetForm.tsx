@@ -102,6 +102,7 @@ export function EditAssetForm({
         <label className="block mb-1 text-sm font-medium text-gray-700">Purchase Date</label>
         <input
           type="date"
+          required
           name="purchase_date"
           defaultValue={initialData[0].purchase_date ?? ''}
           className="w-full p-2 border border-gray-300 rounded bg-white"
@@ -146,6 +147,7 @@ export function EditAssetForm({
         <Select
           options={clients}
           isClearable
+          required
           value={client}
           onChange={(opt) => setClient(opt)}
         />
@@ -158,6 +160,7 @@ export function EditAssetForm({
         <Select
           options={productTypes}
           isClearable
+          required
           value={productType}
           onChange={(opt) => setProductType(opt)}
         />

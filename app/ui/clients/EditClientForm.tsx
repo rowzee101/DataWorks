@@ -105,6 +105,7 @@ export function EditClientForm({
         <Select
           options={stateOptions}
           isClearable
+          required
           value={state}
           onChange={(opt) => setState(opt)}
         />
@@ -117,6 +118,7 @@ export function EditClientForm({
         <Select
           options={countryOptions}
           isClearable
+          required
           value={country}
           onChange={(opt) => setCountry(opt)}
         />
@@ -129,6 +131,7 @@ export function EditClientForm({
         <Select
           options={clientTypes}
           isClearable
+          required
           value={clientType}
           onChange={(opt) => setClientType(opt)}
         />

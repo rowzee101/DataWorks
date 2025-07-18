@@ -74,6 +74,7 @@ export function AddClientForm({ clientTypes }: AddClientFormProps) {
         <Select
             options={AU_STATES_plus_Other}
             isClearable
+            required
             value={state}
             onChange={(opt) => setState(opt)}
             />
@@ -97,6 +98,7 @@ export function AddClientForm({ clientTypes }: AddClientFormProps) {
         <Select
             options={countryOptions}
             isClearable
+            required
             value={country}
             onChange={(opt) => setCountry(opt)}
         />
@@ -109,6 +111,7 @@ export function AddClientForm({ clientTypes }: AddClientFormProps) {
         <Select
           options={clientTypes}
           isClearable
+          required
           value={clientType}
           onChange={(opt) => setClientType(opt)}
         />

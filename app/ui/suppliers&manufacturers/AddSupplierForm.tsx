@@ -65,6 +65,7 @@ export function AddSupplierForm() {
         <Select
           options={countryOptions}
           isClearable
+          required
           value={country}
           onChange={(opt) => setCountry(opt)}
         />
