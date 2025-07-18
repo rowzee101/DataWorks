@@ -196,6 +196,21 @@ export function AddAssetForm({
       return;
     }
 
+    const dateFields = ['purchase_date', 'last_service_date', 'service_due_date'];
+    dateFields.forEach((field) => {
+      const value = formData.get(field)?.toString().trim();
+      if (!value) {
+        formData.set(field, 'null'); // You can also use '' or remove the field if your backend expects that
+      }
+    });
+
+    for (const field of ['purchase_date', 'last_service_date', 'service_due_date', 'note']) {
+      const value = formData.get(field)?.toString().trim();
+      if (!value) {
+        formData.delete(field);
+      }
+    }
+
     startTransition(() => handleSubmit(formData));
   };
 

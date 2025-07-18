@@ -61,6 +61,7 @@ export function AddProductTypeForm({
         <Select
           options={suppliersManufacturers}
           isClearable
+          required
           value={supplier1}
           onChange={(opt) => setSupplier1(opt)}
         />
@@ -85,6 +86,7 @@ export function AddProductTypeForm({
         <Select
           options={suppliersManufacturers}
           isClearable
+          required
           value={manufacturer}
           onChange={(opt) => setManufacturer(opt)}
         />
