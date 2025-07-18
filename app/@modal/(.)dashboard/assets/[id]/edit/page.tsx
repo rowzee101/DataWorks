@@ -27,7 +27,7 @@
 
 import { Modal } from '@/app/ui/components/Modal';
 import { EditAssetForm } from '@/app/ui/assets/EditAssetForm';
-import { AssetData } from '@/app/lib/definitions';
+import { Asset } from '@/app/lib/definitions';
 
 import {
   getAssetById,
@@ -57,19 +57,22 @@ export default async function EditAssetModal(props: any) {
     return <div>Asset not found.</div>;
   }
 
-    // Manually map Row -> AssetData
-    const asset_converted: AssetData = {
-    asset_id: assetRow.id,
+  // Manually map Row -> Asset
+  const asset: Asset = {
+    id: assetRow.id,
     asset_number: assetRow.asset_number,
     asset_barnumber: assetRow.asset_barnumber ?? '',
     manufacturer_number: assetRow.manufacturer_number,
-    purchase_date: assetRow.purchase_date?.toISOString().split('T')[0], // format to yyyy-mm-dd
+    purchase_date: assetRow.purchase_date?.toISOString().split('T')[0],
     last_service_date: assetRow.last_service_date?.toISOString().split('T')[0],
     note: assetRow.note ?? '',
     client_id: assetRow.client_id,
     supplier_id: assetRow.supplier_id,
     product_type_id: assetRow.product_type_id,
-    };
+    asset_type_id: assetRow.asset_type_id ?? null,
+    manufacturer_id: assetRow.manufacturer_id ?? null,
+    service_due_date: assetRow.service_due_date?.toISOString().split('T')[0] ?? null,
+  };
 
   const [clients, productTypes, suppliers] = await Promise.all([
     fetchClients(),
@@ -83,10 +86,11 @@ export default async function EditAssetModal(props: any) {
   return (
     <Modal>
       <EditAssetForm
-        initialData={asset_converted}
+        initialData={[asset]}
         clients={toOption(clients)}
         productTypes={toOption(productTypes)}
         suppliers={toOption(suppliers)}
+        assetTypes={toOption([])}
       />
     </Modal>
   );
