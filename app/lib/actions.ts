@@ -238,6 +238,12 @@ export async function addNewAsset(formData: FormData) {
   redirect('/dashboard/success');
 }
 
+const isValidDate = (value: string | undefined | null) => {
+  if (!value) return false;
+  const date = new Date(value);
+  return !isNaN(date.getTime()); // true if valid date
+};
+
 export async function updateAsset(id: string, formData: FormData) {
   const validatedFields = AddNewAsset.safeParse({
     asset_number: formData.get('asset_number')?.toString(),
@@ -276,6 +282,10 @@ export async function updateAsset(id: string, formData: FormData) {
     manufacturer_id,
   } = validatedFields.data;
 
+
+  const validPurchaseDate = isValidDate(purchase_date) ? purchase_date : null;
+  const validServiceDueDate = isValidDate(service_due_date) ? service_due_date : null;
+  const validLastServiceDate = isValidDate(last_service_date) ? last_service_date : null;
   try {
     await sql`
       UPDATE assets SET
@@ -284,13 +294,13 @@ export async function updateAsset(id: string, formData: FormData) {
         manufacturer_number = ${manufacturer_number},
         asset_number = ${asset_number},
         supplier_id = ${supplier_id ? Number(supplier_id) : null},
-        purchase_date = ${purchase_date ?? null},
-        last_service_date = ${last_service_date ?? null},
+        purchase_date = ${validPurchaseDate ?? null},
+        last_service_date = ${validLastServiceDate ?? null},
         note = ${note ?? null},
         asset_barnumber = ${asset_barnumber ?? null}
         asset_type_id = ${asset_type_id ?? null},
         manufacturer_id = ${manufacturer_id ?? null},
-        service_due_date = ${service_due_date ?? null}
+        service_due_date = ${validServiceDueDate ?? null}
       WHERE id = ${id}
     `;
   } catch (error) {
@@ -504,7 +514,7 @@ export async function addNewProductType(formData: FormData) {
           ${Number(supplier1_id)},
           ${supplier2_id ? Number(supplier2_id) : null},
           ${Number(manufacturer_id)},
-          ${price ? Number(price) : null}
+          ${price ? Number(price) : null},
           ${asset_type_id ? Number(asset_type_id) : null}
         )
           ON CONFLICT (name) DO NOTHING;

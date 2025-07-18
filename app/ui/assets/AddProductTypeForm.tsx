@@ -3,7 +3,6 @@
 import { useState } from 'react';
 import Select from 'react-select';
 import { addNewProductType } from '@/app/lib/actions'; // Update this path if needed
-import { Assettype } from '@/app/lib/definitions'; // Adjust the import path as needed
 
 type Option = {
   value: number;
