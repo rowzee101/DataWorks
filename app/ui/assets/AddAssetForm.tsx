@@ -183,11 +183,7 @@ export function AddAssetForm({
     await addNewAsset(formData);
   };
 
-  const handleFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-
-    const formData = new FormData(e.currentTarget);
-
+  const processFormData = (formData: FormData) => {
     const assetNumber = formData.get('asset_number')?.toString().trim();
     const manufacturerNumber = formData.get('manufacturer_number')?.toString().trim();
 
@@ -195,14 +191,6 @@ export function AddAssetForm({
       alert('Please fill in all required fields.');
       return;
     }
-
-    const dateFields = ['purchase_date', 'last_service_date', 'service_due_date'];
-    dateFields.forEach((field) => {
-      const value = formData.get(field)?.toString().trim();
-      if (!value) {
-        formData.set(field, 'null'); // You can also use '' or remove the field if your backend expects that
-      }
-    });
 
     for (const field of ['purchase_date', 'last_service_date', 'service_due_date', 'note']) {
       const value = formData.get(field)?.toString().trim();
@@ -214,8 +202,14 @@ export function AddAssetForm({
     startTransition(() => handleSubmit(formData));
   };
 
+  const handleFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const formData = new FormData(e.currentTarget);
+    processFormData(formData);
+  };
+
   return (
-    <form onSubmit={handleFormSubmit} className="grid grid-cols-1 md:grid-cols-2 gap-6 w-full">
+    <form id="add-asset-form" onSubmit={handleFormSubmit} className="grid grid-cols-1 md:grid-cols-2 gap-6 w-full">
       {/* Asset Number */}
       <div className="bg-gray-50 p-4 rounded-lg shadow-sm">
         <label className="block mb-1 font-medium text-sm text-gray-700">Asset Number</label>
@@ -344,26 +338,14 @@ export function AddAssetForm({
         <input type="hidden" name="manufacturer_id" value={manufacturer?.value ?? ''} />
       </div>
 
-      {/* Submit */}
-      <div className="md:col-span-2">
         <AddButton
           onAdd={async () => {
             const form = document.getElementById('add-asset-form') as HTMLFormElement | null;
             if (!form) return;
             const formData = new FormData(form);
-
-            const assetNumber = formData.get('asset_number')?.toString().trim();
-            const manufacturerNumber = formData.get('manufacturer_number')?.toString().trim();
-
-            if (!assetNumber || !manufacturerNumber || !client || !productType) {
-              alert('Please fill in all required fields.');
-              return;
-            }
-
-            await handleSubmit(formData);
+            processFormData(formData);
           }}
         />
-      </div>
     </form>
   );
 }

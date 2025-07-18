@@ -301,6 +301,7 @@ export async function updateAsset(id: string, formData: FormData) {
   revalidatePath('/dashboard/assets');
   revalidatePath('/dashboard/clients');
   revalidatePath('/dashboard/suppliers&manufacturers');
+  redirect('/dashboard/success');
 }
 
 export async function deleteAssetByID(id: string) {
@@ -381,6 +382,7 @@ export async function addNewClient(formData: FormData) {
   revalidatePath('/dashboard/clients');
   revalidatePath('/dashboard/suppliers&manufacturers');
   redirect('/dashboard/clients');
+  
 }
 
 
@@ -515,6 +517,7 @@ export async function addNewProductType(formData: FormData) {
   revalidatePath('/dashboard/assets');
   revalidatePath('/dashboard/clients');
   revalidatePath('/dashboard/suppliers&manufacturers');
+  redirect('/dashboard/success');
 }
 
 export async function updateProductType(id: string, formData: FormData) {
@@ -562,6 +565,7 @@ export async function updateProductType(id: string, formData: FormData) {
   revalidatePath('/dashboard/assets');
   revalidatePath('/dashboard/clients');
   revalidatePath('/dashboard/suppliers&manufacturers');
+  redirect('/dashboard/success');
 }
 
 export async function deleteProductTypeByID(id: string) {
@@ -591,6 +595,7 @@ export async function addNewSupplier(formData: FormData) {
     main_number: formData.get('main_number')?.toString(),
     country: formData.get('country')?.toString(),
     brief: formData.get('brief')?.toString(),
+    
   });
 
   if (!validatedFields.success) {
@@ -616,6 +621,7 @@ export async function addNewSupplier(formData: FormData) {
   revalidatePath('/dashboard/assets');
   revalidatePath('/dashboard/clients');
   revalidatePath('/dashboard/suppliers&manufacturers');
+  redirect('/dashboard/suppliers&manufacturers');
 }
 
 // Update Supplier
@@ -655,6 +661,7 @@ export async function updateSupplier(id: string, formData: FormData) {
   revalidatePath('/dashboard/assets');
   revalidatePath('/dashboard/clients');
   revalidatePath('/dashboard/suppliers&manufacturers');
+  redirect('/dashboard/success');
 }
 
 // Delete Supplier
@@ -709,6 +716,7 @@ export async function deleteAssetTypeByID(id: string) {
     revalidatePath('/dashboard/assets');
     revalidatePath('/dashboard/clients');
     revalidatePath('/dashboard/suppliers&manufacturers');
+    redirect('/dashboard/success');
   } catch (error) {
     console.error(error);
     return { message: 'Failed to delete asset type.' };
