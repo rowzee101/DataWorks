@@ -1,9 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-// import AssetsTable from '@/app/ui/Assetstable'; 
-import type { Asset } from '@/app/lib/definitions'; 
-import type { ProductType , SupplierManufacturer } from '@/app/lib/definitions'; 
+import type { Asset , ProductType , SupplierManufacturer , Assettype} from '@/app/lib/definitions'; 
 import { Suspense } from 'react';
 
 import dynamic from 'next/dynamic';
@@ -27,13 +25,14 @@ type TabsProps = {
   searchQuery?: string;
   productTypes: ProductType[];
   SupplierManufacturer: SupplierManufacturer[];
+  Assettype: Assettype[];
 
   // suppliersManufacturers?: { id: number; name: string }[]; // Uncomment if needed
 
 };
 
 
-export function Tabs({ assets, productTypes , Myassets  , SupplierManufacturer}: TabsProps) {
+export function Tabs({ assets, productTypes , Myassets  , SupplierManufacturer , Assettype}: TabsProps) {
 
   const [activeTab, setActiveTab] = useState<'Client Assets' | 'My Assets' | 'Product Types' >('Client Assets');
   return (
@@ -55,8 +54,8 @@ export function Tabs({ assets, productTypes , Myassets  , SupplierManufacturer}:
 
       {/* Tab Content */}
       <div className="mt-4">
-          {activeTab === 'Client Assets' && <AssetsTable assets={assets} productTypes={productTypes} />}
-          {activeTab === 'My Assets' && <AssetsTable assets={Myassets} productTypes={productTypes} />}
+          {activeTab === 'Client Assets' && <AssetsTable assets={assets} productTypes={productTypes} supplierNmanufacturer={SupplierManufacturer} Assettype={Assettype} />}
+          {activeTab === 'My Assets' && <AssetsTable assets={Myassets} productTypes={productTypes} supplierNmanufacturer={SupplierManufacturer} Assettype={Assettype} />}
           {activeTab === 'Product Types' && <ProductTypesTable productTypes={productTypes} suppliersManufacturers={SupplierManufacturer} />}
       </div>
     </div>

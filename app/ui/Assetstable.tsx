@@ -3,21 +3,24 @@
 import React, { useState } from 'react';
 import { AddAsset , EditAsset, DeleteAsset} from '@/app/ui/invoices/buttons';
 import { DownloadPDFButton } from '@/app/ui/clientSided/buttons';
-import { useManualDebounce } from '@/app/lib/manualDebounce'; // adjust path as needed
-import type { Asset } from '@/app/lib/definitions'; // adjust path as needed
-import type { ProductType } from '@/app/lib/definitions'; // adjust path as needed
+import { useManualDebounce } from '@/app/lib/manualDebounce';
+import type { Asset , ProductType , SupplierManufacturer , Assettype} from '@/app/lib/definitions'; 
 
 
 interface AssetsTableProps {
   assets: Asset[];
   productTypes: ProductType[];
+  supplierNmanufacturer: SupplierManufacturer[];
+  Assettype: Assettype[];
 }
 
-export default function AssetsTable({ assets , productTypes }: AssetsTableProps) {
+export default function AssetsTable({ assets , productTypes , supplierNmanufacturer, Assettype}: AssetsTableProps) {
   const [searchTerm, setSearchTerm] = useState('');
   const [debouncedSearch, setDebouncedSearch] = useState('');
 
   const productTypeMap = new Map(productTypes.map(pt => [pt.id, pt.name]));
+  const supplierMap = new Map(supplierNmanufacturer.map(s => [s.id, s.name]));
+  const assetTypeMap = new Map(Assettype.map(at => [at.id, at.name]));
 
   // Debounce the search input by 300ms
   const handleSearch = useManualDebounce((value: string) => {
@@ -45,7 +48,11 @@ export default function AssetsTable({ assets , productTypes }: AssetsTableProps)
         ? new Date(asset.last_service_date).toISOString().toLowerCase()
         : ''
       ).includes(term) ||
-      (asset.product_type_id || '').toString().toLowerCase().includes(term)
+      (asset.product_type_id || '').toString().toLowerCase().includes(term) ||
+      (asset.asset_type_id || '').toString().toLowerCase().includes(term) ||
+      (asset.manufacturer_id || '').toString().toLowerCase().includes(term) ||
+      (asset.supplier_id || '').toString().toLowerCase().includes(term)
+
     );
   });
 
@@ -80,16 +87,28 @@ export default function AssetsTable({ assets , productTypes }: AssetsTableProps)
                     <p className="font-medium">{asset.asset_number}</p>
                   </div>
                   <div className="mb-2">
-                    <p className="text-sm text-gray-500">Asset</p>
-                    <p>{productTypeMap.get(asset.product_type_id) || 'Unknown'}</p>
+                    <p className="text-sm text-gray-500">Asset Bar-code</p>
+                    <p>{asset.asset_barnumber}</p>
                   </div>
                   <div className="mb-2">
-                    <p className="text-sm text-gray-500">Manufacturer Number</p>
+                    <p className="text-sm text-gray-500">Asset/Model</p>
+                    <p>{productTypeMap.get(asset.product_type_id) || '-'}</p>
+                  </div>
+                  <div className="mb-2">
+                    <p className="text-sm text-gray-500">Type</p>
+                    <p>{asset.asset_type_id !== null ? (assetTypeMap.get(asset.asset_type_id) || '-') : '-'}</p>
+                  </div>
+                  <div className="mb-2">
+                    <p className="text-sm text-gray-500">Manufacturer Serial Number</p>
                     <p>{asset.manufacturer_number}</p>
                   </div>
                   <div className="mb-2">
-                    <p className="text-sm text-gray-500">Asset Bar-code</p>
-                    <p>{asset.asset_barnumber}</p>
+                    <p className="text-sm text-gray-500">Manufacturer</p>
+                    <p>{asset.manufacturer_id !== null ? (supplierMap.get(asset.manufacturer_id) || '-') : '-'}</p>
+                  </div>
+                  <div className="mb-2">
+                    <p className="text-sm text-gray-500">Supplier</p>
+                    <p>{asset.supplier_id !== null ? (supplierMap.get(asset.supplier_id) || '-') : '-'}</p>
                   </div>
                   <div className="mb-2">
                     <p className="text-sm text-gray-500">Purchase Date</p>
@@ -98,6 +117,10 @@ export default function AssetsTable({ assets , productTypes }: AssetsTableProps)
                   <div className="mb-2">
                     <p className="text-sm text-gray-500">Last Service Date</p>
                     <p>{asset.last_service_date ? new Date(asset.last_service_date).toLocaleDateString() : '-'}</p>
+                  </div>
+                  <div className="mb-2">
+                    <p className="text-sm text-gray-500">Service Due Date</p>
+                    <p>{asset.service_due_date ? new Date(asset.service_due_date).toLocaleDateString() : '-'}</p>
                   </div>
                   <div className="mb-2">
                     <p className="text-sm text-gray-500">Note</p>
@@ -114,11 +137,15 @@ export default function AssetsTable({ assets , productTypes }: AssetsTableProps)
               <thead className="rounded-lg text-left text-sm font-normal">
                 <tr>
                   <th className="px-4 py-5 font-medium sm:pl-6">Asset Number</th>
-                  <th className="px-3 py-5 font-medium">Asset</th>
-                  <th className="px-3 py-5 font-medium">Manufacturer Number</th>
                   <th className="px-3 py-5 font-medium">Asset Bar-code</th>
+                  <th className="px-3 py-5 font-medium">Asset/Model</th>
+                  <th className="px-3 py-5 font-medium">Type</th>
+                  <th className="px-3 py-5 font-medium">Manufacturer Serial Number</th>
+                  <th className="px-3 py-5 font-medium">Manufacturer</th>
+                  <th className="px-3 py-5 font-medium">Supplier</th>
                   <th className="px-3 py-5 font-medium">Purchase Date</th>
                   <th className="px-3 py-5 font-medium">Last Service Date</th>
+                  <th className="px-3 py-5 font-medium">Service Due Date</th>
                   <th className="px-3 py-5 font-medium">Note</th>
                   <th className="py-3 pl-6 pr-3 text-right">
                     <span className="sr-only">Edit</span>
@@ -136,13 +163,22 @@ export default function AssetsTable({ assets , productTypes }: AssetsTableProps)
                         {asset.asset_number}
                       </td>
                       <td className="whitespace-nowrap px-3 py-3">
+                        {asset.asset_barnumber}
+                      </td>
+                      <td className="whitespace-nowrap px-3 py-3">
                         {productTypeMap.get(asset.product_type_id) || 'Unknown'}
+                      </td>
+                      <td className="whitespace-nowrap px-3 py-3">
+                        {asset.asset_type_id !== null ? (assetTypeMap.get(asset.asset_type_id) || '-') : '-'}
                       </td>
                       <td className="whitespace-nowrap px-3 py-3">
                         {asset.manufacturer_number}
                       </td>
                       <td className="whitespace-nowrap px-3 py-3">
-                        {asset.asset_barnumber}
+                        {asset.manufacturer_id !== null ? (supplierMap.get(asset.manufacturer_id) || '-') : '-'}
+                      </td>
+                      <td className="whitespace-nowrap px-3 py-3">
+                        {asset.supplier_id !== null ? (supplierMap.get(asset.supplier_id) || '-') : '-'}
                       </td>
                       <td className="whitespace-nowrap px-3 py-3">
                         {new Date(asset.purchase_date).toLocaleDateString()}
@@ -150,6 +186,11 @@ export default function AssetsTable({ assets , productTypes }: AssetsTableProps)
                       <td className="whitespace-nowrap px-3 py-3">
                         {asset.last_service_date
                           ? new Date(asset.last_service_date).toLocaleDateString()
+                          : '-'}
+                      </td>
+                      <td className="whitespace-nowrap px-3 py-3">
+                        {asset.service_due_date
+                          ? new Date(asset.service_due_date).toLocaleDateString()
                           : '-'}
                       </td>
                       <td className="whitespace-nowrap px-3 py-3">

@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import AssetsTable from '@/app/ui/Assetstable'; 
-import type { Asset , ProductType} from '@/app/lib/definitions'; 
+import type { Asset , ProductType , SupplierManufacturer , Assettype} from '@/app/lib/definitions'; 
 
 
 // import Table from '@/app/ui/invoices/table';
@@ -12,12 +12,15 @@ type TabsProps = {
   assets: Asset[];
   searchQuery?: string;
   productTypes: ProductType[];
+  SupplierManufacturer: SupplierManufacturer[];
+  
+  Assettype: Assettype[];
 
 
   // tickets and users to be implemented later
 };
 
-export function Tabs({ assets, clientId, productTypes }: TabsProps) {
+export function Tabs({ assets, clientId, productTypes , SupplierManufacturer , Assettype}: TabsProps) {
 
   const [activeTab, setActiveTab] = useState<'assets' | 'tickets' | 'users'>('assets');
   return (
@@ -39,7 +42,7 @@ export function Tabs({ assets, clientId, productTypes }: TabsProps) {
 
       {/* Tab Content */}
       <div className="mt-4">
-        {activeTab === 'assets' && < AssetsTable assets={assets} productTypes = {productTypes} />}
+        {activeTab === 'assets' && <AssetsTable assets={assets} productTypes={productTypes} supplierNmanufacturer={SupplierManufacturer} Assettype={Assettype} />}
         {activeTab === 'tickets' && <div>Show tickets for client {clientId} here.</div>}
         {activeTab === 'users' && <div>Show Users for client {clientId} here.</div>}
       </div>

@@ -91,13 +91,16 @@ export type InvoiceForm = {
 export type Asset = {
   id: number;
   asset_barnumber: string;
+  asset_type_id: number | null;
   product_type_id: number;
   client_id: number;
   manufacturer_number: string;
   asset_number: string;
   supplier_id: number | null;
+  manufacturer_id: number | null;
   purchase_date: string;         // ISO timestamp
   last_service_date: string | null;
+  service_due_date: string | null;
   note: string | null;
 };
 
@@ -153,6 +156,11 @@ export type AssetData = {
 };
 
 export type Clienttype = {
+  id: number;
+  name: string;
+}
+
+export type Assettype = {
   id: number;
   name: string;
 }

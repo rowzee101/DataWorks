@@ -1,6 +1,6 @@
 import { Metadata } from 'next';
 
-import { fetchProductType, getClientById , getAssetsByClientId } from '@/app/lib/data';
+import { fetchProductType, getClientById , getAssetsByClientId , fetchSupplierManufacturer , fetchAssetTypes} from '@/app/lib/data';
 
 import { notFound } from 'next/navigation';
 import { Tabs } from '@/app/ui/clients/tab'; 
@@ -24,6 +24,8 @@ export default async function ClientDetailPage({ params }: any) {
   const client = await getClientById(Number(params.id));
   const assets = await getAssetsByClientId(Number(params.id));
   const productTypes = await fetchProductType();
+  const assetTypes = await fetchAssetTypes();
+  const supplierManufacturer = await fetchSupplierManufacturer();
 
   if (!client) return notFound();
 
@@ -73,7 +75,7 @@ export default async function ClientDetailPage({ params }: any) {
 
         {/* Tabs => Assets, Tickets and Users */}
         <div className="pt-6 text-sm text-gray-700">
-          <Tabs assets={assets} clientId={Number(params.id)} productTypes = {productTypes}/>
+          <Tabs assets={assets} clientId={Number(params.id)} productTypes={productTypes} Assettype={assetTypes} SupplierManufacturer={supplierManufacturer} />
         </div>
       </div>
     </div>
