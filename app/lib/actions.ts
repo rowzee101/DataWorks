@@ -235,6 +235,7 @@ export async function addNewAsset(formData: FormData) {
   revalidatePath('/dashboard/assets');
   revalidatePath('/dashboard/clients');
   revalidatePath('/dashboard/suppliers&manufacturers');
+  redirect('/dashboard/success');
 }
 
 export async function updateAsset(id: string, formData: FormData) {

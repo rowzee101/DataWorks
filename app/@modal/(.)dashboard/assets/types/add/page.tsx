@@ -5,7 +5,7 @@ import { AddAssetTypeForm } from '@/app/ui/assets/addAssetTypeForm';
 
 
 export const metadata: Metadata = {
-  title: 'Add New Asset Type',
+  title: 'Add New Product Type',
 };
 
 export default async function AddAssetTypeModal() {

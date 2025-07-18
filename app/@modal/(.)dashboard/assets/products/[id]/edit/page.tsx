@@ -11,7 +11,7 @@ import {
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'Editing Asset',
+  title: 'Editing Product',
 };
 
 type PageProps = {

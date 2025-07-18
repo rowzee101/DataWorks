@@ -5,7 +5,7 @@ import DeleteAssetType from '@/app/ui/assets/deleteAssetTypeForm';
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'Delete Asset Type?',
+  title: 'Delete Product Type?',
 };
 
 type PageProps = {
