@@ -38,10 +38,6 @@ export function AddAssetForm({
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
 
-    ['last_service_date', 'service_due_date', 'note'].forEach(field => {
-      const value = formData.get(field)?.toString().trim();
-      if (!value) formData.delete(field);
-    });
     await addNewAsset(formData);
     // Optionally show a toast, reset form, etc.
   };
