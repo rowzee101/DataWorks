@@ -154,8 +154,11 @@ const AssetFormSchema = z.object({
     required_error: 'Manufacturer number is required.',
   }),
   supplier_id: z.string().optional(), // optional because DB allows null
+  manufacturer_id: z.string().optional(), // optional because DB allows null
+  asset_type_id: z.string().optional(), // optional because DB allows null
   purchase_date: z.string().optional(), // optional if you let DB default
   last_service_date: z.string().optional(), // optional since it's nullable
+  service_due_date: z.string().optional(), // optional since it's nullable
   note: z.string().optional(),
 });
 
@@ -169,9 +172,12 @@ export async function addNewAsset(formData: FormData) {
     asset_barnumber: formData.get('asset_barnumber')?.toString(),
     purchase_date: formData.get('purchase_date')?.toString(),
     last_service_date: formData.get('last_service_date')?.toString(),
+    service_due_date: formData.get('service_due_date')?.toString(),
     note: formData.get('note')?.toString(),
     client_id: formData.get('client_id')?.toString(),
     supplier_id: formData.get('supplier_id')?.toString(),
+    asset_type_id: formData.get('asset_type_id')?.toString(),
+    manufacturer_id: formData.get('manufacturer_id')?.toString(),
   });
 
   if (!validatedFields.success) {
@@ -188,6 +194,9 @@ export async function addNewAsset(formData: FormData) {
     asset_barnumber,
     purchase_date,
     last_service_date,
+    service_due_date,
+    asset_type_id,
+    manufacturer_id,
     note,
     client_id,
     supplier_id,
@@ -196,11 +205,11 @@ export async function addNewAsset(formData: FormData) {
   try {
     await sql`
       INSERT INTO assets 
-        (product_type_id, client_id, manufacturer_number, asset_number, supplier_id, purchase_date, last_service_date, note, asset_barnumber)
+        (product_type_id, client_id, manufacturer_number, asset_number, supplier_id, purchase_date, last_service_date, note, asset_barnumber, asset_type_id, manufacturer_id, service_due_date)
       VALUES
         (${Number(product_type_id)}, ${Number(client_id)}, ${manufacturer_number}, ${asset_number}, 
          ${supplier_id ? Number(supplier_id) : null}, 
-         ${purchase_date ?? null}, ${last_service_date ?? null}, ${note ?? null}, ${asset_barnumber ?? null})
+         ${purchase_date ?? null}, ${last_service_date ?? null}, ${note ?? null}, ${asset_barnumber ?? null}, ${asset_type_id ?? null}, ${manufacturer_id ?? null}, ${service_due_date ?? null})
          ON CONFLICT (asset_number) DO NOTHING;
     `;
 
@@ -236,9 +245,12 @@ export async function updateAsset(id: string, formData: FormData) {
     asset_barnumber: formData.get('asset_barnumber')?.toString(),
     purchase_date: formData.get('purchase_date')?.toString(),
     last_service_date: formData.get('last_service_date')?.toString(),
+    service_due_date: formData.get('service_due_date')?.toString(),
     note: formData.get('note')?.toString(),
     client_id: formData.get('client_id')?.toString(),
     supplier_id: formData.get('supplier_id')?.toString(),
+    asset_type_id: formData.get('asset_type_id')?.toString(),
+    manufacturer_id: formData.get('manufacturer_id')?.toString(),
   });
 
   if (!validatedFields.success) {
@@ -258,6 +270,9 @@ export async function updateAsset(id: string, formData: FormData) {
     note,
     client_id,
     supplier_id,
+    service_due_date,
+    asset_type_id,
+    manufacturer_id,
   } = validatedFields.data;
 
   try {
@@ -272,6 +287,9 @@ export async function updateAsset(id: string, formData: FormData) {
         last_service_date = ${last_service_date ?? null},
         note = ${note ?? null},
         asset_barnumber = ${asset_barnumber ?? null}
+        asset_type_id = ${asset_type_id ?? null},
+        manufacturer_id = ${manufacturer_id ?? null},
+        service_due_date = ${service_due_date ?? null}
       WHERE id = ${id}
     `;
   } catch (error) {

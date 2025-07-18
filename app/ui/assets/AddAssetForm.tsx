@@ -161,17 +161,20 @@ type AddAssetFormProps = {
   clients: Option[];
   productTypes: Option[];
   suppliers: Option[];
+  assetTypes: Option[];
 };
 
 export function AddAssetForm({
   clients,
   productTypes,
   suppliers,
+  assetTypes,
 }: AddAssetFormProps) {
   const router = useRouter();
   const [client, setClient] = useState<Option | null>(null);
   const [productType, setProductType] = useState<Option | null>(null);
   const [supplier, setSupplier] = useState<Option | null>(null);
+  const [assetType, setAssetType] = useState<Option | null>(null);
 
   const [isPending, startTransition] = useTransition();
 
@@ -247,6 +250,16 @@ export function AddAssetForm({
         />
       </div>
 
+      {/* Service Due Date */}
+      <div className="bg-gray-50 p-4 rounded-lg shadow-sm">
+        <label className="block mb-1 font-medium text-sm text-gray-700">Service Due Date</label>
+        <input
+          type="date"
+          name="service_due_date"
+          className="w-full p-2 border border-gray-300 rounded bg-white"
+        />
+      </div>
+
       {/* Note */}
       <div className="bg-gray-50 p-4 rounded-lg shadow-sm md:col-span-2">
         <label className="block mb-1 font-medium text-sm text-gray-700">Note</label>
@@ -270,7 +283,7 @@ export function AddAssetForm({
 
       {/* Product Type */}
       <div className="bg-gray-50 p-4 rounded-lg shadow-sm">
-        <label className="block mb-1 font-medium text-sm text-gray-700">Product Type</label>
+        <label className="block mb-1 font-medium text-sm text-gray-700">Model</label>
         <Select
           options={productTypes}
           isClearable
@@ -278,6 +291,18 @@ export function AddAssetForm({
           onChange={(opt) => setProductType(opt)}
         />
         <input type="hidden" name="product_type_id" value={productType?.value ?? ''} />
+      </div>
+
+      {/* Asset Type */}
+      <div className="bg-gray-50 p-4 rounded-lg shadow-sm">
+        <label className="block mb-1 font-medium text-sm text-gray-700">Type of Asset</label>
+        <Select
+          options={assetTypes}
+          isClearable
+          value={assetType}
+          onChange={(opt) => setAssetType(opt)}
+        />
+        <input type="hidden" name="asset_type_id" value={assetType?.value ?? ''} />
       </div>
 
       {/* Supplier */}
@@ -290,6 +315,18 @@ export function AddAssetForm({
           onChange={(opt) => setSupplier(opt)}
         />
         <input type="hidden" name="supplier_id" value={supplier?.value ?? ''} />
+      </div>
+
+      {/* Manufacturer */}
+      <div className="bg-gray-50 p-4 rounded-lg shadow-sm">
+        <label className="block mb-1 font-medium text-sm text-gray-700">Manufacturer</label>
+        <Select
+          options={suppliers}
+          isClearable
+          value={supplier}
+          onChange={(opt) => setSupplier(opt)}
+        />
+        <input type="hidden" name="manufacturer_id" value={supplier?.value ?? ''} />
       </div>
 
       {/* Submit */}
