@@ -1,6 +1,6 @@
 import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
-import { fetchProductTypesBySupplierId, fetchSupplierByID, fetchSupplierManufacturer } from '@/app/lib/data';
+import { fetchProductTypesBySupplierId, fetchSupplierByID, fetchSupplierManufacturer , fetchAssetTypes } from '@/app/lib/data';
 import ProductTypesTable from '@/app/ui/ProductTypestable';
 
 
@@ -19,7 +19,8 @@ export async function generateMetadata({ params }: any) {
 
 export default async function SupplierDetailPage({ params }: any) {
   const supplierManufacturer = await fetchSupplierManufacturer();
-    
+  const Assettype = await fetchAssetTypes();
+
   const supplier = await fetchSupplierByID(Number(params.id));
   const productTypes = await fetchProductTypesBySupplierId(Number(params.id));
 
@@ -57,7 +58,7 @@ export default async function SupplierDetailPage({ params }: any) {
 
       {/* Tabs (e.g., ProductTypes, Assets, etc.) */}
       <div className="rounded-2xl shadow bg-white p-6 mt-6">
-        <ProductTypesTable productTypes={productTypes} suppliersManufacturers={supplierManufacturer}/> 
+        <ProductTypesTable productTypes={productTypes} suppliersManufacturers={supplierManufacturer} Assettype={Assettype} />
       </div>
     </div>
   );
