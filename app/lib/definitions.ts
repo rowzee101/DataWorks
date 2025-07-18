@@ -140,6 +140,7 @@ export type ProductType = {
   supplier2_id: number | null;
   manufacturer_id: number;
   price: number | null;
+  asset_type_id: number | null; // Foreign key to Assettype
 };
 
 export type AssetData = {

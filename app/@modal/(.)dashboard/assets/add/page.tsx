@@ -23,6 +23,7 @@ export default async function AddAssetModal() {
   return (
     <Modal>
       {/* <AddAssetForm /> */}
+      <h2 className="text-lg font-semibold mb-4">Add New Asset</h2>
       <AddAssetForm
         clients={toOption(clients)}
         productTypes={toOption(productTypes)}

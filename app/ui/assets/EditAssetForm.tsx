@@ -49,7 +49,8 @@ export function EditAssetForm({
     setClient(clients.find((c) => c.value === initialData[0].client_id) || null);
     setProductType(productTypes.find((p) => p.value === initialData[0].product_type_id) || null);
     setSupplier(suppliers.find((s) => s.value === initialData[0].supplier_id) || null);
-  }, [clients, productTypes, suppliers, initialData]);
+    setAssetType(assetTypes.find((a) => a.value === initialData[0].asset_type_id) || null);
+  }, [clients, productTypes, suppliers, assetTypes, initialData]);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -198,7 +199,7 @@ export function EditAssetForm({
         />
         <input type="hidden" name="manufacturer_id" value={supplier?.value ?? ''} />
       </div>
-      
+
       {/* Submit */}
       <div className="md:col-span-2">
         <button

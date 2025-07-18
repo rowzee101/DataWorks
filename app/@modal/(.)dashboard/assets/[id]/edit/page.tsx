@@ -85,6 +85,7 @@ export default async function EditAssetModal(props: any) {
 
   return (
     <Modal>
+      <h2 className="text-lg font-semibold mb-4">Editing Asset</h2>
       <EditAssetForm
         initialData={[asset]}
         clients={toOption(clients)}

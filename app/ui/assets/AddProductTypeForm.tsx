@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import Select from 'react-select';
 import { addNewProductType } from '@/app/lib/actions'; // Update this path if needed
+import { Assettype } from '@/app/lib/definitions'; // Adjust the import path as needed
 
 type Option = {
   value: number;
@@ -11,14 +12,17 @@ type Option = {
 
 type AddProductTypeFormProps = {
   suppliersManufacturers: Option[];
+  assetTypes: Option[];
 };
 
 export function AddProductTypeForm({
   suppliersManufacturers,
+  assetTypes
 }: AddProductTypeFormProps) {
   const [supplier1, setSupplier1] = useState<Option | null>(null);
   const [supplier2, setSupplier2] = useState<Option | null>(null);
   const [manufacturer, setManufacturer] = useState<Option | null>(null);
+  const [assetType, setAssetType] = useState<Option | null>(null);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -37,6 +41,18 @@ export function AddProductTypeForm({
           required
           className="w-full p-2 border border-gray-300 rounded bg-white"
         />
+      </div>
+
+      {/* Asset Type */}
+      <div className="bg-gray-50 p-4 rounded-lg shadow-sm">
+        <label className="block mb-1 font-medium text-sm text-gray-700">Type of Product</label>
+        <Select
+          options={assetTypes}
+          isClearable
+          value={assetType}
+          onChange={(opt) => setAssetType(opt)}
+        />
+        <input type="hidden" name="asset_type_id" value={assetType?.value ?? ''} />
       </div>
 
       {/* Supplier 1 */}

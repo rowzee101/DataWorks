@@ -4,15 +4,7 @@ import React, { useState } from 'react';
 import { useManualDebounce } from '@/app/lib/manualDebounce';
 import { DownloadPDFButton } from '@/app/ui/clientSided/buttons';
 import { AddProductType, EditProductType, DeleteProductType } from '@/app/ui/invoices/buttons';
-
-type ProductType = {
-  id: number;
-  name: string;
-  supplier1_id: number;
-  supplier2_id: number | null;
-  manufacturer_id: number;
-  price: number | null;
-};
+import { Assettype, ProductType } from '@/app/lib/definitions';
 
 type SupplierManufacturer = {
   id: number;
@@ -22,15 +14,14 @@ type SupplierManufacturer = {
 interface ProductTypesTableProps {
   productTypes: ProductType[];
   suppliersManufacturers: SupplierManufacturer[];
+  Assettype: Assettype[];
 }
 
-export default function ProductTypesTable({
-  productTypes,
-  suppliersManufacturers,
-}: ProductTypesTableProps) {
+export default function ProductTypesTable({ productTypes, suppliersManufacturers, Assettype, }: ProductTypesTableProps) {
   const [searchTerm, setSearchTerm] = useState('');
   const [debouncedSearch, setDebouncedSearch] = useState('');
 
+  const assetTypeMap = new Map(Assettype.map(at => [at.id, at.name]));
   const supplierMap = new Map(suppliersManufacturers.map((s) => [s.id, s.name]));
 
   const getNameById = (id: number | null) => {
@@ -59,6 +50,7 @@ export default function ProductTypesTable({
     );
   });
 
+
   return (
     <div className="mt-6 flow-root">
       <div className="flex items-center gap-2 mb-4">
@@ -84,6 +76,10 @@ export default function ProductTypesTable({
                   <div className="mb-2">
                     <p className="text-sm text-gray-500">Name</p>
                     <p className="font-medium">{pt.name}</p>
+                  </div>
+                  <div className="mb-2">
+                    <p className="text-sm text-gray-500">Type</p>
+                    <p>{pt.asset_type_id !== null ? (assetTypeMap.get(pt.asset_type_id) || '-') : '-'}</p>
                   </div>
                   <div className="mb-2">
                     <p className="text-sm text-gray-500">Supplier 1</p>
@@ -114,6 +110,7 @@ export default function ProductTypesTable({
               <thead className="rounded-lg text-left text-sm font-normal">
                 <tr>
                   <th className="px-4 py-5 font-medium">Name</th>
+                  <th className="px-3 py-5 font-medium">Type</th>
                   <th className="px-3 py-5 font-medium">Supplier 1</th>
                   <th className="px-3 py-5 font-medium">Supplier 2</th>
                   <th className="px-3 py-5 font-medium">Manufacturer</th>
@@ -131,6 +128,7 @@ export default function ProductTypesTable({
                       className="border-b last:border-none [&:first-child>td:first-child]:rounded-tl-lg [&:first-child>td:last-child]:rounded-tr-lg [&:last-child>td:first-child]:rounded-bl-lg [&:last-child>td:last-child]:rounded-br-lg"
                     >
                       <td className="whitespace-nowrap px-4 py-3">{pt.name}</td>
+                      <td className="whitespace-nowrap px-3 py-3">{pt.asset_type_id !== null ? (assetTypeMap.get(pt.asset_type_id) || '-') : '-'}</td>
                       <td className="whitespace-nowrap px-3 py-3">{getNameById(pt.supplier1_id)}</td>
                       <td className="whitespace-nowrap px-3 py-3">{getNameById(pt.supplier2_id)}</td>
                       <td className="whitespace-nowrap px-3 py-3">{getNameById(pt.manufacturer_id)}</td>

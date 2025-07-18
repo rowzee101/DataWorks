@@ -3,39 +3,38 @@
 import { useState, useEffect } from 'react';
 import Select from 'react-select';
 import { updateProductType } from '@/app/lib/actions'; // Your new update action
+import { set } from 'zod';
+import { ProductType } from '@/app/lib/definitions'; // Adjust the import path as needed
+
 
 type Option = {
   value: number;
   label: string;
 };
 
-type ProductTypeData = {
-  id: number;
-  name: string;
-  supplier1_id: number;
-  supplier2_id?: number;
-  manufacturer_id: number;
-  price?: number;
-};
 
 type EditProductTypeFormProps = {
-  initialData: ProductTypeData;
+  initialData: ProductType;
   suppliers: Option[];
+  assetTypes: Option[];
 };
 
 export function EditProductTypeForm({
   initialData,
   suppliers,
+  assetTypes,
 }: EditProductTypeFormProps) {
   const [supplier1, setSupplier1] = useState<Option | null>(null);
   const [supplier2, setSupplier2] = useState<Option | null>(null);
   const [manufacturer, setManufacturer] = useState<Option | null>(null);
+  const [assetType, setAssetType] = useState<Option | null>(null);
 
   useEffect(() => {
     setSupplier1(suppliers.find((s) => s.value === initialData.supplier1_id) || null);
     setSupplier2(suppliers.find((s) => s.value === initialData.supplier2_id) || null);
     setManufacturer(suppliers.find((s) => s.value === initialData.manufacturer_id) || null);
-  }, [suppliers, initialData]);
+    setAssetType(assetTypes.find((a) => a.value === initialData.asset_type_id) || null);
+  }, [suppliers, assetTypes, initialData]);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -54,6 +53,18 @@ export function EditProductTypeForm({
           required
           className="w-full p-2 border border-gray-300 rounded bg-white"
         />
+      </div>
+
+      {/* Asset Type */}
+      <div className="bg-gray-50 p-4 rounded-lg shadow-sm">
+        <label className="block mb-1 font-medium text-sm text-gray-700">Type of Product</label>
+        <Select
+          options={assetTypes}
+          isClearable
+          value={assetType}
+          onChange={(opt) => setAssetType(opt)}
+        />
+        <input type="hidden" name="asset_type_id" value={assetType?.value ?? ''} />
       </div>
 
       {/* Supplier 1 */}

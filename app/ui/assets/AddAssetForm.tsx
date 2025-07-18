@@ -174,13 +174,13 @@ export function AddAssetForm({
   const [client, setClient] = useState<Option | null>(null);
   const [productType, setProductType] = useState<Option | null>(null);
   const [supplier, setSupplier] = useState<Option | null>(null);
+  const [manufacturer, setManufacturer] = useState<Option | null>(null);
   const [assetType, setAssetType] = useState<Option | null>(null);
 
   const [isPending, startTransition] = useTransition();
 
   const handleSubmit = async (formData: FormData) => {
     await addNewAsset(formData);
-    router.back();
   };
 
   const handleFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
@@ -323,10 +323,10 @@ export function AddAssetForm({
         <Select
           options={suppliers}
           isClearable
-          value={supplier}
-          onChange={(opt) => setSupplier(opt)}
+          value={manufacturer}
+          onChange={(opt) => setManufacturer(opt)}
         />
-        <input type="hidden" name="manufacturer_id" value={supplier?.value ?? ''} />
+        <input type="hidden" name="manufacturer_id" value={manufacturer?.value ?? ''} />
       </div>
 
       {/* Submit */}

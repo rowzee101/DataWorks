@@ -460,6 +460,7 @@ const ProductTypeFormSchema = z.object({
     required_error: 'Manufacturer is required.',
   }),
   price: z.string().optional(), // optional, will parse to int or null
+  asset_type_id: z.string().optional(), // optional due to DB
 });
 
 const AddNewProductType = ProductTypeFormSchema;
@@ -471,6 +472,7 @@ export async function addNewProductType(formData: FormData) {
     supplier2_id: formData.get('supplier2_id')?.toString(),
     manufacturer_id: formData.get('manufacturer_id')?.toString(),
     price: formData.get('price')?.toString(),
+    asset_type_id: formData.get('asset_type_id')?.toString(),
   });
 
   if (!validatedFields.success) {
@@ -486,12 +488,13 @@ export async function addNewProductType(formData: FormData) {
     supplier2_id,
     manufacturer_id,
     price,
+    asset_type_id,
   } = validatedFields.data;
 
   try {
     await sql`
       INSERT INTO product_types
-        (name, supplier1_id, supplier2_id, manufacturer_id, price)
+        (name, supplier1_id, supplier2_id, manufacturer_id, price, asset_type_id)
       VALUES
         (
           ${name},
@@ -499,6 +502,7 @@ export async function addNewProductType(formData: FormData) {
           ${supplier2_id ? Number(supplier2_id) : null},
           ${Number(manufacturer_id)},
           ${price ? Number(price) : null}
+          ${asset_type_id ? Number(asset_type_id) : null}
         )
           ON CONFLICT (name) DO NOTHING;
     `;

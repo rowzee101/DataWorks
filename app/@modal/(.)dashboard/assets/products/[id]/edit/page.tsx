@@ -36,6 +36,7 @@ export default async function EditAssetModal(props: any) {
     supplier2_id: productTypeRowList.supplier2_id ?? undefined,
     manufacturer_id: productTypeRowList.manufacturer_id,
     price: productTypeRowList.price,
+    asset_type_id: productTypeRowList.asset_type_id, // Add this line
     };
 
   const [suppliers] = await Promise.all([
@@ -47,9 +48,12 @@ export default async function EditAssetModal(props: any) {
 
   return (
     <Modal>
+      {/* Editing product type title */}
+      <h2 className="text-lg font-semibold mb-4">Editing Product</h2>
       <EditProductTypeForm
         initialData={product_converted}
         suppliers={toOption(suppliers)}
+        assetTypes={toOption(productTypeRowList.asset_types)}
       />
     </Modal>
   );
