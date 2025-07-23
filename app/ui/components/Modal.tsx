@@ -10,7 +10,7 @@ export function Modal({ children }: { children: React.ReactNode }) {
   };
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center overflow-y-auto">
+    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-start justify-center overflow-y-auto p-4">
       <div className="bg-white p-4 rounded">
         <button onClick={onClose} className="mb-2">
           <XMarkIcon className="w-5" />
