@@ -139,7 +139,6 @@ export default function AssetsTable({ assets , productTypes , supplierNmanufactu
                   <th className="px-4 py-5 font-medium sm:pl-6">Asset Number</th>
                   <th className="px-3 py-5 font-medium">Asset Bar-code</th>
                   <th className="px-3 py-5 font-medium">Asset/Model</th>
-                  <th className="px-3 py-5 font-medium">Qty</th>
                   <th className="px-3 py-5 font-medium">Type</th>
                   <th className="px-3 py-5 font-medium">Manufacturer Serial Number</th>
                   <th className="px-3 py-5 font-medium">Manufacturer</th>

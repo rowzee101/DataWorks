@@ -144,11 +144,20 @@ const isValidDate = (value: string | undefined | null) => {
   return !isNaN(date.getTime()); // true if valid date
 };
 
-const safeNumber = (val: string | undefined | null) => {
-  if (!val || val.trim() === '') return null;
-  const n = Number(val);
-  return isNaN(n) ? null : n;
+const safeNumber = (val: unknown) => {
+  if (typeof val === 'string') {
+    if (val.trim() === '') return null;
+    const n = Number(val);
+    return isNaN(n) ? null : n;
+  }
+
+  if (typeof val === 'number') {
+    return isNaN(val) ? null : val;
+  }
+
+  return null;
 };
+
 
 const AssetFormSchema = z.object({
   asset_number: z.string({
@@ -246,7 +255,7 @@ export async function addNewAsset(formData: FormData) {
         ${validLastServiceDate ?? null}, 
         ${note ?? null}, 
         ${asset_barnumber ?? null}, 
-        ${safeNumber(asset_type_id) ?? null}, 
+        ${asset_type_id ?? null}, 
         ${safeNumber(manufacturer_id) ?? null}, 
         ${validServiceDueDate ?? null})
          ON CONFLICT (asset_number) DO NOTHING;
@@ -320,7 +329,7 @@ export async function updateAsset(id: string, formData: FormData) {
         last_service_date = ${validLastServiceDate ?? null},
         note = ${note ?? null},
         asset_barnumber = ${asset_barnumber ?? null},
-        asset_type_id = ${safeNumber(asset_type_id) ?? null},
+        asset_type_id = ${asset_type_id ?? null},
         manufacturer_id = ${safeNumber(manufacturer_id) ?? null},
         service_due_date = ${validServiceDueDate ?? null}
       WHERE id = ${id}
