@@ -102,7 +102,6 @@ export type Asset = {
   last_service_date: string | null;
   service_due_date: string | null;
   note: string | null;
-  quantity: number;
 };
 
 
