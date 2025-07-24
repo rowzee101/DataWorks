@@ -189,7 +189,6 @@ export async function addNewAsset(formData: FormData) {
     note: formData.get('note')?.toString(),
     client_id: formData.get('client_id')?.toString(),
     supplier_id: formData.get('supplier_id')?.toString(),
-    asset_type_id: formData.get('asset_type_id')?.toString(),
     manufacturer_id: formData.get('manufacturer_id')?.toString(),
   });
 
@@ -208,13 +207,18 @@ export async function addNewAsset(formData: FormData) {
     purchase_date,
     last_service_date,
     service_due_date,
-    asset_type_id,
     manufacturer_id,
     note,
     client_id,
     supplier_id,
   } = validatedFields.data;
 
+
+  const [productTypeResult] = await sql`
+    SELECT asset_type_id FROM product_types WHERE id = ${safeNumber(product_type_id)}
+  `;
+
+  const asset_type_id = productTypeResult?.asset_type_id;
   const validPurchaseDate = isValidDate(purchase_date) ? purchase_date : null;
   const validServiceDueDate = isValidDate(service_due_date) ? service_due_date : null;
   const validLastServiceDate = isValidDate(last_service_date) ? last_service_date : null;
@@ -273,7 +277,6 @@ export async function updateAsset(id: string, formData: FormData) {
     note: formData.get('note')?.toString(),
     client_id: formData.get('client_id')?.toString(),
     supplier_id: formData.get('supplier_id')?.toString(),
-    asset_type_id: formData.get('asset_type_id')?.toString(),
     manufacturer_id: formData.get('manufacturer_id')?.toString(),
   });
 
@@ -295,11 +298,14 @@ export async function updateAsset(id: string, formData: FormData) {
     client_id,
     supplier_id,
     service_due_date,
-    asset_type_id,
     manufacturer_id,
   } = validatedFields.data;
 
+  const [productTypeResult] = await sql`
+    SELECT asset_type_id FROM product_types WHERE id = ${safeNumber(product_type_id)}
+  `;
 
+  const asset_type_id = productTypeResult?.asset_type_id;
   const validPurchaseDate = isValidDate(purchase_date) ? purchase_date : null;
   const validServiceDueDate = isValidDate(service_due_date) ? service_due_date : null;
   const validLastServiceDate = isValidDate(last_service_date) ? last_service_date : null;

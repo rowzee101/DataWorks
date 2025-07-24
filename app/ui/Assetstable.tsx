@@ -51,7 +51,8 @@ export default function AssetsTable({ assets , productTypes , supplierNmanufactu
       (asset.product_type_id || '').toString().toLowerCase().includes(term) ||
       (asset.asset_type_id || '').toString().toLowerCase().includes(term) ||
       (asset.manufacturer_id || '').toString().toLowerCase().includes(term) ||
-      (asset.supplier_id || '').toString().toLowerCase().includes(term)
+      (asset.supplier_id || '').toString().toLowerCase().includes(term) ||
+      (asset.quantity || '').toString().toLowerCase().includes(term)
 
     );
   });
@@ -93,6 +94,10 @@ export default function AssetsTable({ assets , productTypes , supplierNmanufactu
                   <div className="mb-2">
                     <p className="text-sm text-gray-500">Asset/Model</p>
                     <p>{productTypeMap.get(asset.product_type_id) || '-'}</p>
+                  </div>
+                  <div className="mb-2">
+                    <p className="text-sm text-gray-500">Qty</p>
+                    <p>{asset.quantity || '-'}</p>
                   </div>
                   <div className="mb-2">
                     <p className="text-sm text-gray-500">Type</p>
@@ -139,6 +144,7 @@ export default function AssetsTable({ assets , productTypes , supplierNmanufactu
                   <th className="px-4 py-5 font-medium sm:pl-6">Asset Number</th>
                   <th className="px-3 py-5 font-medium">Asset Bar-code</th>
                   <th className="px-3 py-5 font-medium">Asset/Model</th>
+                  <th className="px-3 py-5 font-medium">Qty</th>
                   <th className="px-3 py-5 font-medium">Type</th>
                   <th className="px-3 py-5 font-medium">Manufacturer Serial Number</th>
                   <th className="px-3 py-5 font-medium">Manufacturer</th>
@@ -167,6 +173,9 @@ export default function AssetsTable({ assets , productTypes , supplierNmanufactu
                       </td>
                       <td className="whitespace-nowrap px-3 py-3">
                         {productTypeMap.get(asset.product_type_id) || 'Unknown'}
+                      </td>
+                      <td className="whitespace-nowrap px-3 py-3">
+                        {asset.quantity || '-'}
                       </td>
                       <td className="whitespace-nowrap px-3 py-3">
                         {asset.asset_type_id !== null ? (assetTypeMap.get(asset.asset_type_id) || '-') : '-'}

@@ -139,19 +139,6 @@ export function AddAssetForm({
         <input type="hidden" name="product_type_id" value={productType?.value ?? ''} />
       </div>
 
-      {/* Asset Type */}
-      <div className="bg-gray-50 p-4 rounded-lg shadow-sm">
-        <label className="block mb-1 font-medium text-sm text-gray-700">Type of Asset</label>
-        <Select
-          options={assetTypes}
-          isClearable
-          
-          value={assetType}
-          onChange={(opt) => setAssetType(opt)}
-        />
-        <input type="hidden" name="asset_type_id" value={assetType?.value ?? ''} />
-      </div>
-
       {/* Supplier */}
       <div className="bg-gray-50 p-4 rounded-lg shadow-sm">
         <label className="block mb-1 font-medium text-sm text-gray-700">Supplier</label>
