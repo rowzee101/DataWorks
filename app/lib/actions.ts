@@ -166,7 +166,6 @@ const AssetFormSchema = z.object({
   }),
   supplier_id: z.string().optional(), // optional because DB allows null
   manufacturer_id: z.string().optional(), // optional because DB allows null
-  asset_type_id: z.string().optional(), // optional because DB allows null
   purchase_date: z.string({
     required_error: 'Purchase date is required.',
   }).refine((val) => val !== '', { message: 'Purchase date cannot be empty.' }).refine((val) => !isNaN(new Date(val).getTime()), { message: 'Invalid date format.' }),
