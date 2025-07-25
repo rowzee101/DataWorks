@@ -54,14 +54,14 @@ export function AddAssetForm({
         />
       </div>
 
-      {/* Asset Barcode */}
+      {/* Asset Barcode 
       <div className="bg-gray-50 p-4 rounded-lg shadow-sm">
         <label className="block mb-1 font-medium text-sm text-gray-700">Asset Barcode</label>
         <input
           name="asset_barnumber"
           className="w-full p-2 border border-gray-300 rounded bg-white"
         />
-      </div>
+      </div> */}
 
       {/* Manufacturer Number */}
       <div className="bg-gray-50 p-4 rounded-lg shadow-sm">

@@ -76,7 +76,7 @@ export function EditAssetForm({
         />
       </div>
 
-      {/* Asset Barcode */}
+      {/* Asset Barcode
       <div className="bg-gray-50 p-4 rounded-lg shadow-sm">
         <label className="block mb-1 text-sm font-medium text-gray-700">Asset Barcode</label>
         <input
@@ -84,7 +84,7 @@ export function EditAssetForm({
           defaultValue={initialData[0].asset_barnumber || ''}
           className="w-full p-2 border border-gray-300 rounded bg-white"
         />
-      </div>
+      </div> */}
 
       {/* Manufacturer Number */}
       <div className="bg-gray-50 p-4 rounded-lg shadow-sm">
