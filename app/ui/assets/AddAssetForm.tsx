@@ -46,7 +46,7 @@ export function AddAssetForm({
     <form id="add-asset-form" onSubmit={handleSubmit} className="grid grid-cols-1 md:grid-cols-2 gap-6 w-full">
       {/* Asset Number */}
       <div className="bg-gray-50 p-4 rounded-lg shadow-sm">
-        <label className="block mb-1 font-medium text-sm text-gray-700">Asset Number</label>
+        <label className="block mb-1 font-medium text-sm text-gray-700">Asset Number*</label>
         <input
           name="asset_number"
           required
@@ -65,7 +65,7 @@ export function AddAssetForm({
 
       {/* Manufacturer Number */}
       <div className="bg-gray-50 p-4 rounded-lg shadow-sm">
-        <label className="block mb-1 font-medium text-sm text-gray-700">Manufacturer Number</label>
+        <label className="block mb-1 font-medium text-sm text-gray-700">Manufacturer Number*</label>
         <input
           name="manufacturer_number"
           required
@@ -75,7 +75,7 @@ export function AddAssetForm({
 
       {/* Purchase Date */}
       <div className="bg-gray-50 p-4 rounded-lg shadow-sm">
-        <label className="block mb-1 font-medium text-sm text-gray-700">Purchase Date</label>
+        <label className="block mb-1 font-medium text-sm text-gray-700">Purchase Date*</label>
         <input
           type="date"
           name="purchase_date"
@@ -125,7 +125,7 @@ export function AddAssetForm({
 
       {/* Client */}
       <div className="bg-gray-50 p-4 rounded-lg shadow-sm">
-        <label className="block mb-1 font-medium text-sm text-gray-700">Client</label>
+        <label className="block mb-1 font-medium text-sm text-gray-700">Client*</label>
         <Select
           options={clients}
           isClearable
@@ -138,7 +138,7 @@ export function AddAssetForm({
 
       {/* Product Type */}
       <div className="bg-gray-50 p-4 rounded-lg shadow-sm">
-        <label className="block mb-1 font-medium text-sm text-gray-700">Model</label>
+        <label className="block mb-1 font-medium text-sm text-gray-700">Model*</label>
         <Select
           options={productTypes}
           isClearable
