@@ -92,7 +92,7 @@ export default function AssetsTable({ assets , productTypes , supplierNmanufactu
                     <p>{asset.asset_barnumber}</p>
                   </div>*/}
                   <div className="mb-2">
-                    <p className="text-sm text-gray-500">Asset/Model</p>
+                    <p className="text-sm text-gray-500">Model</p>
                     <p>{productTypeMap.get(asset.product_type_id) || '-'}</p>
                   </div>
                   <div className="mb-2">
@@ -138,8 +138,8 @@ export default function AssetsTable({ assets , productTypes , supplierNmanufactu
               <thead className="rounded-lg text-left text-sm font-normal">
                 <tr>
                   <th className="px-4 py-5 font-medium sm:pl-6">Asset Number</th>
-                  <th className="px-3 py-5 font-medium">Asset Bar-code</th>
-                  {/* <th className="px-3 py-5 font-medium">Asset/Model</th> */}
+                  {/* <th className="px-3 py-5 font-medium">Asset Bar-code</th>*/}
+                  <th className="px-3 py-5 font-medium">Model</th> 
                   <th className="px-3 py-5 font-medium">Type</th>
                   <th className="px-3 py-5 font-medium">Serial Number</th>
                   <th className="px-3 py-5 font-medium">Manufacturer</th>
