@@ -47,6 +47,7 @@ export default async function EditAssetModal(props: any) {
     asset_type_id: assetRow.asset_type_id ?? null,
     manufacturer_id: assetRow.manufacturer_id ?? null,
     service_due_date: assetRow.service_due_date?.toISOString().split('T')[0] ?? null,
+    decommission_date: assetRow.decommission_date?.toISOString().split('T')[0] ?? null,
   };
 
   const [clients, productTypes, suppliers, assetTypes] = await Promise.all([
