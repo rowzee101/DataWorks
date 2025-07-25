@@ -124,6 +124,10 @@ export default function AssetsTable({ assets , productTypes , supplierNmanufactu
                     <p>{asset.service_due_date ? new Date(asset.service_due_date).toLocaleDateString('en-GB') : '-'}</p>
                   </div>
                   <div className="mb-2">
+                    <p className="text-sm text-gray-500">Decommission Date</p>
+                    <p>{asset.decommission_date ? new Date(asset.decommission_date).toLocaleDateString('en-GB') : '-'}</p>
+                  </div>
+                  <div className="mb-2">
                     <p className="text-sm text-gray-500">Note</p>
                     <p>{asset.note || '-'}</p>
                   </div>
@@ -147,6 +151,7 @@ export default function AssetsTable({ assets , productTypes , supplierNmanufactu
                   <th className="px-3 py-5 font-medium">Purchase Date</th>
                   <th className="px-3 py-5 font-medium">Last Service Date</th>
                   <th className="px-3 py-5 font-medium">Service Due Date</th>
+                  <th className="px-3 py-5 font-medium">Decommission Date</th>
                   <th className="px-3 py-5 font-medium">Note</th>
                   <th className="py-3 pl-6 pr-3 text-right">
                     <span className="sr-only">Edit</span>
@@ -192,6 +197,11 @@ export default function AssetsTable({ assets , productTypes , supplierNmanufactu
                       <td className="whitespace-nowrap px-3 py-3">
                         {asset.service_due_date
                           ? new Date(asset.service_due_date).toLocaleDateString('en-GB')
+                          : '-'}
+                      </td>
+                      <td className="whitespace-nowrap px-3 py-3">
+                        {asset.decommission_date
+                          ? new Date(asset.decommission_date).toLocaleDateString('en-GB')
                           : '-'}
                       </td>
                       <td className="whitespace-nowrap px-3 py-3">
