@@ -180,6 +180,7 @@ const AssetFormSchema = z.object({
   }).refine((val) => val !== '', { message: 'Purchase date cannot be empty.' }).refine((val) => !isNaN(new Date(val).getTime()), { message: 'Invalid date format.' }),
   last_service_date: z.string().transform((val) => val === '' ? undefined : val).optional(),
   service_due_date: z.string().transform((val) => val === '' ? undefined : val).optional(),
+  decommission_date: z.string().transform((val) => val === '' ? undefined : val).optional(),
   note: z.string().optional(),
 });
 
