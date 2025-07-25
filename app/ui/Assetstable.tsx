@@ -86,10 +86,11 @@ export default function AssetsTable({ assets , productTypes , supplierNmanufactu
                     <p className="text-sm text-gray-500">Asset Number</p>
                     <p className="font-medium">{asset.asset_number}</p>
                   </div>
+                  {/* Displaying asset bar-code, product type, and other details 
                   <div className="mb-2">
                     <p className="text-sm text-gray-500">Asset Bar-code</p>
                     <p>{asset.asset_barnumber}</p>
-                  </div>
+                  </div>*/}
                   <div className="mb-2">
                     <p className="text-sm text-gray-500">Asset/Model</p>
                     <p>{productTypeMap.get(asset.product_type_id) || '-'}</p>
@@ -99,7 +100,7 @@ export default function AssetsTable({ assets , productTypes , supplierNmanufactu
                     <p>{asset.asset_type_id !== null ? (assetTypeMap.get(asset.asset_type_id) || '-') : '-'}</p>
                   </div>
                   <div className="mb-2">
-                    <p className="text-sm text-gray-500">Manufacturer Serial Number</p>
+                    <p className="text-sm text-gray-500">Serial Number</p>
                     <p>{asset.manufacturer_number}</p>
                   </div>
                   <div className="mb-2">
@@ -138,9 +139,9 @@ export default function AssetsTable({ assets , productTypes , supplierNmanufactu
                 <tr>
                   <th className="px-4 py-5 font-medium sm:pl-6">Asset Number</th>
                   <th className="px-3 py-5 font-medium">Asset Bar-code</th>
-                  <th className="px-3 py-5 font-medium">Asset/Model</th>
+                  {/* <th className="px-3 py-5 font-medium">Asset/Model</th> */}
                   <th className="px-3 py-5 font-medium">Type</th>
-                  <th className="px-3 py-5 font-medium">Manufacturer Serial Number</th>
+                  <th className="px-3 py-5 font-medium">Serial Number</th>
                   <th className="px-3 py-5 font-medium">Manufacturer</th>
                   <th className="px-3 py-5 font-medium">Supplier</th>
                   <th className="px-3 py-5 font-medium">Purchase Date</th>
@@ -162,9 +163,9 @@ export default function AssetsTable({ assets , productTypes , supplierNmanufactu
                       <td className="whitespace-nowrap py-3 pl-6 pr-3">
                         {asset.asset_number}
                       </td>
-                      <td className="whitespace-nowrap px-3 py-3">
+                      {/*<td className="whitespace-nowrap px-3 py-3">
                         {asset.asset_barnumber}
-                      </td>
+                      </td>*/}
                       <td className="whitespace-nowrap px-3 py-3">
                         {productTypeMap.get(asset.product_type_id) || 'Unknown'}
                       </td>
