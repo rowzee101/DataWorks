@@ -150,6 +150,7 @@ export type AssetData = {
   manufacturer_number: string;
   purchase_date?: string;
   last_service_date?: string;
+  decommission_date?: string;
   note?: string;
   client_id?: number;
   supplier_id?: number;

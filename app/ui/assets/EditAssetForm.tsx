@@ -131,6 +131,17 @@ export function EditAssetForm({
         />
       </div>
 
+      {/* Decommission Date */}
+      <div className="bg-gray-50 p-4 rounded-lg shadow-sm">
+        <label className="block mb-1 text-sm font-medium text-gray-700">Decommission Date</label>
+        <input
+          type="date"
+          name="decommission_date"
+          defaultValue={initialData[0].decommission_date ?? ''}
+          className="w-full p-2 border border-gray-300 rounded bg-white"
+        />
+      </div>
+
       {/* Note */}
       <div className="bg-gray-50 p-4 rounded-lg shadow-sm md:col-span-2">
         <label className="block mb-1 text-sm font-medium text-gray-700">Note</label>

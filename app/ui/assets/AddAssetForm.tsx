@@ -104,6 +104,16 @@ export function AddAssetForm({
         />
       </div>
 
+      {/* decommission_date  */}
+      <div className="bg-gray-50 p-4 rounded-lg shadow-sm">
+        <label className="block mb-1 font-medium text-sm text-gray-700">Decommission Date</label>
+        <input
+          type="date"
+          name="decommission_date"
+          className="w-full p-2 border border-gray-300 rounded bg-white"
+        />
+      </div>
+
       {/* Note */}
       <div className="bg-gray-50 p-4 rounded-lg shadow-sm md:col-span-2">
         <label className="block mb-1 font-medium text-sm text-gray-700">Note</label>

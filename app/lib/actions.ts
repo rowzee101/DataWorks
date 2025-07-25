@@ -194,6 +194,7 @@ export async function addNewAsset(formData: FormData) {
     purchase_date: formData.get('purchase_date')?.toString(),
     last_service_date: formData.get('last_service_date')?.toString(),
     service_due_date: formData.get('service_due_date')?.toString(),
+    decommission_date: formData.get('decommission_date')?.toString(),
     note: formData.get('note')?.toString(),
     client_id: formData.get('client_id')?.toString(),
     supplier_id: formData.get('supplier_id')?.toString(),
@@ -215,6 +216,7 @@ export async function addNewAsset(formData: FormData) {
     purchase_date,
     last_service_date,
     service_due_date,
+    decommission_date,
     manufacturer_id,
     note,
     client_id,
@@ -230,6 +232,7 @@ export async function addNewAsset(formData: FormData) {
   const validPurchaseDate = isValidDate(purchase_date) ? purchase_date : null;
   const validServiceDueDate = isValidDate(service_due_date) ? service_due_date : null;
   const validLastServiceDate = isValidDate(last_service_date) ? last_service_date : null;
+  const validDecommissionDate = isValidDate(decommission_date) ? decommission_date : null;
   try {
     await sql`
       INSERT INTO assets 
@@ -244,7 +247,8 @@ export async function addNewAsset(formData: FormData) {
         asset_barnumber, 
         asset_type_id, 
         manufacturer_id, 
-        service_due_date)
+        service_due_date,
+        decommission_date)
       VALUES
         (${safeNumber(product_type_id)},
         ${safeNumber(client_id)},
@@ -257,8 +261,9 @@ export async function addNewAsset(formData: FormData) {
         ${asset_barnumber ?? null}, 
         ${asset_type_id ?? null}, 
         ${safeNumber(manufacturer_id) ?? null}, 
-        ${validServiceDueDate ?? null})
-         ON CONFLICT (asset_number) DO NOTHING;
+        ${validServiceDueDate ?? null},
+        ${validDecommissionDate ?? null})
+        ON CONFLICT (asset_number) DO NOTHING;
     `;
 
   } catch (error) {
@@ -282,6 +287,7 @@ export async function updateAsset(id: string, formData: FormData) {
     purchase_date: formData.get('purchase_date')?.toString(),
     last_service_date: formData.get('last_service_date')?.toString(),
     service_due_date: formData.get('service_due_date')?.toString(),
+    decommission_date: formData.get('decommission_date')?.toString(),
     note: formData.get('note')?.toString(),
     client_id: formData.get('client_id')?.toString(),
     supplier_id: formData.get('supplier_id')?.toString(),
@@ -307,6 +313,7 @@ export async function updateAsset(id: string, formData: FormData) {
     supplier_id,
     service_due_date,
     manufacturer_id,
+    decommission_date,
   } = validatedFields.data;
 
   const [productTypeResult] = await sql`
@@ -317,6 +324,7 @@ export async function updateAsset(id: string, formData: FormData) {
   const validPurchaseDate = isValidDate(purchase_date) ? purchase_date : null;
   const validServiceDueDate = isValidDate(service_due_date) ? service_due_date : null;
   const validLastServiceDate = isValidDate(last_service_date) ? last_service_date : null;
+  const validDecommissionDate = isValidDate(decommission_date) ? decommission_date : null;
   try {
     await sql`
       UPDATE assets SET
@@ -331,7 +339,8 @@ export async function updateAsset(id: string, formData: FormData) {
         asset_barnumber = ${asset_barnumber ?? null},
         asset_type_id = ${asset_type_id ?? null},
         manufacturer_id = ${safeNumber(manufacturer_id) ?? null},
-        service_due_date = ${validServiceDueDate ?? null}
+        service_due_date = ${validServiceDueDate ?? null},
+        decommission_date = ${validDecommissionDate ?? null}
       WHERE id = ${id}
     `;
   } catch (error) {

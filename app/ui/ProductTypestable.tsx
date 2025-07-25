@@ -56,7 +56,7 @@ export default function ProductTypesTable({ productTypes, suppliersManufacturers
       <div className="flex items-center gap-2 mb-4">
         <input
           type="text"
-          placeholder="Search product types..."
+          placeholder="Search models..."
           value={searchTerm}
           onChange={onSearchChange}
           className="p-2 border rounded flex-1 w-full"

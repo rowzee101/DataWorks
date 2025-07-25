@@ -34,7 +34,7 @@ export function AddProductTypeForm({
     <form onSubmit={handleSubmit} className="grid grid-cols-1 md:grid-cols-2 gap-6 w-full">
       {/* Product Type Name */}
       <div className="bg-gray-50 p-4 rounded-lg shadow-sm md:col-span-2">
-        <label className="block mb-1 font-medium text-sm text-gray-700">Product Type Name</label>
+        <label className="block mb-1 font-medium text-sm text-gray-700">Model ID</label>
         <input
           name="name"
           required
@@ -110,7 +110,7 @@ export function AddProductTypeForm({
           type="submit"
           className="w-full bg-[#6acb8c] text-white py-2 px-4 rounded-md hover:bg-[#6acb8c] transition"
         >
-          Add Product Type
+          Add Model
         </button>
       </div>
     </form>
