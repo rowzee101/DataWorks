@@ -101,6 +101,7 @@ export type Asset = {
   purchase_date: string;         // ISO timestamp
   last_service_date: string | null;
   service_due_date: string | null;
+  decommission_date: string | null;
   note: string | null;
 };
 
