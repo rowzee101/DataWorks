@@ -95,8 +95,12 @@ export default function ProductTypesTable({ productTypes, suppliersManufacturers
                     <p>{getNameById(pt.manufacturer_id)}</p>
                   </div>
                   <div className="mb-2">
-                    <p className="text-sm text-gray-500">Price</p>
+                    <p className="text-sm text-gray-500">Cost</p>
                     <p>{pt.price ?? '-'}</p>
+                  </div>
+                  <div className="mb-2">
+                    <p className="text-sm text-gray-500">Sale Price</p>
+                    <p>{pt.resell ?? '-'}</p>
                   </div>
                   <div className="flex justify-end gap-2">
                     <EditProductType id={pt.id.toString()} />
@@ -115,7 +119,8 @@ export default function ProductTypesTable({ productTypes, suppliersManufacturers
                   <th className="px-3 py-5 font-medium">Supplier 1</th>
                   <th className="px-3 py-5 font-medium">Supplier 2</th>
                   <th className="px-3 py-5 font-medium">Manufacturer</th>
-                  <th className="px-3 py-5 font-medium">Price</th>
+                  <th className="px-3 py-5 font-medium">Cost</th>\
+                  <th className="px-3 py-5 font-medium">Sale Price</th>
                   <th className="py-3 pl-6 pr-3 text-right">
                     <span className="sr-only">Edit</span>
                   </th>
@@ -134,6 +139,7 @@ export default function ProductTypesTable({ productTypes, suppliersManufacturers
                       <td className="whitespace-nowrap px-3 py-3">{getNameById(pt.supplier2_id)}</td>
                       <td className="whitespace-nowrap px-3 py-3">{getNameById(pt.manufacturer_id)}</td>
                       <td className="whitespace-nowrap px-3 py-3">{pt.price ?? '-'}</td>
+                      <td className="whitespace-nowrap px-3 py-3">{pt.resell ?? '-'}</td>
                       <td className="whitespace-nowrap py-3 pl-6 pr-3 text-right">
                         <div className="flex justify-end gap-2">
                           <EditProductType id={pt.id.toString()} />
