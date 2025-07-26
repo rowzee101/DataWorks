@@ -41,16 +41,17 @@ export default function AssetsTable({ assets , productTypes , supplierNmanufactu
       (asset.manufacturer_number || '').toLowerCase().includes(term) ||
       (asset.asset_barnumber || '').toLowerCase().includes(term) ||
       (asset.note || '').toLowerCase().includes(term) ||
-      (asset.purchase_date
-        ? new Date(asset.purchase_date).toISOString().toLowerCase()
-        : ''
-      ).includes(term) ||
+      (new Date(asset.purchase_date).toLocaleDateString('en-GB').toLowerCase()).includes(term) ||
       (asset.last_service_date
-        ? new Date(asset.last_service_date).toISOString().toLowerCase()
+        ? new Date(asset.last_service_date).toLocaleDateString('en-GB').toLowerCase()
         : ''
       ).includes(term) ||
       (asset.service_due_date
-        ? new Date(asset.service_due_date).toISOString().toLowerCase()
+        ? new Date(asset.service_due_date).toLocaleDateString('en-GB').toLowerCase()
+        : ''
+      ).includes(term) ||
+      (asset.decommission_date
+        ? new Date(asset.decommission_date).toLocaleDateString('en-GB').toLowerCase()
         : ''
       ).includes(term) ||
       (productTypeMap.get(asset.product_type_id)?.toLowerCase() || '').includes(term) ||
