@@ -329,8 +329,8 @@ export default function AssetsTable({ assets, productTypes, supplierNmanufacture
       return sortDirection === 'asc' ? aValue - bValue : bValue - aValue;
     }
 
-    const aStr = aValue.toString().toLowerCase();
-    const bStr = bValue.toString().toLowerCase();
+    const aStr = aValue.toString().trim().toLowerCase()
+    const bStr = bValue.toString().trim().toLowerCase()
     return sortDirection === 'asc'
       ? aStr.localeCompare(bStr)
       : bStr.localeCompare(aStr);
