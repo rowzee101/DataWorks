@@ -138,39 +138,39 @@ export default function AssetsTable({ assets , productTypes , supplierNmanufactu
                     <p>{asset.asset_barnumber}</p>
                   </div>*/}
                   <div className="mb-2">
-                    <p className="text-sm text-gray-500">Type</p>
+                    <p className="text-sm text-gray-500" onClick={() => handleSort('asset_type_id')}>Type {sortKey === 'asset_type_id' ? (sortDirection === 'asc' ? '▲' : '▼') : ''}</p>
                     <p>{asset.asset_type_id !== null ? (assetTypeMap.get(asset.asset_type_id) || '-') : '-'}</p>
                   </div>
                   <div className="mb-2">
-                    <p className="text-sm text-gray-500">Model</p>
+                    <p className="text-sm text-gray-500" onClick={() => handleSort('product_type_id')}>Model {sortKey === 'product_type_id' ? (sortDirection === 'asc' ? '▲' : '▼') : ''}</p>
                     <p>{productTypeMap.get(asset.product_type_id) || '-'}</p>
                   </div>
                   <div className="mb-2">
-                    <p className="text-sm text-gray-500">Serial Number</p>
+                    <p className="text-sm text-gray-500" onClick={() => handleSort('manufacturer_number')}>Serial Number {sortKey === 'manufacturer_number' ? (sortDirection === 'asc' ? '▲' : '▼') : ''}</p>
                     <p>{asset.manufacturer_number}</p>
                   </div>
                   <div className="mb-2">
-                    <p className="text-sm text-gray-500">Manufacturer</p>
+                    <p className="text-sm text-gray-500" onClick={() => handleSort('manufacturer_id')}>Manufacturer {sortKey === 'manufacturer_id' ? (sortDirection === 'asc' ? '▲' : '▼') : ''}</p>
                     <p>{asset.manufacturer_id !== null ? (supplierMap.get(asset.manufacturer_id) || '-') : '-'}</p>
                   </div>
                   <div className="mb-2">
-                    <p className="text-sm text-gray-500">Supplier</p>
+                    <p className="text-sm text-gray-500" onClick={() => handleSort('supplier_id')}>Supplier {sortKey === 'supplier_id' ? (sortDirection === 'asc' ? '▲' : '▼') : ''}</p>
                     <p>{asset.supplier_id !== null ? (supplierMap.get(asset.supplier_id) || '-') : '-'}</p>
                   </div>
                   <div className="mb-2">
-                    <p className="text-sm text-gray-500">Purchase Date</p>
+                    <p className="text-sm text-gray-500" onClick={() => handleSort('purchase_date')}>Purchase Date {sortKey === 'purchase_date' ? (sortDirection === 'asc' ? '▲' : '▼') : ''}</p>
                     <p>{new Date(asset.purchase_date).toLocaleDateString('en-GB')}</p>
                   </div>
                   <div className="mb-2">
-                    <p className="text-sm text-gray-500">Last Service Date</p>
+                    <p className="text-sm text-gray-500" onClick={() => handleSort('last_service_date')}>Last Service Date {sortKey === 'last_service_date' ? (sortDirection === 'asc' ? '▲' : '▼') : ''}</p>
                     <p>{asset.last_service_date ? new Date(asset.last_service_date).toLocaleDateString('en-GB') : '-'}</p>
                   </div>
                   <div className="mb-2">
-                    <p className="text-sm text-gray-500">Service Due Date</p>
+                    <p className="text-sm text-gray-500" onClick={() => handleSort('service_due_date')}>Service Due Date {sortKey === 'service_due_date' ? (sortDirection === 'asc' ? '▲' : '▼') : ''}</p>
                     <p>{asset.service_due_date ? new Date(asset.service_due_date).toLocaleDateString('en-GB') : '-'}</p>
                   </div>
                   <div className="mb-2">
-                    <p className="text-sm text-gray-500">Decommission Date</p>
+                    <p className="text-sm text-gray-500" onClick={() => handleSort('decommission_date')}>Decommission Date {sortKey === 'decommission_date' ? (sortDirection === 'asc' ? '▲' : '▼') : ''}</p>
                     <p>{asset.decommission_date ? new Date(asset.decommission_date).toLocaleDateString('en-GB') : '-'}</p>
                   </div>
                   <div className="mb-2">
@@ -189,15 +189,15 @@ export default function AssetsTable({ assets , productTypes , supplierNmanufactu
                 <tr>
                   <th className="px-4 py-5 font-medium sm:pl-6" onClick={() => handleSort('asset_number')}>Asset Number {sortKey === 'asset_number' ? (sortDirection === 'asc' ? '▲' : '▼') : ''} </th>
                   {/* <th className="px-3 py-5 font-medium">Asset Bar-code</th>*/}
-                  <th className="px-3 py-5 font-medium">Type</th>
-                  <th className="px-3 py-5 font-medium">Model</th> 
-                  <th className="px-3 py-5 font-medium">Serial Number</th>
-                  <th className="px-3 py-5 font-medium">Manufacturer</th>
-                  <th className="px-3 py-5 font-medium">Supplier</th>
-                  <th className="px-3 py-5 font-medium">Purchase Date</th>
-                  <th className="px-3 py-5 font-medium">Last Service Date</th>
-                  <th className="px-3 py-5 font-medium">Service Due Date</th>
-                  <th className="px-3 py-5 font-medium">Decommission Date</th>
+                  <th className="px-3 py-5 font-medium" onClick={() => handleSort('asset_type_id')}>Type {sortKey === 'asset_type_id' ? (sortDirection === 'asc' ? '▲' : '▼') : ''}</th>
+                  <th className="px-3 py-5 font-medium" onClick={() => handleSort('product_type_id')}>Model {sortKey === 'product_type_id' ? (sortDirection === 'asc' ? '▲' : '▼') : ''}</th>
+                  <th className="px-3 py-5 font-medium" onClick={() => handleSort('manufacturer_number')}>Serial Number {sortKey === 'manufacturer_number' ? (sortDirection === 'asc' ? '▲' : '▼') : ''}</th>
+                  <th className="px-3 py-5 font-medium" onClick={() => handleSort('manufacturer_id')}>Manufacturer {sortKey === 'manufacturer_id' ? (sortDirection === 'asc' ? '▲' : '▼') : ''}</th>
+                  <th className="px-3 py-5 font-medium" onClick={() => handleSort('supplier_id')}>Supplier {sortKey === 'supplier_id' ? (sortDirection === 'asc' ? '▲' : '▼') : ''}</th>
+                  <th className="px-3 py-5 font-medium" onClick={() => handleSort('purchase_date')}>Purchase Date {sortKey === 'purchase_date' ? (sortDirection === 'asc' ? '▲' : '▼') : ''}</th>
+                  <th className="px-3 py-5 font-medium" onClick={() => handleSort('last_service_date')}>Last Service Date {sortKey === 'last_service_date' ? (sortDirection === 'asc' ? '▲' : '▼') : ''}</th>
+                  <th className="px-3 py-5 font-medium" onClick={() => handleSort('service_due_date')}>Service Due Date {sortKey === 'service_due_date' ? (sortDirection === 'asc' ? '▲' : '▼') : ''}</th>
+                  <th className="px-3 py-5 font-medium" onClick={() => handleSort('decommission_date')}>Decommission Date {sortKey === 'decommission_date' ? (sortDirection === 'asc' ? '▲' : '▼') : ''}</th>
                   <th className="px-3 py-5 font-medium">Note</th>
                   <th className="py-3 pl-6 pr-3 text-right">
                     <span className="sr-only">Edit</span>
