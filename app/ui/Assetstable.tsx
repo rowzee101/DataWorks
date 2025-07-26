@@ -5,6 +5,7 @@ import { AddAsset , EditAsset, DeleteAsset} from '@/app/ui/invoices/buttons';
 import { DownloadPDFButton } from '@/app/ui/clientSided/buttons';
 import { useManualDebounce } from '@/app/lib/manualDebounce';
 import type { Asset , ProductType , SupplierManufacturer , Assettype} from '@/app/lib/definitions'; 
+import PACBioLogo from '@/app/ui/PacificBiomedicalLightLogo';
 
 
 interface AssetsTableProps {
@@ -12,9 +13,12 @@ interface AssetsTableProps {
   productTypes: ProductType[];
   supplierNmanufacturer: SupplierManufacturer[];
   Assettype: Assettype[];
+  clientName?: string;
 }
 
-export default function AssetsTable({ assets , productTypes , supplierNmanufacturer, Assettype}: AssetsTableProps) {
+export default function AssetsTable({ assets , productTypes , supplierNmanufacturer, Assettype, clientName}: AssetsTableProps) {
+
+  const name = clientName ?? 'Assets Table';
   const [searchTerm, setSearchTerm] = useState('');
   const [debouncedSearch, setDebouncedSearch] = useState('');
   const [sortKey, setSortKey] = useState<keyof Asset | null>(null);
@@ -116,18 +120,32 @@ export default function AssetsTable({ assets , productTypes , supplierNmanufactu
         <AddAsset />
 
         {/* Download Button */}
-        <DownloadPDFButton clientName={'Assets Table'} />
+        <DownloadPDFButton clientName={name} />
       </div>
       <div className="w-full overflow-x-auto" id="pdf-content">
+        <div className="hidden print:block text-center mb-4">
+          <PACBioLogo/>
+          <h1 className="text-2xl font-bold">Pacific Med</h1>
+          <h2 className="text-lg font-medium">{name} Asset Report</h2>
+          <p className="text-sm text-gray-600">
+            Generated on {new Date().toLocaleDateString('en-GB')}
+          </p>
+        </div>
+
         <div className="inline-block min-w-full align-middle">
           <div className="rounded-lg bg-gray-50 p-2 md:pt-0">
             {/* Responsive (mobile) layout could be added here if needed */}
             <div className="md:hidden">
-              {sortedAssets.map((asset) => (
+              {sortedAssets.map((asset , idx) => (
                 <div
                   key={asset.id}
                   className="mb-2 w-full rounded-md bg-white p-4 shadow"
                 >
+
+                  <td className="whitespace-nowrap px-3 py-3">
+                    {idx + 1}
+                  </td>
+
                   <div className="mb-2">
                     <p className="text-sm text-gray-500" onClick={() => handleSort('asset_number')}>Asset Number {sortKey === 'asset_number' ? (sortDirection === 'asc' ? '▲' : '▼') : ''} </p>
                     <p className="font-medium">{asset.asset_number}</p>
@@ -177,7 +195,7 @@ export default function AssetsTable({ assets , productTypes , supplierNmanufactu
                     <p className="text-sm text-gray-500">Note</p>
                     <p>{asset.note || '-'}</p>
                   </div>
-                  <div className="flex justify-end gap-2">
+                  <div className="flex justify-end gap-2 print:hidden">
                     <EditAsset id={asset.id.toString()} />
                     <DeleteAsset id={asset.id.toString()} />
                   </div>
@@ -187,6 +205,7 @@ export default function AssetsTable({ assets , productTypes , supplierNmanufactu
             <table className="hidden min-w-full text-gray-900 md:table">
               <thead className="rounded-lg text-left text-sm font-normal">
                 <tr>
+                  <th className="px-3 py-5 font-medium">#</th>
                   <th className="px-4 py-5 font-medium sm:pl-6" onClick={() => handleSort('asset_number')}>Asset Number {sortKey === 'asset_number' ? (sortDirection === 'asc' ? '▲' : '▼') : ''} </th>
                   {/* <th className="px-3 py-5 font-medium">Asset Bar-code</th>*/}
                   <th className="px-3 py-5 font-medium" onClick={() => handleSort('asset_type_id')}>Type {sortKey === 'asset_type_id' ? (sortDirection === 'asc' ? '▲' : '▼') : ''}</th>

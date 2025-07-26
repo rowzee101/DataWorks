@@ -86,17 +86,17 @@ export function DownloadPDFButton({ clientName }: { clientName: string }) {
     const originalTransformOrigin = element.style.transformOrigin;
 
     // Scale the content down temporarily
-    const scaleFactor = 0.85;
+    const scaleFactor = 0.75;
     element.style.transform = `scale(${scaleFactor})`;
     element.style.transformOrigin = 'top left';
 
     // Options for html2pdf
     const opt = {
-      margin: 0.5,
-      filename: `${clientName}_info.pdf`,
+      margin: 0.25,
+      filename: `${clientName}_asset_info.pdf`,
       image: { type: 'jpeg', quality: 0.98 },
       html2canvas: {
-        scale: 2,
+        scale: 1.5,
         useCORS: true,
       },
       jsPDF: {
@@ -117,7 +117,7 @@ export function DownloadPDFButton({ clientName }: { clientName: string }) {
       jsPDF: {
       unit: string;
       format: string;
-      orientation: 'landscape' | 'portrait';
+      orientation: 'portrait';
       };
     }
 
