@@ -12,7 +12,7 @@ type Props = {
     Assettype: Assettype[];
 };
 
-const ITEMS_PER_PAGE = 15;
+const ITEMS_PER_PAGE = 18;
 
 export default function AssetPrintView({ assets, productTypes , supplierNmanufacturer, Assettype, clientName }: Props) {
   const pages = Math.ceil(assets.length / ITEMS_PER_PAGE);
@@ -26,21 +26,21 @@ export default function AssetPrintView({ assets, productTypes , supplierNmanufac
   const assetTypeMap = new Map(Assettype.map(at => [at.id, at.name]));
 
   return (
-    <div className="print-view justify-center-safe ">
+    <div className="print-view justify-center-safe p-8 m-8">
       {chunked.map((chunk, idx) => (
         <div key={idx} className="page-break-after">
           {/* Header */}
           <div className="text-center border-b pb-2 mb-4">
-            <PACBioLogo />
-            <h1 className="text-xl font-bold">Pacific Med</h1>
+            <PACBioLogo  className="mx-auto scale-200"/>
+            <h1 className="text-xl font-bold">Pacific Biomedical & Consulting Services Pty Ltd</h1>
             <h2 className="text-lg font-medium">{clientName} Asset Report</h2>
             <p className="text-sm text-gray-500">
-              Generated on {new Date().toLocaleDateString('en-GB')}
+              As of: {new Date().toLocaleDateString('en-GB')}
             </p>
           </div>
 
           {/* Table */}
-          <table className="w-full text-sm border-collapse h-[10.0 in] w-[8.27in] p-4">
+          <table className="w-full text-sm border-collapse  p-4">
             <thead>
               <tr className="border-t border-b bg-gray-100">
                 <th className="py-1 px-2 text-left">#</th>

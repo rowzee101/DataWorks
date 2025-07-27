@@ -32,6 +32,9 @@ const config: Config = {
   variants: {
     extend: {
       display: ['print'],
+      scale: {
+        200: '2',
+      },
     },
     plugins: [
       require('@tailwindcss/forms'),

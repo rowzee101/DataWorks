@@ -1,10 +1,14 @@
 import Image from 'next/image';
 import { lusitana } from '@/app/ui/fonts';
 
-export default function PACBioLogo() {
+type PACBioLogoProps = {
+  className?: string;
+};
+
+export default function PACBioLogo({ className }: PACBioLogoProps) {
   return (
     <div
-      className={`${lusitana.className} flex flex-row items-center leading-none text-white`}
+      className={`${lusitana.className} flex flex-row items-center leading-none text-white ${className}`}
     >
       <Image
         src="/Logo-W-Text.png"
