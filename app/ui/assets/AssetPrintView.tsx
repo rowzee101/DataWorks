@@ -31,7 +31,7 @@ export default function AssetPrintView({ assets, productTypes , supplierNmanufac
         <div key={idx} className="page-break-after">
           {/* Header */}
           <div className="text-center items-center border-b pb-2 mb-4">
-            <PACBioLogo width={408} height={120}/>
+            {/* <PACBioLogo width={408} height={120}/> */}
             <h1 className="text-xl font-bold">Pacific Biomedical & Consulting Services Pty Ltd.</h1>
             <h2 className="text-lg font-medium">{clientName} Asset Report</h2>
             <p className="text-sm text-gray-500">
@@ -43,30 +43,30 @@ export default function AssetPrintView({ assets, productTypes , supplierNmanufac
             <table className="min-w-full text-[0.8rem] border-collapse">
                 <thead>
                 <tr className="border-t border-b bg-gray-100">
-                    <th className="m-1 text-left">#</th>
-                    <th className="m-1 text-left">Asset Number</th>
-                    <th className="m-1 text-left">Asset Type</th>
-                    <th className="m-1 text-left">Model</th>
-                    <th className="m-1 text-left">Serial Number</th>
-                    <th className="m-1 text-left">Supplier</th>
-                    <th className="m-1 text-left">Purchase Date</th>
-                    <th className="m-1 text-left">Last Service Date</th>
-                    <th className="m-1 text-left">Decommission Date</th>
+                    <th className="m-1 p-1 text-left">#</th>
+                    <th className="m-1 p-1 text-left">Asset Number</th>
+                    <th className="m-1 p-1 text-left">Asset Type</th>
+                    <th className="m-1 p-1 text-left">Model</th>
+                    <th className="m-1 p-1 text-left">Serial Number</th>
+                    <th className="m-1 p-1 text-left">Supplier</th>
+                    <th className="m-1 p-1 text-left">Purchase Date</th>
+                    <th className="m-1 p-1 text-left">Last Service Date</th>
+                    <th className="m-1 p-1 text-left">Decommission Date</th>
 
                 </tr>
                 </thead>
                 <tbody>
                 {chunk.map((asset, i) => (
                     <tr key={asset.id} className="border-b">
-                    <td className="m-1">{idx * ITEMS_PER_PAGE + i + 1}</td>
-                    <td className="m-1">{asset.asset_number}</td>
-                    <td className="m-1">{asset.asset_type_id !== null ? (assetTypeMap.get(asset.asset_type_id) || '-') : '-'}</td>
-                    <td className="m-1">{asset.product_type_id !== null ? (productTypeMap.get(asset.product_type_id) || '-') : '-'}</td>
-                    <td className="m-1">{asset.manufacturer_number}</td>
-                    <td className="m-1">{asset.supplier_id !== null ? (supplierMap.get(asset.supplier_id) || '-') : '-'}</td>
-                    <td className="m-1">{new Date(asset.purchase_date).toLocaleDateString('en-GB')}</td>
-                    <td className="m-1">{asset.last_service_date ? new Date(asset.last_service_date).toLocaleDateString('en-GB') : '-'}</td>
-                    <td className="m-1">{asset.decommission_date ? new Date(asset.decommission_date).toLocaleDateString('en-GB') : '-'}</td>
+                    <td className="m-1 p-1">{idx * ITEMS_PER_PAGE + i + 1}</td>
+                    <td className="m-1 p-1">{asset.asset_number}</td>
+                    <td className="m-1 p-1">{asset.asset_type_id !== null ? (assetTypeMap.get(asset.asset_type_id) || '-') : '-'}</td>
+                    <td className="m-1 p-1">{asset.product_type_id !== null ? (productTypeMap.get(asset.product_type_id) || '-') : '-'}</td>
+                    <td className="m-1 p-1">{asset.manufacturer_number}</td>
+                    <td className="m-1 p-1">{asset.supplier_id !== null ? (supplierMap.get(asset.supplier_id) || '-') : '-'}</td>
+                    <td className="m-1 p-1">{new Date(asset.purchase_date).toLocaleDateString('en-GB')}</td>
+                    <td className="m-1 p-1">{asset.last_service_date ? new Date(asset.last_service_date).toLocaleDateString('en-GB') : '-'}</td>
+                    <td className="m-1 p-1">{asset.decommission_date ? new Date(asset.decommission_date).toLocaleDateString('en-GB') : '-'}</td>
                     </tr>
                 ))}
                 </tbody>
