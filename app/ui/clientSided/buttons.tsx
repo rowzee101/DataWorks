@@ -86,7 +86,7 @@ export function DownloadPDFButton({ clientName }: { clientName: string }) {
     const originalTransformOrigin = element.style.transformOrigin;
 
     // Scale the content down temporarily
-    const scaleFactor = 0.75;
+    const scaleFactor = 0.55;
     element.style.transform = `scale(${scaleFactor})`;
     element.style.transformOrigin = 'top left';
 

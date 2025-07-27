@@ -15,12 +15,12 @@ type TabsProps = {
   SupplierManufacturer: SupplierManufacturer[];
   
   Assettype: Assettype[];
-
+  clientName?: string;
 
   // tickets and users to be implemented later
 };
 
-export function Tabs({ assets, clientId, productTypes , SupplierManufacturer , Assettype}: TabsProps) {
+export function Tabs({ assets, clientId, productTypes , SupplierManufacturer , Assettype, clientName}: TabsProps) {
 
   const [activeTab, setActiveTab] = useState<'assets' | 'tickets' | 'users'>('assets');
   return (
@@ -42,7 +42,7 @@ export function Tabs({ assets, clientId, productTypes , SupplierManufacturer , A
 
       {/* Tab Content */}
       <div className="mt-4">
-        {activeTab === 'assets' && <AssetsTable assets={assets} productTypes={productTypes} supplierNmanufacturer={SupplierManufacturer} Assettype={Assettype} />}
+        {activeTab === 'assets' && <AssetsTable assets={assets} productTypes={productTypes} supplierNmanufacturer={SupplierManufacturer} Assettype={Assettype} clientName={clientName} />}
         {activeTab === 'tickets' && <div>Show tickets for client {clientId} here.</div>}
         {activeTab === 'users' && <div>Show Users for client {clientId} here.</div>}
       </div>

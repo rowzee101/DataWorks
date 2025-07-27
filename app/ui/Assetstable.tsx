@@ -192,7 +192,7 @@ export default function AssetsTable({ assets , productTypes , supplierNmanufactu
                     <p>{asset.decommission_date ? new Date(asset.decommission_date).toLocaleDateString('en-GB') : '-'}</p>
                   </div>
                   <div className="mb-2">
-                    <p className="text-sm text-gray-500">Note</p>
+                    <p className="text-sm text-gray-500 print:hidden">Note</p>
                     <p>{asset.note || '-'}</p>
                   </div>
                   <div className="flex justify-end gap-2 print:hidden">

@@ -75,7 +75,7 @@ export default async function ClientDetailPage({ params }: any) {
 
         {/* Tabs => Assets, Tickets and Users */}
         <div className="pt-6 text-sm text-gray-700">
-          <Tabs assets={assets} clientId={Number(params.id)} productTypes={productTypes} Assettype={assetTypes} SupplierManufacturer={supplierManufacturer} />
+          <Tabs assets={assets} clientId={Number(params.id)} productTypes={productTypes} Assettype={assetTypes} SupplierManufacturer={supplierManufacturer} clientName={client.name}/>
         </div>
       </div>
     </div>

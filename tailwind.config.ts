@@ -28,5 +28,11 @@ const config: Config = {
     },
   },
   plugins: [require('@tailwindcss/forms')],
+
+  variants: {
+    extend: {
+      display: ['print'],
+    },
+  },
 };
 export default config;
