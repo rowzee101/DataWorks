@@ -26,7 +26,7 @@ export default function AssetPrintView({ assets, productTypes , supplierNmanufac
   const assetTypeMap = new Map(Assettype.map(at => [at.id, at.name]));
 
   return (
-    <div className="print-view">
+    <div className="print-view justify-center-safe h-[11.7in] w-[8.27in] p-4">
       {chunked.map((chunk, idx) => (
         <div key={idx} className="page-break-after">
           {/* Header */}
@@ -46,8 +46,13 @@ export default function AssetPrintView({ assets, productTypes , supplierNmanufac
                 <th className="py-1 px-2 text-left">#</th>
                 <th className="py-1 px-2 text-left">Asset Name</th>
                 <th className="py-1 px-2 text-left">Asset Type</th>
+                <th className="py-1 px-2 text-left">Model</th>
+                <th className="py-1 px-2 text-left">Serial Number</th>
+                <th className="py-1 px-2 text-left">Supplier</th>
                 <th className="py-1 px-2 text-left">Purchase Date</th>
-                <th className="py-1 px-2 text-left">Status</th>
+                <th className="py-1 px-2 text-left">Last Service Date</th>
+                <th className="py-1 px-2 text-left">Decommission Date</th>
+
               </tr>
             </thead>
             <tbody>
