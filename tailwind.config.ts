@@ -33,6 +33,9 @@ const config: Config = {
     extend: {
       display: ['print'],
     },
+    plugins: [
+      require('@tailwindcss/forms'),
+    ],
   },
 };
 export default config;

@@ -7,6 +7,7 @@ import { useManualDebounce } from '@/app/lib/manualDebounce';
 import type { Asset , ProductType , SupplierManufacturer , Assettype} from '@/app/lib/definitions'; 
 import PACBioLogo from '@/app/ui/PacificBiomedicalLightLogo';
 
+import AssetPrintView from '@/app/ui/assets/AssetPrintView';
 
 interface AssetsTableProps {
   assets: Asset[];
@@ -122,7 +123,16 @@ export default function AssetsTable({ assets , productTypes , supplierNmanufactu
         {/* Download Button */}
         <DownloadPDFButton clientName={name} />
       </div>
-      <div className="w-full overflow-x-auto" id="pdf-content">
+      <div className="w-full overflow-x-auto hidden" id="pdf-content">
+        <AssetPrintView
+          assets={sortedAssets}
+          clientName={name}
+          productTypes={productTypes}
+          supplierNmanufacturer={supplierNmanufacturer}
+          Assettype={Assettype}
+        />
+      </div>        
+      <div className="w-full overflow-x-auto">
         <div className="hidden print:block text-center mb-4">
           <PACBioLogo/>
           <h1 className="text-2xl font-bold">Pacific Med</h1>
