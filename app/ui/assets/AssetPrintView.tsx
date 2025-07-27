@@ -12,7 +12,7 @@ type Props = {
     Assettype: Assettype[];
 };
 
-const ITEMS_PER_PAGE = 20;
+const ITEMS_PER_PAGE = 15;
 
 export default function AssetPrintView({ assets, productTypes , supplierNmanufacturer, Assettype, clientName }: Props) {
   const pages = Math.ceil(assets.length / ITEMS_PER_PAGE);
