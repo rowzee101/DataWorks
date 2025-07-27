@@ -12,7 +12,7 @@ type Props = {
     Assettype: Assettype[];
 };
 
-const ITEMS_PER_PAGE = 10;
+const ITEMS_PER_PAGE = 15;
 
 export default function AssetPrintView({ assets, productTypes , supplierNmanufacturer, Assettype, clientName }: Props) {
   const pages = Math.ceil(assets.length / ITEMS_PER_PAGE);
@@ -26,7 +26,7 @@ export default function AssetPrintView({ assets, productTypes , supplierNmanufac
   const assetTypeMap = new Map(Assettype.map(at => [at.id, at.name]));
 
   return (
-    <div className="print-view justify-center-safe h-[11.7in] w-[8.27in] p-4">
+    <div className="print-view justify-center-safe ">
       {chunked.map((chunk, idx) => (
         <div key={idx} className="page-break-after">
           {/* Header */}
@@ -40,7 +40,7 @@ export default function AssetPrintView({ assets, productTypes , supplierNmanufac
           </div>
 
           {/* Table */}
-          <table className="w-full text-sm border-collapse">
+          <table className="w-full text-sm border-collapse h-[10.0 in] w-[8.27in] p-4">
             <thead>
               <tr className="border-t border-b bg-gray-100">
                 <th className="py-1 px-2 text-left">#</th>

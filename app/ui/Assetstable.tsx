@@ -66,7 +66,8 @@ export default function AssetsTable({ assets , productTypes , supplierNmanufactu
     (clonedElement as HTMLElement).style.display = "block";
 
     // Choose the clonedElement and save the PDF for our user.
-    html2pdf(clonedElement);
+    // name the PDF file
+    html2pdf().from(clonedElement).save(`${name}_asset_info.pdf`);
 
     // remove cloned element
     clonedElement.remove();
