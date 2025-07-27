@@ -8,6 +8,7 @@ import type { Asset , ProductType , SupplierManufacturer , Assettype} from '@/ap
 import PACBioLogo from '@/app/ui/PacificBiomedicalLightLogo';
 
 import AssetPrintView from '@/app/ui/assets/AssetPrintView';
+import html2pdf from 'html2pdf.js';
 
 interface AssetsTableProps {
   assets: Asset[];
@@ -48,6 +49,28 @@ export default function AssetsTable({ assets , productTypes , supplierNmanufactu
       setSortDirection('asc');
     }
   };
+
+  function generatePDF() {
+
+    // Choose the element that our invoice is rendered in.
+    const element = document.getElementById("pdf-content");
+    if (!element) {
+      console.error('Element with id "pdf-content" not found.');
+      return;
+    }
+
+    // clone the element
+    var clonedElement = element.cloneNode(true) as HTMLElement;
+
+    // change display of cloned element 
+    (clonedElement as HTMLElement).style.display = "block";
+
+    // Choose the clonedElement and save the PDF for our user.
+    html2pdf(clonedElement);
+
+    // remove cloned element
+    clonedElement.remove();
+  }
 
   const filteredAssets = assets.filter((asset) => {
     const term = debouncedSearch.toLowerCase(); // Use debounced input!
@@ -122,6 +145,14 @@ export default function AssetsTable({ assets , productTypes , supplierNmanufactu
 
         {/* Download Button */}
         <DownloadPDFButton clientName={name} />
+
+        {/* Print Button */}
+        <button
+          onClick={generatePDF}
+          className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
+        >
+          Print
+        </button>
       </div>
       <div className="w-full overflow-x-auto hidden" id="pdf-content">
         <AssetPrintView
